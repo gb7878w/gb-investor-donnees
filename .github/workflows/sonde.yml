@@ -3,13 +3,13 @@ on:
   workflow_dispatch:
   push:
     branches: [claude/project-thread-l7aqej]
-    paths: [outils/sonde6.py, outils/sonde5.py, outils/sonde2.py, .github/workflows/sonde.yml]
+    paths: [outils/sonde7.py, outils/sonde6.py, outils/sonde5.py, outils/sonde2.py, .github/workflows/sonde.yml]
 jobs:
   sonde:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - run: python3 outils/sonde6.py
+      - run: python3 outils/sonde7.py
         env:
           CLE_EODHD: ${{ secrets.CLE_EODHD }}
