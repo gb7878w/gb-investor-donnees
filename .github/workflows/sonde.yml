@@ -11,4 +11,4 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - run: cd outils && python3 sonde2.py
+      - run: cd outils && python3 sonde3.py
