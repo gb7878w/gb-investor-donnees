@@ -122,9 +122,13 @@ def _prolonger(longue, recente):
     return s
 
 
+ISIN_DE = {}  # identifiant de l'historique long -> ISIN (les valeurs suivies sont déjà sous leur ISIN)
+
+
 def series_10_ans(series, indices, cle):
     """Toutes les actions de Paris sur 10 ans, radiées comprises (apprentissage seulement), les valeurs suivies sous leur ISIN."""
     longues, radiees = {}, 0
+    ISIN_DE.clear()
     for k in range(1, 5):
         for v in _lire_historique(f"historique-{k}.bin", cle)["valeurs"]:
             if v.get("isin") in series:
@@ -132,6 +136,7 @@ def series_10_ans(series, indices, cle):
             elif v.get("isin") not in longues:
                 longues[v["id"]] = _prolonger(v, None)
                 radiees += bool(v.get("radiee"))
+                ISIN_DE[v["id"]] = v.get("isin")
     for isin, s in series.items():
         longues.setdefault(isin, s)  # valeur suivie absente de l'historique long : ses deux ans Euronext
     idx_longs = _lire_historique("historique-indices.bin", cle)["indices"]
@@ -195,7 +200,17 @@ def preparer_modele(univers, series, indices, genere, derniere, sortie, cle):
                 resultat[k].update(v)
             modele.GROUPES = groupes
         if toutes - courtes:
+            if any("amf" in g for g in modele.GROUPES.values()):
+                try:  # ventes à découvert déclarées et communiqués officiels (AMF), au jour près
+                    import amf
+                    isin_de = lambda k: k if k in series else ISIN_DE.get(k)
+                    isins = sorted({i for i in map(isin_de, series_app) if i})
+                    modele.EXTERNES = amf.Caracteristiques(amf.positions_courtes(), {i: amf.communiques(i) for i in isins}, isin_de)
+                except Exception as e:
+                    manquants.append(f"données AMF : {type(e).__name__} {str(e)[:100]}")
+                    print(manquants[-1])
             X, noms, rang, ident, etiq, derniers_l = modele.construire(series_app, indices_app, secteurs, series_ctx)
+            modele.EXTERNES = None
             _, inv = np.unique(ident, return_inverse=True)
             garde = ((rang + inv) % PAS_APPRENTISSAGE) == 0
             X, rang, etiq = X[garde].astype(np.float32), rang[garde], etiq[garde]
