@@ -1,0 +1,1380 @@
+{
+ "revue": "2026-10-27",
+ "source": "Composition publiée par EasyBourse le 27 octobre 2026, ISIN vérifiés auprès d'Euronext. À revoir à chaque révision trimestrielle (mars, juin, septembre, décembre).",
+ "valeurs": [
+  {
+   "isin": "FR0012333284",
+   "nom": "Abivax",
+   "code": "ABVX",
+   "secteur": "Biotechnologies",
+   "alias": [
+    "abivax"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000120404",
+   "nom": "Accor",
+   "code": "AC",
+   "secteur": "Hôtellerie",
+   "alias": [
+    "accor"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0010340141",
+   "nom": "Aéroports de Paris",
+   "code": "ADP",
+   "secteur": "Infrastructures",
+   "alias": [
+    "aeroports de paris",
+    "adp",
+    "groupe adp"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR001400J770",
+   "nom": "Air France-KLM",
+   "code": "AF",
+   "secteur": "Transport aérien",
+   "alias": [
+    "air france",
+    "air france klm",
+    "air france-klm"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000120073",
+   "nom": "Air Liquide",
+   "code": "AI",
+   "secteur": "Gaz industriels",
+   "alias": [
+    "air liquide"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "NL0000235190",
+   "nom": "Airbus",
+   "code": "AIR",
+   "secteur": "Aéronautique",
+   "alias": [
+    "airbus"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0010220475",
+   "nom": "Alstom",
+   "code": "ALO",
+   "secteur": "Ferroviaire",
+   "alias": [
+    "alstom"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000071946",
+   "nom": "Alten",
+   "code": "ATE",
+   "secteur": "Ingénierie",
+   "alias": [
+    "alten"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0004125920",
+   "nom": "Amundi",
+   "code": "AMUN",
+   "secteur": "Gestion d'actifs",
+   "alias": [
+    "amundi"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "LU0569974404",
+   "nom": "Aperam",
+   "code": "APAM",
+   "secteur": "Sidérurgie",
+   "alias": [
+    "aperam"
+   ],
+   "cac40": false,
+   "mic": "XAMS"
+  },
+  {
+   "isin": "LU1598757687",
+   "nom": "ArcelorMittal",
+   "code": "MT",
+   "secteur": "Sidérurgie",
+   "alias": [
+    "arcelormittal",
+    "arcelor mittal"
+   ],
+   "cac40": true,
+   "mic": "XAMS"
+  },
+  {
+   "isin": "FR0010481960",
+   "nom": "Argan",
+   "code": "ARG",
+   "secteur": "Immobilier",
+   "alias": [
+    "argan"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0010313833",
+   "nom": "Arkema",
+   "code": "AKE",
+   "secteur": "Chimie",
+   "alias": [
+    "arkema"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR001400X2S4",
+   "nom": "Atos",
+   "code": "ATO",
+   "secteur": "Services numériques",
+   "alias": [
+    "atos"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000120628",
+   "nom": "AXA",
+   "code": "CS",
+   "secteur": "Assurance",
+   "alias": [
+    "axa"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0013258662",
+   "nom": "Ayvens",
+   "code": "AYV",
+   "secteur": "Location automobile",
+   "alias": [
+    "ayvens",
+    "ald"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000120966",
+   "nom": "Société BIC",
+   "code": "BB",
+   "secteur": "Biens de consommation",
+   "alias": [
+    "bic",
+    "societe bic"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0013280286",
+   "nom": "bioMérieux",
+   "code": "BIM",
+   "secteur": "Diagnostic",
+   "alias": [
+    "biomerieux",
+    "bio merieux"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000131104",
+   "nom": "BNP Paribas",
+   "code": "BNP",
+   "secteur": "Banque",
+   "alias": [
+    "bnp paribas",
+    "bnp"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000039299",
+   "nom": "Bolloré",
+   "code": "BOL",
+   "secteur": "Investissement",
+   "alias": [
+    "bollore"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000120503",
+   "nom": "Bouygues",
+   "code": "EN",
+   "secteur": "Construction",
+   "alias": [
+    "bouygues"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0006174348",
+   "nom": "Bureau Veritas",
+   "code": "BVI",
+   "secteur": "Certification",
+   "alias": [
+    "bureau veritas"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000125338",
+   "nom": "Capgemini",
+   "code": "CAP",
+   "secteur": "Services numériques",
+   "alias": [
+    "capgemini"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0010828137",
+   "nom": "Carmila",
+   "code": "CARM",
+   "secteur": "Immobilier",
+   "alias": [
+    "carmila"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000120172",
+   "nom": "Carrefour",
+   "code": "CA",
+   "secteur": "Distribution",
+   "alias": [
+    "carrefour"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0010386334",
+   "nom": "Clariane",
+   "code": "CLARI",
+   "secteur": "Santé",
+   "alias": [
+    "clariane"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0010667147",
+   "nom": "Coface",
+   "code": "COFA",
+   "secteur": "Assurance",
+   "alias": [
+    "coface"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000064578",
+   "nom": "Covivio",
+   "code": "COV",
+   "secteur": "Immobilier",
+   "alias": [
+    "covivio"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000045072",
+   "nom": "Crédit Agricole",
+   "code": "ACA",
+   "secteur": "Banque",
+   "alias": [
+    "credit agricole"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000120644",
+   "nom": "Danone",
+   "code": "BN",
+   "secteur": "Alimentation",
+   "alias": [
+    "danone"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0014004L86",
+   "nom": "Dassault Aviation",
+   "code": "AM",
+   "secteur": "Aéronautique",
+   "alias": [
+    "dassault aviation"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0014003TT8",
+   "nom": "Dassault Systèmes",
+   "code": "DSY",
+   "secteur": "Logiciels",
+   "alias": [
+    "dassault systemes",
+    "dassault systèmes"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0010417345",
+   "nom": "DBV Technologies",
+   "code": "DBV",
+   "secteur": "Biotechnologies",
+   "alias": [
+    "dbv technologies",
+    "dbv"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000053381",
+   "nom": "Derichebourg",
+   "code": "DBG",
+   "secteur": "Environnement",
+   "alias": [
+    "derichebourg"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0010908533",
+   "nom": "Edenred",
+   "code": "EDEN",
+   "secteur": "Services aux entreprises",
+   "alias": [
+    "edenred"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000130452",
+   "nom": "Eiffage",
+   "code": "FGR",
+   "secteur": "Construction",
+   "alias": [
+    "eiffage"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0012435121",
+   "nom": "Elis",
+   "code": "ELIS",
+   "secteur": "Services aux entreprises",
+   "alias": [
+    "elis"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR001400NLM4",
+   "nom": "Emeis",
+   "code": "EMEIS",
+   "secteur": "Santé",
+   "alias": [
+    "emeis"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0010208488",
+   "nom": "Engie",
+   "code": "ENGI",
+   "secteur": "Énergie",
+   "alias": [
+    "engie"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000131757",
+   "nom": "Eramet",
+   "code": "ERA",
+   "secteur": "Métaux",
+   "alias": [
+    "eramet"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000121667",
+   "nom": "EssilorLuxottica",
+   "code": "EL",
+   "secteur": "Optique",
+   "alias": [
+    "essilorluxottica",
+    "essilor",
+    "luxottica"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000121121",
+   "nom": "Eurazeo",
+   "code": "RF",
+   "secteur": "Investissement",
+   "alias": [
+    "eurazeo"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0014000MR3",
+   "nom": "Eurofins Scientific",
+   "code": "ERF",
+   "secteur": "Laboratoires",
+   "alias": [
+    "eurofins"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "NL0006294274",
+   "nom": "Euronext",
+   "code": "ENX",
+   "secteur": "Marchés financiers",
+   "alias": [
+    "euronext"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0010221234",
+   "nom": "Eutelsat",
+   "code": "ETL",
+   "secteur": "Satellites",
+   "alias": [
+    "eutelsat"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000062671",
+   "nom": "Exail Technologies",
+   "code": "EXA",
+   "secteur": "Défense",
+   "alias": [
+    "exail"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR001400Q9V2",
+   "nom": "Exosens",
+   "code": "EXENS",
+   "secteur": "Technologie",
+   "alias": [
+    "exosens"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000121147",
+   "nom": "Forvia",
+   "code": "FRVIA",
+   "secteur": "Équipementier automobile",
+   "alias": [
+    "forvia",
+    "faurecia"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0011726835",
+   "nom": "GTT",
+   "code": "GTT",
+   "secteur": "Ingénierie énergie",
+   "alias": [
+    "gtt",
+    "gaztransport"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0010040865",
+   "nom": "Gecina",
+   "code": "GFC",
+   "secteur": "Immobilier",
+   "alias": [
+    "gecina"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0004163111",
+   "nom": "Genfit",
+   "code": "GNFT",
+   "secteur": "Biotechnologies",
+   "alias": [
+    "genfit"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0010533075",
+   "nom": "Getlink",
+   "code": "GET",
+   "secteur": "Infrastructures",
+   "alias": [
+    "getlink",
+    "eurotunnel"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000052292",
+   "nom": "Hermès",
+   "code": "RMS",
+   "secteur": "Luxe",
+   "alias": [
+    "hermes",
+    "hermès"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000035081",
+   "nom": "Icade",
+   "code": "ICAD",
+   "secteur": "Immobilier",
+   "alias": [
+    "icade"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0010929125",
+   "nom": "ID Logistics",
+   "code": "IDL",
+   "secteur": "Logistique",
+   "alias": [
+    "id logistics"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000120859",
+   "nom": "Imerys",
+   "code": "NK",
+   "secteur": "Matériaux",
+   "alias": [
+    "imerys"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0004024222",
+   "nom": "Interparfums",
+   "code": "ITP",
+   "secteur": "Beauté",
+   "alias": [
+    "interparfums"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0013233012",
+   "nom": "Inventiva",
+   "code": "IVA",
+   "secteur": "Biotechnologies",
+   "alias": [
+    "inventiva"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0010259150",
+   "nom": "Ipsen",
+   "code": "IPN",
+   "secteur": "Santé",
+   "alias": [
+    "ipsen"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000073298",
+   "nom": "Ipsos",
+   "code": "IPS",
+   "secteur": "Études",
+   "alias": [
+    "ipsos"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000077919",
+   "nom": "JCDecaux",
+   "code": "DEC",
+   "secteur": "Communication",
+   "alias": [
+    "jcdecaux"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000121485",
+   "nom": "Kering",
+   "code": "KER",
+   "secteur": "Luxe",
+   "alias": [
+    "kering"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000121964",
+   "nom": "Klépierre",
+   "code": "LI",
+   "secteur": "Immobilier",
+   "alias": [
+    "klepierre"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000120321",
+   "nom": "L’Oréal",
+   "code": "OR",
+   "secteur": "Beauté",
+   "alias": [
+    "l'oreal",
+    "l’oréal",
+    "loreal"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0013451333",
+   "nom": "FDJ United",
+   "code": "FDJU",
+   "secteur": "Jeux",
+   "alias": [
+    "fdj",
+    "francaise des jeux",
+    "fdj united"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0010307819",
+   "nom": "Legrand",
+   "code": "LR",
+   "secteur": "Équipements électriques",
+   "alias": [
+    "legrand"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000050353",
+   "nom": "Lisi",
+   "code": "FII",
+   "secteur": "Aéronautique",
+   "alias": [
+    "lisi"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000121014",
+   "nom": "LVMH",
+   "code": "MC",
+   "secteur": "Luxe",
+   "alias": [
+    "lvmh"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000053225",
+   "nom": "M6 Métropole Télévision",
+   "code": "MMT",
+   "secteur": "Médias",
+   "alias": [
+    "m6",
+    "metropole television"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000051070",
+   "nom": "Maurel & Prom",
+   "code": "MAU",
+   "secteur": "Pétrole",
+   "alias": [
+    "maurel prom",
+    "maurel & prom"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0004065605",
+   "nom": "MedinCell",
+   "code": "MEDCL",
+   "secteur": "Biotechnologies",
+   "alias": [
+    "medincell"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0010241638",
+   "nom": "Mercialys",
+   "code": "MERY",
+   "secteur": "Immobilier",
+   "alias": [
+    "mercialys"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000039620",
+   "nom": "Mersen",
+   "code": "MRN",
+   "secteur": "Équipements électriques",
+   "alias": [
+    "mersen"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR001400AJ45",
+   "nom": "Michelin",
+   "code": "ML",
+   "secteur": "Pneumatiques",
+   "alias": [
+    "michelin"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0011341205",
+   "nom": "Nanobiotix",
+   "code": "NANO",
+   "secteur": "Biotechnologies",
+   "alias": [
+    "nanobiotix"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000044448",
+   "nom": "Nexans",
+   "code": "NEX",
+   "secteur": "Équipements électriques",
+   "alias": [
+    "nexans"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000124570",
+   "nom": "OPmobility",
+   "code": "OPM",
+   "secteur": "Équipementier automobile",
+   "alias": [
+    "opmobility",
+    "plastic omnium"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000133308",
+   "nom": "Orange",
+   "code": "ORA",
+   "secteur": "Télécommunications",
+   "alias": [
+    "orange"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000120693",
+   "nom": "Pernod Ricard",
+   "code": "RI",
+   "secteur": "Spiritueux",
+   "alias": [
+    "pernod ricard"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "NL0015001W49",
+   "nom": "Pluxee",
+   "code": "PLX",
+   "secteur": "Services aux entreprises",
+   "alias": [
+    "pluxee"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000130577",
+   "nom": "Publicis",
+   "code": "PUB",
+   "secteur": "Communication",
+   "alias": [
+    "publicis"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000130395",
+   "nom": "Rémy Cointreau",
+   "code": "RCO",
+   "secteur": "Spiritueux",
+   "alias": [
+    "remy cointreau"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000131906",
+   "nom": "Renault",
+   "code": "RNO",
+   "secteur": "Automobile",
+   "alias": [
+    "renault"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0010451203",
+   "nom": "Rexel",
+   "code": "RXL",
+   "secteur": "Distribution électrique",
+   "alias": [
+    "rexel"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0013269123",
+   "nom": "Rubis",
+   "code": "RUI",
+   "secteur": "Énergie",
+   "alias": [
+    "rubis"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000073272",
+   "nom": "Safran",
+   "code": "SAF",
+   "secteur": "Aéronautique",
+   "alias": [
+    "safran"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000125007",
+   "nom": "Saint-Gobain",
+   "code": "SGO",
+   "secteur": "Matériaux",
+   "alias": [
+    "saint gobain"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000120578",
+   "nom": "Sanofi",
+   "code": "SAN",
+   "secteur": "Santé",
+   "alias": [
+    "sanofi"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0013154002",
+   "nom": "Sartorius Stedim Biotech",
+   "code": "DIM",
+   "secteur": "Santé",
+   "alias": [
+    "sartorius stedim",
+    "sartorius"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000121972",
+   "nom": "Schneider Electric",
+   "code": "SU",
+   "secteur": "Équipements électriques",
+   "alias": [
+    "schneider electric",
+    "schneider"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0010411983",
+   "nom": "SCOR",
+   "code": "SCR",
+   "secteur": "Réassurance",
+   "alias": [
+    "scor"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000121709",
+   "nom": "SEB",
+   "code": "SK",
+   "secteur": "Biens de consommation",
+   "alias": [
+    "seb",
+    "groupe seb"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "LU0088087324",
+   "nom": "SES",
+   "code": "SESG",
+   "secteur": "Satellites",
+   "alias": [
+    "ses"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000130809",
+   "nom": "Société Générale",
+   "code": "GLE",
+   "secteur": "Banque",
+   "alias": [
+    "societe generale"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000121220",
+   "nom": "Sodexo",
+   "code": "SW",
+   "secteur": "Restauration collective",
+   "alias": [
+    "sodexo"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0013227113",
+   "nom": "Soitec",
+   "code": "SOI",
+   "secteur": "Semi-conducteurs",
+   "alias": [
+    "soitec"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "BE0003470755",
+   "nom": "Solvay",
+   "code": "SOLB",
+   "secteur": "Chimie",
+   "alias": [
+    "solvay"
+   ],
+   "cac40": false,
+   "mic": "XBRU"
+  },
+  {
+   "isin": "FR0000050809",
+   "nom": "Sopra Steria",
+   "code": "SOP",
+   "secteur": "Services numériques",
+   "alias": [
+    "sopra steria"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0012757854",
+   "nom": "Spie",
+   "code": "SPIE",
+   "secteur": "Services techniques",
+   "alias": [
+    "spie"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "NL00150001Q9",
+   "nom": "Stellantis",
+   "code": "STLAP",
+   "secteur": "Automobile",
+   "alias": [
+    "stellantis"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "NL0000226223",
+   "nom": "STMicroelectronics",
+   "code": "STMPA",
+   "secteur": "Semi-conducteurs",
+   "alias": [
+    "stmicroelectronics",
+    "st microelectronics"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "NL0014559478",
+   "nom": "Technip Energies",
+   "code": "TE",
+   "secteur": "Ingénierie énergie",
+   "alias": [
+    "technip energies"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000051807",
+   "nom": "Teleperformance",
+   "code": "TEP",
+   "secteur": "Services aux entreprises",
+   "alias": [
+    "teleperformance"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000054900",
+   "nom": "TF1",
+   "code": "TFI",
+   "secteur": "Médias",
+   "alias": [
+    "tf1"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000121329",
+   "nom": "Thales",
+   "code": "HO",
+   "secteur": "Défense",
+   "alias": [
+    "thales"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000120271",
+   "nom": "TotalEnergies",
+   "code": "TTE",
+   "secteur": "Énergie",
+   "alias": [
+    "totalenergies",
+    "total energies"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0005691656",
+   "nom": "Trigano",
+   "code": "TRI",
+   "secteur": "Loisirs",
+   "alias": [
+    "trigano"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000054470",
+   "nom": "Ubisoft",
+   "code": "UBI",
+   "secteur": "Jeux vidéo",
+   "alias": [
+    "ubisoft"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0013326246",
+   "nom": "Unibail-Rodamco-Westfield",
+   "code": "URW",
+   "secteur": "Immobilier",
+   "alias": [
+    "unibail",
+    "unibail rodamco westfield"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0013176526",
+   "nom": "Valeo",
+   "code": "FR",
+   "secteur": "Équipementier automobile",
+   "alias": [
+    "valeo"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0013506730",
+   "nom": "Vallourec",
+   "code": "VK",
+   "secteur": "Métaux",
+   "alias": [
+    "vallourec"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0004056851",
+   "nom": "Valneva",
+   "code": "VLA",
+   "secteur": "Biotechnologies",
+   "alias": [
+    "valneva"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000124141",
+   "nom": "Veolia",
+   "code": "VIE",
+   "secteur": "Environnement",
+   "alias": [
+    "veolia"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0013447729",
+   "nom": "Verallia",
+   "code": "VRLA",
+   "secteur": "Emballage",
+   "alias": [
+    "verallia"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000031775",
+   "nom": "Vicat",
+   "code": "VCT",
+   "secteur": "Matériaux",
+   "alias": [
+    "vicat"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000125486",
+   "nom": "Vinci",
+   "code": "DG",
+   "secteur": "Construction",
+   "alias": [
+    "vinci"
+   ],
+   "cac40": true,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000031577",
+   "nom": "Virbac",
+   "code": "VIRP",
+   "secteur": "Santé animale",
+   "alias": [
+    "virbac"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR001400PVN6",
+   "nom": "Viridien",
+   "code": "VIRI",
+   "secteur": "Services pétroliers",
+   "alias": [
+    "viridien",
+    "cgg"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000127771",
+   "nom": "Vivendi",
+   "code": "VIV",
+   "secteur": "Médias",
+   "alias": [
+    "vivendi"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0010282822",
+   "nom": "Vusion",
+   "code": "VU",
+   "secteur": "Technologie",
+   "alias": [
+    "vusion",
+    "ses imagotag"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR0000121204",
+   "nom": "Wendel",
+   "code": "MF",
+   "secteur": "Investissement",
+   "alias": [
+    "wendel"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  },
+  {
+   "isin": "FR00140182K6",
+   "nom": "Worldline",
+   "code": "WLN",
+   "secteur": "Paiements",
+   "alias": [
+    "worldline"
+   ],
+   "cac40": false,
+   "mic": "XPAR"
+  }
+ ]
+}
