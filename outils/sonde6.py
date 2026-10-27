@@ -2,7 +2,8 @@
 import os, sys, json, urllib.request, urllib.parse
 cle = os.environ.get("CLE_EODHD", "").strip()
 if not cle:
-    sys.exit("CLE_EODHD absent : rien à sonder.")
+    print("CLE_EODHD absent : rien à sonder.")
+    sys.exit(0)
 
 def api(chemin, **params):
     params.update(api_token=cle, fmt="json")
