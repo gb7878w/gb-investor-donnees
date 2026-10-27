@@ -1,0 +1,45 @@
+name: Préparer les données de GB Investor
+on:
+  schedule:
+    - cron: '50 17 * * 1-5'   # chaque soir de semaine, après la clôture d'Euronext Paris
+    - cron: '20 5 * * 2-6'    # rattrapage le lendemain matin
+  workflow_dispatch:
+  push:
+    branches: [main, claude/project-thread-l7aqej]
+    paths: [outils/donnees.py, univers/**, .github/workflows/donnees.yml]
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: donnees
+  cancel-in-progress: false
+jobs:
+  donnees:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Installer la bibliothèque de chiffrement
+        run: pip install --quiet cryptography==44.0.0
+      - name: Télécharger, vérifier et chiffrer les séances
+        env:
+          CLE_DONNEES: ${{ secrets.CLE_DONNEES }}
+        run: python3 outils/donnees.py publication
+      - name: Publier sur la branche « publication » (sans historique, pour garder le dépôt léger)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd publication
+          git init -q -b publication
+          git config user.name "GB Investor"
+          git config user.email "gb-investor@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Données du $(date -u +%Y-%m-%d)"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" publication
+      - name: Garder la tâche du soir active (GitHub la suspend après 60 jours sans activité)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${GITHUB_REPOSITORY}/actions/workflows/donnees.yml/enable" || true
