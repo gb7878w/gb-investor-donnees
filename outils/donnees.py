@@ -94,6 +94,14 @@ def preparer_modele(univers, series, indices, genere, derniere, sortie, cle):
     """Contexte extérieur puis prévisions. Une panne ici ne doit jamais empêcher la publication des cours."""
     manquants = []
     try:
+        import agenda
+        calendrier, manq = agenda.construire(univers)
+        manquants += manq
+        json.dump(dict(calendrier, genere=genere), open(os.path.join(sortie, "calendrier.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+        print(f"agenda : {len(calendrier['banques_centrales'])} réunions de banques centrales, résultats estimés pour {len(calendrier['resultats'])} valeurs")
+    except Exception as e:
+        manquants.append(f"agenda : {type(e).__name__} {str(e)[:120]}")
+    try:
         import contexte, modele
         series_ctx, infos, manq = contexte.charger()
         manquants += manq

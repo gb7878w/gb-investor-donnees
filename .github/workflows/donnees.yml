@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main, claude/project-thread-l7aqej]
-    paths: [outils/donnees.py, outils/contexte.py, outils/modele.py, univers/**, .github/workflows/donnees.yml]
+    paths: [outils/donnees.py, outils/contexte.py, outils/modele.py, outils/agenda.py, univers/**, .github/workflows/donnees.yml]
 permissions:
   contents: write
   actions: write
