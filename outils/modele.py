@@ -440,12 +440,12 @@ def _voisins(cal, p, largeur=1500):
     return {"n": int((b - a) / cal["h"]), "freq": round(float(yt[a:b].mean()), 4)}
 
 
-def evaluer_et_prevoir(X_tout, noms, rang, etiq, derniers, journal=print, debut=0.45, seulement=None):
+def evaluer_et_prevoir(X_tout, noms, rang, etiq, derniers, journal=print, debut=0.45, seulement=None, ident=None):
     """Walk-forward par horizon et cible, puis modèle final et prévisions du dernier jour."""
     rangs_uniques = np.unique(rang)
     debut_test = rangs_uniques[int(len(rangs_uniques) * debut)]
     blocs = np.array_split(rangs_uniques[rangs_uniques >= debut_test], 5)
-    resultat = {"bulletin": {}, "modeles": {}, "colonnes": {}}
+    resultat = {"bulletin": {}, "modeles": {}, "colonnes": {}, "oos": {}}
     for h in HORIZONS:
         cibles = _cibles(etiq, h)
         for cible in CIBLES:
@@ -455,7 +455,7 @@ def evaluer_et_prevoir(X_tout, noms, rang, etiq, derniers, journal=print, debut=
             idx = colonnes(noms, h, cible)
             resultat["colonnes"][(h, cible)] = idx
             X = X_tout[:, idx]
-            p_oos, y_oos, par_bloc, p_ref = [], [], [], []
+            p_oos, y_oos, par_bloc, p_ref, lignes_oos = [], [], [], [], []
             for bloc in blocs:
                 if len(bloc) == 0:
                     continue
@@ -469,7 +469,7 @@ def evaluer_et_prevoir(X_tout, noms, rang, etiq, derniers, journal=print, debut=
                     p_ref.append(_logistique(X[tr], y[tr])(X[te]))
                 except Exception:
                     p_ref.append(np.full(int(te.sum()), float(np.nanmean(y[tr]))))
-                p_oos.append(p_bloc); y_oos.append(y[te])
+                p_oos.append(p_bloc); y_oos.append(y[te]); lignes_oos.append(np.flatnonzero(te))
                 if len(np.unique(y[te])) == 2:
                     fin = int(bloc[-1])
                     par_bloc.append({"jusqu_a": DATES[fin] if fin < len(DATES) else "", "auc": round(_auc(y[te], p_bloc), 4), "cas": int(te.sum())})
@@ -479,6 +479,9 @@ def evaluer_et_prevoir(X_tout, noms, rang, etiq, derniers, journal=print, debut=
                 continue
             # Le calibrage est appris sur les premiers blocs jamais vus et jugé sur le dernier, qu'il n'a pas vu.
             p_bloc = list(p_oos); y_bloc = list(y_oos)
+            if ident is not None:  # prévisions faites sur des périodes jamais vues, gardées pour rejouer la page Sélection
+                li = np.concatenate(lignes_oos)
+                resultat["oos"][(h, cible)] = {"rang": rang[li], "ident": ident[li], "p": np.concatenate(p_oos)}
             p_oos = np.concatenate(p_oos); y_oos = np.concatenate(y_oos)
             base = float(y_oos.mean())
             auc = _auc(y_oos, p_oos)

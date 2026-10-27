@@ -166,7 +166,7 @@ def preparer_modele(univers, series, indices, genere, derniere, sortie, cle):
         resume = contexte.resume(series_ctx, infos)
         json.dump({"version": 1, "genere": genere, "indicateurs": resume}, open(os.path.join(sortie, "contexte.json"), "w", encoding="utf-8"),
                   ensure_ascii=False, separators=(",", ":"))
-        secteurs = {v["isin"]: v.get("secteur", "?") for v in univers["valeurs"]}
+        secteurs = {v["isin"]: v.get("secteur", "?") for v in univers["valeurs"] if v.get("sbf120", True)}
         apprentissage = {"base": "2 ans, SBF 120"}
         series_app, indices_app = series, indices
         try:
@@ -186,7 +186,7 @@ def preparer_modele(univers, series, indices, genere, derniere, sortie, cle):
         groupes = modele.GROUPES
         toutes = {(h, c) for h in modele.HORIZONS for c in modele.CIBLES}
         courtes = modele.BASE_COURTE & toutes if long_actif else toutes
-        resultat = {"bulletin": {}, "modeles": {}, "colonnes": {}}
+        resultat = {"bulletin": {}, "modeles": {}, "colonnes": {}, "oos": {}}
         if courtes:
             modele.GROUPES = {}
             X, noms, rang, _, etiq, derniers = modele.construire(series, indices, secteurs, series_ctx)
@@ -198,10 +198,10 @@ def preparer_modele(univers, series, indices, genere, derniere, sortie, cle):
             X, noms, rang, ident, etiq, derniers_l = modele.construire(series_app, indices_app, secteurs, series_ctx)
             _, inv = np.unique(ident, return_inverse=True)
             garde = ((rang + inv) % PAS_APPRENTISSAGE) == 0
-            X, rang, etiq = X[garde].astype(np.float32), rang[garde], etiq[garde]
+            X, rang, etiq, ident = X[garde].astype(np.float32), rang[garde], etiq[garde], ident[garde]
             modele.PARAMS["num_threads"] = 4
             print(f"modèle sur 10 ans : {X.shape[0]} lignes, {len(noms)} paramètres, {len(toutes - courtes)} prévisions")
-            for k, v in modele.evaluer_et_prevoir(X, noms, rang, etiq, derniers_l, seulement=toutes - courtes).items():
+            for k, v in modele.evaluer_et_prevoir(X, noms, rang, etiq, derniers_l, seulement=toutes - courtes, ident=ident).items():
                 resultat[k].update(v)
             derniers_l = {k: v for k, v in derniers_l.items() if k in series}
             for cle_p in toutes - courtes:
