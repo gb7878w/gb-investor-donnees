@@ -138,6 +138,12 @@ def _recherche(dates, valeurs, cible):
     return valeurs[i] if i >= 0 else None
 
 
+CONTEXTE = [("vix", "VIXCLS", "niveau", 0), ("vix5", "VIXCLS", "var", 7), ("brent21", "DCOILBRENTEU", "var", 30),
+            ("eurusd21", "DEXUSEU", "var", 30), ("us10", "DGS10", "niveau", 0), ("us10_21", "DGS10", "diff", 30),
+            ("sp5", "SP500", "var", 7), ("ez10", "YC/B.U2.EUR.4F.G_N_A.SV_C_YM.SR_10Y", "niveau", 0),
+            ("ez10_21", "YC/B.U2.EUR.4F.G_N_A.SV_C_YM.SR_10Y", "diff", 30)]
+
+
 def construire(series, indices, secteurs, series_ctx, aujourdhui_dernier=None):
     """Tableau d'apprentissage : une ligne par valeur et par séance. Renvoie X, noms, dates (rang), isin, étiquettes."""
     cac = indices.get("FR0003500008")
@@ -160,9 +166,10 @@ def construire(series, indices, secteurs, series_ctx, aujourdhui_dernier=None):
     for isin, s in series.items():
         for d, r in zip(s["d"], pre[isin]["ret21"]):
             if not math.isnan(r):
-                sect_r21.setdefault((secteurs.get(isin, "?"), d), []).append(r)
+                sect_r21.setdefault((secteurs.get(isin) or "?" + isin, d), []).append(r)
     sect_moy = {k: sum(v) / len(v) for k, v in sect_r21.items() if len(v) >= 2}
     noms = None
+    ctx_cache = {}
     X, rang, ident, etiq, derniers = [], [], [], [], {}
     toutes_dates = sorted({d for s in series.values() for d in s["d"]})
     rang_date = {d: i for i, d in enumerate(toutes_dates)}
@@ -181,28 +188,28 @@ def construire(series, indices, secteurs, series_ctx, aujourdhui_dernier=None):
         cols["ampleur"] = np.array([ampleur.get(d, np.nan) for d in dates])
         cols["rel21"] = cols["ret21"] - cols["cac21"]
         cols["rel63"] = cols["ret63"] - cols["cac63"]
-        cols["relsect21"] = np.array([cols["ret21"][i] - sect_moy.get((secteurs.get(isin, "?"), dates[i]), np.nan) for i in range(nb)])
+        cols["relsect21"] = np.array([cols["ret21"][i] - sect_moy.get((secteurs.get(isin) or "?" + isin, dates[i]), np.nan) for i in range(nb)])
         dts = [dt.date.fromisoformat(d) for d in dates]
         cols["jour"] = np.array([x.weekday() for x in dts], dtype=float)
         cols["mois"] = np.array([x.month for x in dts], dtype=float)
         cols["finmois"] = np.array([(dt.date(x.year + (x.month == 12), x.month % 12 + 1, 1) - x).days for x in dts], dtype=float)
-        for nom, ident_ctx, mode, jours in [("vix", "VIXCLS", "niveau", 0), ("vix5", "VIXCLS", "var", 7), ("brent21", "DCOILBRENTEU", "var", 30),
-                                            ("eurusd21", "DEXUSEU", "var", 30), ("us10", "DGS10", "niveau", 0), ("us10_21", "DGS10", "diff", 30),
-                                            ("sp5", "SP500", "var", 7), ("ez10", "YC/B.U2.EUR.4F.G_N_A.SV_C_YM.SR_10Y", "niveau", 0),
-                                            ("ez10_21", "YC/B.U2.EUR.4F.G_N_A.SV_C_YM.SR_10Y", "diff", 30)]:
-            ser = series_ctx.get(ident_ctx)
-            if ser is None:
+        for nom, ident_ctx, mode, jours in CONTEXTE:
+            if ident_ctx not in series_ctx:
                 cols[nom] = np.full(nb, np.nan); continue
+            cache = ctx_cache.setdefault(nom, {})
             vals = []
             for d in dates:
-                if mode == "niveau":
-                    x = ctx.valeur_avant(ser, d)
-                elif mode == "var":
-                    x = ctx.variation(ser, d, jours)
-                else:
-                    a = ctx.valeur_avant(ser, d); b = ctx.valeur_avant(ser, (dt.date.fromisoformat(d) - dt.timedelta(days=jours)).isoformat())
-                    x = None if a is None or b is None else a - b
-                vals.append(np.nan if x is None else x)
+                if d not in cache:
+                    ser = series_ctx[ident_ctx]
+                    if mode == "niveau":
+                        x = ctx.valeur_avant(ser, d)
+                    elif mode == "var":
+                        x = ctx.variation(ser, d, jours)
+                    else:
+                        a = ctx.valeur_avant(ser, d); b = ctx.valeur_avant(ser, (dt.date.fromisoformat(d) - dt.timedelta(days=jours)).isoformat())
+                        x = None if a is None or b is None else a - b
+                    cache[d] = np.nan if x is None else x
+                vals.append(cache[d])
             cols[nom] = np.array(vals)
         if noms is None:
             noms = list(cols)

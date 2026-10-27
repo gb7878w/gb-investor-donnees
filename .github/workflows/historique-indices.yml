@@ -1,0 +1,36 @@
+name: Historique long, indices
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  indices:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: historique
+          path: historique
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet cryptography==44.0.0
+      - name: Télécharger et chiffrer l'indice
+        env:
+          CLE_EODHD: ${{ secrets.CLE_EODHD }}
+          CLE_DONNEES: ${{ secrets.CLE_DONNEES }}
+        run: python3 outils/historique_indices.py historique
+      - name: Publier sur la branche « historique »
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd historique
+          rm -rf .git
+          git init -q -b historique
+          git config user.name "GB Investor"
+          git config user.email "gb-investor@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Historique long du $(date -u +%Y-%m-%d), avec indices"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" historique
