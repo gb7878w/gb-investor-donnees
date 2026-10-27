@@ -51,6 +51,14 @@ def _serie_fred(ident):
     return dates, valeurs
 
 
+def _date_iso(periode):
+    """Les séries mensuelles de la BCE donnent « 2025-12 » : on les date du dernier jour du mois."""
+    if len(periode) == 7:
+        an, mois = int(periode[:4]), int(periode[5:7])
+        return (dt.date(an + (mois == 12), mois % 12 + 1, 1) - dt.timedelta(days=1)).isoformat()
+    return periode
+
+
 def _serie_bce(cle, depuis="2022-01-01"):
     st, body, _ = get(f"https://data-api.ecb.europa.eu/service/data/{cle}?format=csvdata&startPeriod={depuis}")
     if st != 200:
@@ -59,7 +67,9 @@ def _serie_bce(cle, depuis="2022-01-01"):
     dates, valeurs = [], []
     for r in lecteur:
         try:
-            dates.append(r["TIME_PERIOD"]); valeurs.append(float(r["OBS_VALUE"]))
+            d = _date_iso(r["TIME_PERIOD"]); v = float(r["OBS_VALUE"])
+            dt.date.fromisoformat(d)  # ignore les trimestres et tout format inattendu
+            dates.append(d); valeurs.append(v)
         except (KeyError, ValueError):
             pass
     if len(dates) < 3:
