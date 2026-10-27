@@ -20,6 +20,7 @@ def get(url, data=None, headers=None, limit=600):
 
 def show(name, url, data=None, headers=None, n=500):
     st, body, hd = get(url, data, headers)
+    globals()["dernier"] = body
     print(f"\n### {name}\n{st} {len(body)} octets {hd.get('Content-Type','')}\n{url}")
     try:
         txt = body[:n].decode("utf-8", "replace")
@@ -33,19 +34,32 @@ if __name__ == "__main__":
     if st == 200:
         open("composition.html", "wb").write(body)
         import re
+        print("chemins ajax :", sorted(set(re.findall(rb"/(?:en/)?ajax/[A-Za-z0-9_/.-]+", body)))[:40])
+        print("antibot visible :", b"antibot-message" in body)
         print("ISIN trouvés :", len(set(re.findall(rb"[A-Z]{2}[A-Z0-9]{9}[0-9]", body))))
     show("Composition CAC40", "https://live.euronext.com/en/popout-page/getIndexComposition/FR0003500008-XPAR", n=200)
     form = urllib.parse.urlencode({"format": "csv", "decimal_separator": ".", "date_form": "d/m/Y", "op": "", "adjusted": "Y", "base100": "", "startdate": "2024-10-25", "enddate": "2026-10-26"}).encode()
     st, body = show("Euronext historique (POST)", "https://live.euronext.com/en/ajax/AwlHistoricalPrice/getFullDownloadAjax/FR0000133308-XPAR", data=form,
          headers={"Content-Type": "application/x-www-form-urlencoded", "X-Requested-With": "XMLHttpRequest"}, n=250)
     if st == 200: print("lignes :", body.count(b"\n"))
+    for variant, url, data in [
+        ("GET", "https://live.euronext.com/en/ajax/AwlHistoricalPrice/getFullDownloadAjax/FR0000133308-XPAR?" + form.decode(), None),
+        ("POST nl", "https://live.euronext.com/nl/ajax/AwlHistoricalPrice/getFullDownloadAjax/FR0000133308-XPAR", form),
+    ]:
+        st, body = show("Euronext historique " + variant, url, data=data, headers={"Content-Type": "application/x-www-form-urlencoded", "X-Requested-With": "XMLHttpRequest", "Referer": "https://live.euronext.com/en/product/equities/FR0000133308-XPAR"}, n=250)
+        if st == 200: print("lignes :", body.count(b"\n"))
     st, body = show("Euronext historique bloc", "https://live.euronext.com/en/ajax/getHistoricalPriceBlock/FR0000133308-XPAR", n=250)
+    if st == 200:
+        import re
+        print("formulaire :", sorted(set(re.findall(rb'(?:name|action|value)="[^"]{1,80}"', body)))[:60])
+    show("Wikipedia SBF120", "https://fr.wikipedia.org/w/index.php?title=SBF_120&action=raw", n=1500)
+    show("Wikidata SBF120", "https://query.wikidata.org/sparql?format=json&query=" + urllib.parse.quote('SELECT ?c ?cLabel ?isin WHERE { ?c wdt:P361 wd:Q1323478 . OPTIONAL { ?c wdt:P946 ?isin } SERVICE wikibase:label { bd:serviceParam wikibase:language "fr". } }'), n=600)
     st, body = show("Stooq", "https://stooq.com/q/d/l/?s=ora.fr&i=d", n=120)
     if st == 200: print("lignes :", body.count(b"\n"))
     st, body = show("Euronext indice CAC (POST)", "https://live.euronext.com/en/ajax/AwlHistoricalPrice/getFullDownloadAjax/FR0003500008-XPAR", data=form,
          headers={"Content-Type": "application/x-www-form-urlencoded", "X-Requested-With": "XMLHttpRequest"}, n=250)
     if st == 200: print("lignes :", body.count(b"\n"))
-    st, body = get("https://marketdata.euronext.com/data-reporting-service/trades-file/download/EQUITIES/PREVIOUS_TRADING_DAY/PAR")
+    st, body, _ = get("https://marketdata.euronext.com/data-reporting-service/trades-file/download/EQUITIES/PREVIOUS_TRADING_DAY/PAR")
     print("\n### Euronext séance précédente PAR\n", st, len(body))
     if st == 200:
         z = zipfile.ZipFile(io.BytesIO(body)); n = z.namelist(); print(n)
@@ -54,7 +68,7 @@ if __name__ == "__main__":
                 if i < 3 or line.startswith("TradingDateTime"): print(line.strip()[:400])
                 if i > 8: break
     for loc in ["AMS", "BRU", "LIS", "MIL", "DUB", "OSL"]:
-        st, body = get(f"https://marketdata.euronext.com/data-reporting-service/trades-file/download/EQUITIES/PREVIOUS_TRADING_DAY/{loc}")
+        st, body, _ = get(f"https://marketdata.euronext.com/data-reporting-service/trades-file/download/EQUITIES/PREVIOUS_TRADING_DAY/{loc}")
         print(loc, st, len(body))
     isins = '("FR0000133308","FR0000120271")'
     show("DILA filtre ISIN", "https://www.info-financiere.gouv.fr/api/explore/v2.1/catalog/datasets/flux-amf-new-prod/records?" + urllib.parse.urlencode({"limit": 5, "where": f"identificationsociete_iso_cd_isi in {isins}", "order_by": "uin_dat_amf DESC", "select": "identificationsociete_iso_nom_soc,informationdeposee_inf_tit_inf,uin_dat_amf"}), n=700)
