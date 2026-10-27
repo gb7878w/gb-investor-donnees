@@ -1,13 +1,13 @@
-name: Sonde des sources (envoi 2)
+name: Sonde des sources (historique long)
 on:
   workflow_dispatch:
   push:
     branches: [claude/project-thread-l7aqej]
-    paths: [outils/sonde2.py, .github/workflows/sonde.yml]
+    paths: [outils/sonde4.py, outils/sonde2.py, .github/workflows/sonde.yml]
 jobs:
   sonde:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - run: python3 outils/sonde2.py
+      - run: python3 outils/sonde4.py
