@@ -36,6 +36,12 @@ LIBELLES = {
     "voltrend": "tendance du volume", "nuit21": "rendement de nuit sur 1 mois", "jour21": "rendement de séance sur 1 mois",
     "cac_d200": "CAC 40 par rapport à sa moyenne 200 jours", "cac_vol21": "volatilité du CAC 40", "cac_dd": "CAC 40 depuis son plus haut annuel",
     "beta63": "sensibilité au CAC 40 (bêta)", "corr63": "corrélation avec le CAC 40",
+    "nikkei_j": "Bourse de Tokyo le jour même", "nasdaq5": "Nasdaq sur 1 semaine", "cuivre_m": "cuivre sur 1 mois", "gaz_m": "gaz européen sur 1 mois",
+    "echeance": "jours avant l'échéance mensuelle des options", "echeance_trim": "échéance trimestrielle (quatre sorcières)",
+    "wiki7_90": "intérêt du public (consultations Wikipédia, semaine contre trimestre)", "wiki90": "notoriété (consultations Wikipédia)",
+    "vad_total": "ventes à découvert déclarées (% du capital)", "vad_nb": "nombre de vendeurs à découvert déclarés",
+    "vad_var30": "variation des ventes à découvert sur 30 jours", "com30": "communiqués officiels sur 30 jours",
+    "res_depuis": "jours depuis les derniers résultats", "res_avant": "jours avant les prochains résultats (estimés)",
     "ez10": "taux à 10 ans zone euro", "ez10_21": "taux à 10 ans zone euro sur 1 mois",
 }
 
@@ -99,6 +105,9 @@ ETENDU = False  # paramètres de l'étape 1 (momentum long, volatilité, illiqui
 NOMS_ETENDUS = ["ret126", "mom12_1", "vol21", "vol63", "volratio", "maxret21", "illiq", "liq_eur", "voltrend", "nuit21", "jour21", "ret252",
                 "cac_d200", "cac_vol21", "cac_dd", "beta63", "corr63"]
 NOMS_AMF = ["vad_total", "vad_nb", "vad_var30", "com30", "res_depuis", "res_avant"]
+NOMS_MARCHES = ["nikkei_j", "nasdaq5", "cuivre_m", "gaz_m", "echeance", "echeance_trim"]
+NOMS_ATTENTION = ["wiki7_90", "wiki90"]
+NOMS_GROUPES = {"etendu": NOMS_ETENDUS, "amf": NOMS_AMF, "marches": NOMS_MARCHES, "attention": NOMS_ATTENTION}
 # Groupes de paramètres retenus pour chaque prévision, d'après les essais sur 10 ans (périodes jamais vues).
 # Un groupe n'entre que s'il a fait mieux sur la majorité des périodes ET réduit l'erreur (Brier).
 GROUPES = {(5, "mieux"): {"etendu"}, (21, "mieux"): {"etendu"}}
@@ -109,7 +118,7 @@ BASE_COURTE = set()
 def colonnes(noms, h, cible):
     """Indices des paramètres utilisés pour une prévision donnée."""
     g = GROUPES.get((h, cible), set())
-    exclus = (set() if "etendu" in g else set(NOMS_ETENDUS)) | (set() if "amf" in g else set(NOMS_AMF))
+    exclus = {n for groupe, liste in NOMS_GROUPES.items() if groupe not in g for n in liste}
     return [j for j, n in enumerate(noms) if n not in exclus]
 
 
