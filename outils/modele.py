@@ -94,6 +94,7 @@ def _rolling(f, x, n):
     return out
 
 
+EXTERNES = None  # fonction (valeur, dates) -> {nom: colonne} pour des sources extérieures (AMF…), essais seulement tant qu'elles n'ont rien prouvé
 ETENDU = False  # paramètres de l'étape 1 (momentum long, volatilité, illiquidité, bêta, régime) : actifs seulement s'ils ont prouvé leur utilité
 
 
@@ -284,6 +285,8 @@ def construire(series, indices, secteurs, series_ctx, aujourdhui_dernier=None):
                     cache[d] = np.nan if x is None else x
                 vals.append(cache[d])
             cols[nom] = np.array(vals)
+        if EXTERNES is not None:
+            cols.update(EXTERNES(isin, dates))
         if noms is None:
             noms = list(cols)
         mat = np.column_stack([cols[k] for k in noms])

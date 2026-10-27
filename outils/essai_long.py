@@ -27,6 +27,11 @@ def lire_bin(nom, cle):
     return json.loads(gzip.decompress(AESGCM(cle).decrypt(brut[4:16], brut[16:], b"GBI1")))
 
 
+def lire_clair(nom):
+    with urllib.request.urlopen(urllib.request.Request(RAW + nom, headers={"User-Agent": "GB-Investor-donnees/1.0"}), timeout=120) as r:
+        return r.read()
+
+
 def charger(cle):
     series, secteurs, sbf = {}, {}, set()
     univers = json.load(open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "univers", "sbf120.json"), encoding="utf-8"))
