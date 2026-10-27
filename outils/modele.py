@@ -260,6 +260,79 @@ def _entrainer(X, y):
     return lgb.train(PARAMS, lgb.Dataset(X, label=y), num_boost_round=TOURS)
 
 
+def _logistique(Xtr, ytr, tours=8, l2=1.0):
+    """Référence simple : régression logistique régularisée (Newton), manquants remplacés par la médiane."""
+    med = np.nanmedian(Xtr, axis=0); med = np.where(np.isnan(med), 0.0, med)
+    def prep(X, mu=None, sd=None):
+        Z = np.where(np.isnan(X), med, X)
+        return Z
+    Z = prep(Xtr); mu = Z.mean(axis=0); sd = Z.std(axis=0); sd[sd == 0] = 1.0
+    Z = np.hstack([(Z - mu) / sd, np.ones((len(Z), 1))])
+    w = np.zeros(Z.shape[1])
+    for _ in range(tours):
+        p = 1.0 / (1.0 + np.exp(-np.clip(Z @ w, -30, 30)))
+        g = Z.T @ (p - ytr) + l2 * w
+        H = (Z * (p * (1 - p))[:, None]).T @ Z + l2 * np.eye(len(w))
+        w -= np.linalg.solve(H, g)
+    def predire(X):
+        Zt = np.hstack([(prep(X) - mu) / sd, np.ones((len(X), 1))])
+        return 1.0 / (1.0 + np.exp(-np.clip(Zt @ w, -30, 30)))
+    return predire
+
+
+def _pav(x, y, k=60.0):
+    """Régression isotonique (plus un score est haut, plus la probabilité est haute), points de repère interpolables.
+    Chaque palier est ramené vers le taux de base quand il repose sur peu de cas."""
+    ordre = np.argsort(x, kind="stable")
+    xs, ys = x[ordre].astype(float), y[ordre].astype(float)
+    base = float(ys.mean())
+    blocs = []  # [somme y, effectif, somme x]
+    for xi, yi in zip(xs, ys):
+        blocs.append([yi, 1.0, xi])
+        while len(blocs) > 1 and blocs[-2][0] / blocs[-2][1] >= blocs[-1][0] / blocs[-1][1]:
+            b = blocs.pop(); blocs[-1][0] += b[0]; blocs[-1][1] += b[1]; blocs[-1][2] += b[2]
+    centres = np.array([b[2] / b[1] for b in blocs])
+    valeurs = np.array([(b[0] + base * k) / (b[1] + k) for b in blocs])
+    valeurs = np.maximum.accumulate(valeurs)
+    return centres, valeurs
+
+
+def _appliquer(cal, p):
+    centres, valeurs = cal
+    return np.interp(p, centres, valeurs)
+
+
+def _ancien(p, y, base):
+    """Ancienne calibration par 10 tranches (conservée pour comparaison)."""
+    bornes = np.unique(np.quantile(p, np.linspace(0, 1, 11)))
+    cal = []
+    for a, b in zip(bornes[:-1], bornes[1:]):
+        dans = (p >= a) & ((p < b) | (b == bornes[-1]))
+        cal.append((float(a), float(b), float((y[dans].sum() + base * 60) / (dans.sum() + 60))))
+    return cal
+
+
+def _appliquer_ancien(cal, p):
+    sortie = np.empty(len(p))
+    for k, v in enumerate(p):
+        sortie[k] = cal[-1][2]
+        for a, bb, f in cal:
+            if v <= bb:
+                sortie[k] = f; break
+    return sortie
+
+
+def _voisins(cal, p, largeur=1500):
+    """Cas semblables : parmi les prévisions jamais vues de score voisin, part qui s'est vérifiée.
+    n compte des cas indépendants (les étiquettes se chevauchent sur h séances)."""
+    pt, yt = cal["p_tri"], cal["y_tri"]
+    i = int(np.searchsorted(pt, p))
+    a, b = max(0, i - largeur // 2), min(len(pt), i + largeur // 2)
+    if b - a < 50:
+        return None
+    return {"n": int((b - a) / cal["h"]), "freq": round(float(yt[a:b].mean()), 4)}
+
+
 def evaluer_et_prevoir(X, noms, rang, etiq, derniers, journal=print):
     """Walk-forward par horizon et cible, puis modèle final et prévisions du dernier jour."""
     import lightgbm as lgb
@@ -271,7 +344,7 @@ def evaluer_et_prevoir(X, noms, rang, etiq, derniers, journal=print):
         cibles = _cibles(etiq, h)
         for cible in CIBLES:
             y = cibles[cible]
-            p_oos, y_oos, par_bloc = [], [], []
+            p_oos, y_oos, par_bloc, p_ref = [], [], [], []
             for bloc in blocs:
                 if len(bloc) == 0:
                     continue
@@ -281,6 +354,10 @@ def evaluer_et_prevoir(X, noms, rang, etiq, derniers, journal=print):
                     continue
                 m = _entrainer(X[tr], y[tr])
                 p_bloc = m.predict(X[te])
+                try:
+                    p_ref.append(_logistique(X[tr], y[tr])(X[te]))
+                except Exception:
+                    p_ref.append(np.full(int(te.sum()), float(np.nanmean(y[tr]))))
                 p_oos.append(p_bloc); y_oos.append(y[te])
                 if len(np.unique(y[te])) == 2:
                     fin = int(bloc[-1])
@@ -289,21 +366,37 @@ def evaluer_et_prevoir(X, noms, rang, etiq, derniers, journal=print):
                 resultat["bulletin"][(h, cible)] = None
                 journal(f"horizon {h} {cible} : pas assez de données pour valider")
                 continue
+            # Le calibrage est appris sur les premiers blocs jamais vus et jugé sur le dernier, qu'il n'a pas vu.
+            p_bloc = list(p_oos); y_bloc = list(y_oos)
             p_oos = np.concatenate(p_oos); y_oos = np.concatenate(y_oos)
             base = float(y_oos.mean())
             auc = _auc(y_oos, p_oos)
             brier = float(np.mean((p_oos - y_oos) ** 2)); brier_base = float(np.mean((base - y_oos) ** 2))
             n_eff = len(y_oos) / h  # les étiquettes se chevauchent : le nombre d'observations réellement indépendantes est bien plus petit
             auc_prudent = 0.5 + (auc - 0.5) * n_eff / (n_eff + 400.0)
-            # Calibration : fréquence observée par tranche de probabilité prédite (10 tranches), ramenée vers le taux de base si peu de cas.
-            bornes = np.unique(np.quantile(p_oos, np.linspace(0, 1, 11)))
-            cal = []
-            for a, b in zip(bornes[:-1], bornes[1:]):
-                dans = (p_oos >= a) & ((p_oos < b) | (b == bornes[-1]))
-                cal.append((float(a), float(b), float((y_oos[dans].sum() + base * 60) / (dans.sum() + 60))))
+            p_ref = np.concatenate(p_ref)
+            reference = dict(auc=_auc(y_oos, p_ref), brier=float(np.mean((p_ref - y_oos) ** 2)))
+            choix, comparaison = "brut", {}
+            if len(p_bloc) >= 3:
+                p_app, y_app = np.concatenate(p_bloc[:-1]), np.concatenate(y_bloc[:-1])
+                p_jug, y_jug = p_bloc[-1], y_bloc[-1]
+                base_app = float(y_app.mean())
+                essais = {
+                    "brut": p_jug,
+                    "tranches": _appliquer_ancien(_ancien(p_app, y_app, base_app), p_jug),
+                    "isotonique": _appliquer(_pav(p_app, y_app), p_jug),
+                    "base": np.full(len(p_jug), base_app),
+                }
+                comparaison = {k: round(float(np.mean((v - y_jug) ** 2)), 5) for k, v in essais.items()}
+                candidats = {k: v for k, v in comparaison.items() if k in ("brut", "tranches", "isotonique")}
+                choix = min(candidats, key=candidats.get)
+                if comparaison["base"] <= candidats[choix]:
+                    choix = "isotonique"  # rien ne bat le taux de base : le calibrage lissé reste le plus prudent
+            tri = np.argsort(p_oos, kind="stable")
+            cal = {"methode": choix, "isotonique": _pav(p_oos, y_oos), "tranches": _ancien(p_oos, y_oos, base), "p_tri": p_oos[tri], "y_tri": y_oos[tri], "h": h}
             resultat["bulletin"][(h, cible)] = dict(auc=auc, auc_prudent=auc_prudent, base=base, brier=brier, brier_base=brier_base,
-                                                  cas=int(len(y_oos)), independants=float(n_eff), calibration=cal, blocs=par_bloc)
-            journal(f"horizon {h} {cible} : AUC {auc:.3f} (prudent {auc_prudent:.3f}), taux de base {base:.3f}, Brier {brier:.4f} vs {brier_base:.4f}, {len(y_oos)} cas")
+                                                  cas=int(len(y_oos)), independants=float(n_eff), calibration=cal, blocs=par_bloc, comparaison=comparaison, reference=reference)
+            journal(f"horizon {h} {cible} : référence logistique AUC {reference['auc']:.3f}, calibrage {choix} {comparaison} ; AUC {auc:.3f} (prudent {auc_prudent:.3f}), taux de base {base:.3f}, Brier {brier:.4f} vs {brier_base:.4f}, {len(y_oos)} cas")
             ok = ~np.isnan(y)
             if ok.sum() > 3000 and len(np.unique(y[ok])) == 2:
                 resultat["modeles"][(h, cible)] = _entrainer(X[ok], y[ok])
@@ -319,17 +412,21 @@ def previsions(resultat, noms, derniers, secteurs=None):
         b = resultat["bulletin"][(h, cible)]
         p = modele.predict(M)
         contrib = modele.predict(M, pred_contrib=True)[:, :-1]
+        cal = b["calibration"]
+        if cal["methode"] == "tranches":
+            pcal = _appliquer_ancien(cal["tranches"], p)
+        elif cal["methode"] == "isotonique":
+            pcal = _appliquer(cal["isotonique"], p)
+        else:
+            pcal = p
         for k, isin in enumerate(isins):
-            cal = b["calibration"]
-            pc = cal[-1][2]
-            for a, bb, f in cal:
-                if p[k] <= bb:
-                    pc = f; break
+            pc = float(pcal[k])
+            voisins = _voisins(cal, float(p[k]))
             ordre = np.argsort(-np.abs(contrib[k]))[:4]
             pourquoi = [[noms[j], float(contrib[k][j]), None if np.isnan(M[k][j]) else float(M[k][j])] for j in ordre if abs(contrib[k][j]) > 1e-6]
             sortie[isin].setdefault(str(h), {})[cible] = {
                 "p": round(float(pc), 4), "brut": round(float(p[k]), 4), "base": round(b["base"], 4),
-                "confiance": round(float(b["auc_prudent"]) * 100, 1), "pourquoi": pourquoi}
+                "confiance": round(float(b["auc_prudent"]) * 100, 1), "pourquoi": pourquoi, "voisins": voisins}
     return sortie
 
 
@@ -353,5 +450,7 @@ def bulletin(resultat):
             sortie.append({"horizon": h, "cible": cible, "valide": False}); continue
         sortie.append({"horizon": h, "cible": cible, "valide": True, "auc": round(b["auc"], 4), "confiance": round(b["auc_prudent"] * 100, 1),
                        "base": round(b["base"], 4), "brier": round(b["brier"], 5), "brier_base": round(b["brier_base"], 5),
-                       "cas": b["cas"], "independants": round(b["independants"]), "blocs": b["blocs"]})
+                       "cas": b["cas"], "independants": round(b["independants"]), "blocs": b["blocs"],
+                       "calibration": b["calibration"]["methode"], "brier_calibrations": b["comparaison"],
+                       "reference_auc": round(b["reference"]["auc"], 4), "reference_brier": round(b["reference"]["brier"], 5)})
     return sortie
