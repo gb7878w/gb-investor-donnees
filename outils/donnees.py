@@ -137,7 +137,14 @@ def series_10_ans(series, indices, cle):
     idx_longs = _lire_historique("historique-indices.bin", cle)["indices"]
     ind = dict(indices)
     for isin, s in idx_longs.items():
-        ind[isin] = dict(nom=s.get("nom", isin), **_prolonger(s, indices.get(isin)))
+        # l'historique long des indices ne garde que les clôtures
+        recent = indices.get(isin)
+        d, c = list(s["d"]), list(s["c"])
+        if recent and d and d[-1] in recent["d"]:
+            k = recent["d"].index(d[-1])
+            f = c[-1] / recent["c"][k] if recent["c"][k] else 1.0
+            d += recent["d"][k + 1:]; c += [round(x * f, 4) for x in recent["c"][k + 1:]]
+        ind[isin] = {"nom": (recent or {}).get("nom", isin), "d": d, "c": c}
     return longues, ind, radiees
 
 
@@ -172,6 +179,7 @@ def preparer_modele(univers, series, indices, genere, derniere, sortie, cle):
             series_app, indices_app = series, indices
             if APPRENTISSAGE_10_ANS:
                 manquants.append(f"historique 10 ans : {type(e).__name__} {str(e)[:100]} (apprentissage sur 2 ans)")
+                print(manquants[-1])
         import numpy as np
         long_actif = len(series_app) > len(series)
         modele.ETENDU = long_actif  # mêmes paramètres pour les deux bases ; les groupes retenus ne valent que pour la base 10 ans
