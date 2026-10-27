@@ -153,6 +153,23 @@ def series_10_ans(series, indices, cle):
     return longues, ind, radiees
 
 
+SEUILS_QUALITE = {"seances": 250, "liquidite_euros": 100_000, "volatilite": 0.9, "cas_semblables": 30}
+
+
+def qualite(series):
+    """Pour chaque valeur : nombre de séances, euros échangés par jour (médiane sur 21 séances), volatilité annuelle, dernière séance.
+    L'appli s'en sert pour écrire « données insuffisantes » plutôt qu'un pourcentage trompeur."""
+    import numpy as np
+    sortie = {}
+    for isin, s in series.items():
+        c, v = np.array(s["c"], dtype=float), np.array(s["v"], dtype=float)
+        liq = float(np.median((c * v)[-21:])) if len(c) >= 5 else 0.0
+        r = np.diff(np.log(c[-64:])) if len(c) >= 30 else np.array([])
+        vol = float(np.std(r) * np.sqrt(252)) if len(r) >= 20 else None
+        sortie[isin] = [len(c), round(liq), None if vol is None else round(vol, 3), s["d"][-1]]
+    return sortie
+
+
 def preparer_modele(univers, series, indices, genere, derniere, sortie, cle):
     """Contexte extérieur puis prévisions. Une panne ici ne doit jamais empêcher la publication des cours."""
     manquants = []
@@ -171,7 +188,7 @@ def preparer_modele(univers, series, indices, genere, derniere, sortie, cle):
         resume = contexte.resume(series_ctx, infos)
         json.dump({"version": 1, "genere": genere, "indicateurs": resume}, open(os.path.join(sortie, "contexte.json"), "w", encoding="utf-8"),
                   ensure_ascii=False, separators=(",", ":"))
-        secteurs = {v["isin"]: v.get("secteur", "?") for v in univers["valeurs"]}
+        secteurs = {v["isin"]: v.get("secteur", "?") for v in univers["valeurs"] if v.get("sbf120", True)}
         apprentissage = {"base": "2 ans, SBF 120"}
         series_app, indices_app = series, indices
         try:
@@ -191,7 +208,7 @@ def preparer_modele(univers, series, indices, genere, derniere, sortie, cle):
         groupes = modele.GROUPES
         toutes = {(h, c) for h in modele.HORIZONS for c in modele.CIBLES}
         courtes = modele.BASE_COURTE & toutes if long_actif else toutes
-        resultat = {"bulletin": {}, "modeles": {}, "colonnes": {}}
+        resultat = {"bulletin": {}, "modeles": {}, "colonnes": {}, "oos": {}}
         if courtes:
             modele.GROUPES = {}
             X, noms, rang, _, etiq, derniers = modele.construire(series, indices, secteurs, series_ctx)
@@ -213,10 +230,10 @@ def preparer_modele(univers, series, indices, genere, derniere, sortie, cle):
             modele.EXTERNES = None
             _, inv = np.unique(ident, return_inverse=True)
             garde = ((rang + inv) % PAS_APPRENTISSAGE) == 0
-            X, rang, etiq = X[garde].astype(np.float32), rang[garde], etiq[garde]
+            X, rang, etiq, ident = X[garde].astype(np.float32), rang[garde], etiq[garde], ident[garde]
             modele.PARAMS["num_threads"] = 4
             print(f"modèle sur 10 ans : {X.shape[0]} lignes, {len(noms)} paramètres, {len(toutes - courtes)} prévisions")
-            for k, v in modele.evaluer_et_prevoir(X, noms, rang, etiq, derniers_l, seulement=toutes - courtes).items():
+            for k, v in modele.evaluer_et_prevoir(X, noms, rang, etiq, derniers_l, seulement=toutes - courtes, ident=ident).items():
                 resultat[k].update(v)
             derniers_l = {k: v for k, v in derniers_l.items() if k in series}
             for cle_p in toutes - courtes:
@@ -227,8 +244,33 @@ def preparer_modele(univers, series, indices, genere, derniere, sortie, cle):
         prevision = {"version": 1, "genere": genere, "derniere": derniere, "horizons": modele.HORIZONS, "seuil": modele.SEUIL, "apprentissage": apprentissage,
                      "libelles": {k: v for k, v in modele.LIBELLES.items() if k in noms}, "bulletin": modele.bulletin(resultat), "importance": modele.importance(resultat, noms),
                      "valeurs": modele.previsions(resultat, noms, derniers)}
+        prevision["qualite"] = qualite(series)
+        prevision["seuils_qualite"] = SEUILS_QUALITE
+        prevision["perimetre"] = {"valeurs": len(series), "sbf120": sum(1 for v in univers["valeurs"] if v.get("sbf120", True) and v["isin"] in series),
+                                  "growth": sum(1 for v in univers["valeurs"] if v.get("mic") == "ALXP" and v["isin"] in series),
+                                  "seuil_liquidite_euros": univers.get("seuil_liquidite_euros")}
         with open(os.path.join(sortie, "prevision.bin"), "wb") as f:
             f.write(chiffrer(json.dumps(prevision, separators=(",", ":")).encode(), cle))
+        try:  # page Sélection : un échec ici ne doit pas gâcher les prévisions
+            import selection
+            rapport = None
+            oos = resultat["oos"].get((21, "mieux"))
+            if long_actif and oos is not None:
+                rapport = selection.essai(X, noms, rang, ident, etiq, oos, series_app, indices_app["FR0003500008"], modele.DATES)
+                if rapport:
+                    print("sélection, variantes :")
+                    for v in rapport["variantes"]:
+                        print("  ", {k: v.get(k) for k in ("min_favorables", "max_defavorables", "contexte", "semaines", "par_semaine", "ecart_cac_pct", "ecart_univers_pct", "part_bat_cac", "t", "periodes_positives")})
+                    print("  toutes valeurs liquides :", {k: rapport["reference_toutes_valeurs"].get(k) for k in ("semaines", "ecart_cac_pct", "part_bat_cac")})
+                    print("  modèle seul (30 % du haut) :", {k: rapport["reference_modele_seul"].get(k) for k in ("semaines", "ecart_cac_pct", "ecart_univers_pct", "t", "par_annee")})
+            if long_actif:
+                contenu = selection.construire(rapport, derniers_l, noms, prevision["valeurs"], series, genere, derniere)
+                with open(os.path.join(sortie, "selection.bin"), "wb") as f:
+                    f.write(chiffrer(json.dumps(contenu, separators=(",", ":")).encode(), cle))
+                print("sélection :", contenu["validation"]["texte"], "·", sum(1 for x in contenu["valeurs"].values() if x["sel"]), "valeurs retenues")
+        except Exception as e:
+            manquants.append(f"sélection : {type(e).__name__} {str(e)[:120]}")
+            print(manquants[-1])
     except Exception as e:  # le modèle est un plus : on publie les cours quoi qu'il arrive
         manquants.append(f"modèle : {type(e).__name__} {str(e)[:120]}")
         print("modèle indisponible :", manquants[-1])
@@ -240,7 +282,10 @@ def main(sortie):
     if len(cle) != 32:
         sys.exit("Secret CLE_DONNEES absent ou invalide (32 octets en base64 attendus) : rien n'est publié.")
     racine = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    univers = json.load(open(os.path.join(racine, "univers", "sbf120.json"), encoding="utf-8"))
+    chemin = os.path.join(racine, "univers", "elargi.json")
+    if not os.path.exists(chemin):
+        chemin = os.path.join(racine, "univers", "sbf120.json")
+    univers = json.load(open(chemin, encoding="utf-8"))
     aujourdhui = dt.date.today()
     debut, fin = (aujourdhui - dt.timedelta(days=JOURS)).isoformat(), aujourdhui.isoformat()
     series, indices, manquants = {}, {}, []
@@ -263,8 +308,11 @@ def main(sortie):
     print(f"{len(series)}/{total} valeurs, {len(indices)}/{len(INDICES)} indices")
     for m in manquants:
         print("manquant :", m)
-    if len(series) < total * 0.9:
-        sys.exit("Moins de 90 % des valeurs reçues : publication annulée, la version précédente reste en place.")
+    # Le cœur (SBF 120) doit arriver à 90 % ; une valeur de Growth qui manque un soir est simplement absente ce soir-là.
+    coeur = [v for v in univers["valeurs"] if v.get("sbf120", True)]
+    if sum(1 for v in coeur if v["isin"] in series) < len(coeur) * 0.9 or len(indices) < len(INDICES):
+        sys.exit("Moins de 90 % des valeurs du SBF 120 reçues : publication annulée, la version précédente reste en place.")
+    univers = dict(univers, valeurs=[v for v in univers["valeurs"] if v["isin"] in series])
     genere = dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
     derniere = max(s["d"][-1] for s in series.values())
     complet = {"version": 1, "genere": genere, "derniere": derniere, "series": series, "indices": indices}

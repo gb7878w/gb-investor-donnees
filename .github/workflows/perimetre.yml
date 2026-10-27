@@ -1,0 +1,32 @@
+name: Périmètre élargi (SBF 120 + valeurs liquides de Paris)
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/project-thread-2iypx2]
+    paths: [outils/perimetre.py, .github/workflows/perimetre.yml]
+permissions:
+  contents: write
+jobs:
+  perimetre:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Installer la bibliothèque de chiffrement
+        run: pip install --quiet cryptography==44.0.0
+      - name: Choisir les valeurs et confirmer leur marché chez Euronext
+        env:
+          CLE_DONNEES: ${{ secrets.CLE_DONNEES }}
+        run: python3 outils/perimetre.py univers/elargi.json
+      - name: Enregistrer la liste sur la branche
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "GB Investor"
+          git config user.email "gb-investor@users.noreply.github.com"
+          git add univers/elargi.json
+          git commit -q -m "Périmètre élargi du $(date -u +%Y-%m-%d)" || exit 0
+          git push -q origin "HEAD:${GITHUB_REF_NAME}"
