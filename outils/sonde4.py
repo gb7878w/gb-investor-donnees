@@ -5,7 +5,7 @@ from sonde import show, get
 
 # Euronext : un titre vivant et un titre radié, début 2016
 for nom, isin in [("LVMH vivant", "FR0000121014"), ("Suez radié 2022", "FR0010613471"), ("PSA radié 2021", "FR0000121501"), ("Gemalto", "NL0000400653")]:
-    q = "format=csv&decimal_separator=.&date_form=d/m/Y&op=&adjusted=Y&startdate=2016-10-27&enddate=2026-10-26&iframe_mode=&stock_filter=&isin_type=&mic=XPAR"
+    q = "format=csv&decimal_separator=.&date_form=d/m/Y&op=&adjusted=Y&startdate=27/10/2016&enddate=26/10/2026&iframe_mode=&stock_filter=&isin_type=&mic=XPAR"
     st, b = show(f"Euronext historique {nom}", f"https://live.euronext.com/en/ajax/AwlHistoricalPrice/getFullDownloadAjax/{isin}-XPAR?{q}", n=200)
     lignes = b.decode("utf-8", "replace").splitlines() if st == 200 else []
     print("lignes:", len(lignes), "première:", lignes[3][:30] if len(lignes) > 3 else "", "dernière:", lignes[-1][:30] if lignes else "")
