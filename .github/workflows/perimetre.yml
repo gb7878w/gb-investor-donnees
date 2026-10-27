@@ -1,6 +1,9 @@
 name: Périmètre élargi (SBF 120 + valeurs liquides de Paris)
 on:
   workflow_dispatch:
+  push:
+    branches: [claude/project-thread-2iypx2]
+    paths: [outils/perimetre.py, .github/workflows/perimetre.yml]
 permissions:
   contents: write
 jobs:
