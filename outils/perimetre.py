@@ -2,8 +2,8 @@
 
 Euronext Access est exclu (très peu échangé, peu d'information). La liste vient de la couverture de l'historique long
 (couverture.json, publique, sans aucun cours) ; la liquidité est mesurée sur les 60 dernières séances de l'historique chiffré
-(médiane des euros échangés par jour), puis chaque valeur retenue est confirmée chez Euronext : cotée sur le marché
-réglementé (XPAR) ou sur Growth (ALXP), jamais sur Access (XMLI).
+(médiane des euros échangés par jour), puis chaque valeur retenue est classée d'après sa page produit publique chez Euronext :
+marché réglementé (XPAR) ou Growth (ALXP) acceptés, Access (XMLI) refusé.
 Sortie : univers/elargi.json, relu chaque soir par donnees.py. À relancer à la main à chaque révision trimestrielle du SBF 120.
 """
 import base64, datetime as dt, json, os, re, statistics, sys, time, urllib.request
@@ -42,17 +42,23 @@ def liquidites(cle, isins):
     return sortie
 
 
-def marche(isin, debut, fin):
-    """Marché où la valeur cote chez Euronext : XPAR, ALXP ou None (Access, ou aucune séance récente)."""
-    for mic in ("XPAR", "ALXP"):
-        try:
-            seances = donnees.lire(donnees.telecharger(isin, mic, debut, fin, essais=2))
-        except Exception:
-            seances = []
+MARCHES = {"XPAR": "Euronext Paris", "ALXP": "Euronext Growth Paris"}   # XMLI (Euronext Access Paris) est volontairement absent
+DESCRIPTION = re.compile(r'content="Stock [^"]*? ([A-Z]{2}[A-Z0-9]{9}[0-9]) ([A-Z]{4}) Euronext ')
+
+
+def marche(isin):
+    """Marché de cotation lu dans la page produit publique d'Euronext (balise description : « … ISIN MIC Euronext … Live quotes »).
+    Renvoie le code MIC (XPAR marché réglementé, ALXP Growth, XMLI Access…) ou None si la valeur n'existe plus."""
+    try:
+        req = urllib.request.Request(f"https://live.euronext.com/en/product/equities/{isin}-XPAR", headers={"User-Agent": donnees.UA})
+        with urllib.request.urlopen(req, timeout=40) as r:
+            page = r.read().decode("utf-8", "replace")
+    except Exception:
+        return None
+    finally:
         time.sleep(0.4)
-        if len(seances) >= 10:
-            return mic
-    return None
+    m = DESCRIPTION.search(page)
+    return m.group(2) if m and m.group(1) == isin else None
 
 
 def main(sortie):
@@ -72,23 +78,25 @@ def main(sortie):
     valeurs_liq = sorted(liq.values())
     for q in (10, 25, 50, 75, 90):
         print(f"  liquidité médiane des valeurs, centile {q} : {valeurs_liq[len(valeurs_liq) * q // 100]:,.0f} €/jour")
-    debut, fin = (aujourdhui - dt.timedelta(days=40)).isoformat(), aujourdhui.isoformat()
+    for seuil in (10_000, 25_000, 50_000, 100_000, 250_000, 500_000, 1_000_000):
+        print(f"  au moins {seuil:>9,} € par jour : {sum(1 for e, _ in ((liq[i], i) for i in candidats if i in liq) if e >= seuil)} valeurs de plus que le SBF 120")
     besoin = TOTAL_VISE - len(sbf["valeurs"])
-    retenues, ecartees = [], []
+    retenues, ecartees, marches = [], [], {}
     for euros, isin in classes:
         if len(retenues) >= besoin:
             break
-        mic = marche(isin, debut, fin)
+        mic = marche(isin)
         c = candidats[isin]
-        if mic is None:
-            ecartees.append(f"{c['nom']} ({isin}) : ni marché réglementé ni Growth chez Euronext (Access ou arrêt)")
+        if mic not in MARCHES:
+            ecartees.append(f"{c['nom']} ({isin}) : " + (f"marché {mic}, hors périmètre (Access ou autre)" if mic else "page Euronext introuvable ou sans marché"))
             continue
+        marches[mic] = marches.get(mic, 0) + 1
         nom = nom_propre(c["nom"])
         retenues.append({"isin": isin, "nom": nom, "code": c["id"].split(":")[1][:8], "secteur": "Autres valeurs", "alias": [nom.lower()],
                          "cac40": False, "sbf120": False, "mic": mic, "liquidite": round(euros)})
     seuil = retenues[-1]["liquidite"] if retenues else PLANCHER_EUROS
-    print(f"{len(retenues)} valeurs ajoutées (dernière : {seuil:,} €/jour), {len(ecartees)} écartées")
-    for e in ecartees[:40]:
+    print(f"{len(retenues)} valeurs ajoutées (dernière : {seuil:,} €/jour), {len(ecartees)} écartées ; marchés des ajoutées : {marches}")
+    for e in ecartees[:60]:
         print("  écartée :", e)
     tout = []
     for v in sbf["valeurs"]:
