@@ -90,6 +90,57 @@ def chiffrer(donnees, cle):
     return ENTETE + nonce + AESGCM(cle).encrypt(nonce, gzip.compress(donnees, 9, mtime=0), ENTETE)
 
 
+HISTORIQUE = "https://raw.githubusercontent.com/gb7878w/gb-investor-donnees/historique/"
+APPRENTISSAGE_10_ANS = False  # activé seulement après l'essai final (essai_final.py) contre le modèle actuel
+PAS_APPRENTISSAGE = 7  # une ligne sur sept pour l'apprentissage sur 10 ans (les étiquettes se chevauchent de toute façon)
+
+
+def _lire_historique(nom, cle):
+    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+    with urllib.request.urlopen(urllib.request.Request(HISTORIQUE + nom, headers={"User-Agent": "GB-Investor-donnees/1.0"}), timeout=180) as r:
+        brut = r.read()
+    if brut[:4] != ENTETE:
+        raise ValueError(f"{nom} : en-tête inattendu")
+    return json.loads(gzip.decompress(AESGCM(cle).decrypt(brut[4:16], brut[16:], ENTETE)))
+
+
+def _prolonger(longue, recente):
+    """Historique long (cours ajustés, figé) prolongé par les séances Euronext plus récentes, mises à la même échelle."""
+    s = {"d": list(longue["d"]), "o": list(longue["o"]), "h": list(longue["h"]), "l": list(longue.get("l", longue.get("b"))), "c": list(longue["c"]), "v": list(longue["v"])}
+    if not recente or not recente["d"] or not s["d"]:
+        return s
+    dernier = s["d"][-1]
+    if dernier not in recente["d"]:
+        return s
+    k = recente["d"].index(dernier)
+    f = s["c"][-1] / recente["c"][k] if recente["c"][k] else 1.0
+    for i in range(k + 1, len(recente["d"])):
+        s["d"].append(recente["d"][i])
+        for a in ("o", "h", "l", "c"):
+            s[a].append(round(recente[a][i] * f, 4))
+        s["v"].append(recente["v"][i])
+    return s
+
+
+def series_10_ans(series, indices, cle):
+    """Toutes les actions de Paris sur 10 ans, radiées comprises (apprentissage seulement), les valeurs suivies sous leur ISIN."""
+    longues, radiees = {}, 0
+    for k in range(1, 5):
+        for v in _lire_historique(f"historique-{k}.bin", cle)["valeurs"]:
+            if v.get("isin") in series:
+                longues[v["isin"]] = _prolonger(v, series[v["isin"]])
+            elif v.get("isin") not in longues:
+                longues[v["id"]] = _prolonger(v, None)
+                radiees += bool(v.get("radiee"))
+    for isin, s in series.items():
+        longues.setdefault(isin, s)  # valeur suivie absente de l'historique long : ses deux ans Euronext
+    idx_longs = _lire_historique("historique-indices.bin", cle)["indices"]
+    ind = dict(indices)
+    for isin, s in idx_longs.items():
+        ind[isin] = dict(nom=s.get("nom", isin), **_prolonger(s, indices.get(isin)))
+    return longues, ind, radiees
+
+
 def preparer_modele(univers, series, indices, genere, derniere, sortie, cle):
     """Contexte extérieur puis prévisions. Une panne ici ne doit jamais empêcher la publication des cours."""
     manquants = []
@@ -109,10 +160,48 @@ def preparer_modele(univers, series, indices, genere, derniere, sortie, cle):
         json.dump({"version": 1, "genere": genere, "indicateurs": resume}, open(os.path.join(sortie, "contexte.json"), "w", encoding="utf-8"),
                   ensure_ascii=False, separators=(",", ":"))
         secteurs = {v["isin"]: v.get("secteur", "?") for v in univers["valeurs"]}
-        X, noms, rang, _, etiq, derniers = modele.construire(series, indices, secteurs, series_ctx)
-        print(f"modèle : {X.shape[0]} lignes, {len(noms)} paramètres")
-        resultat = modele.evaluer_et_prevoir(X, noms, rang, etiq, derniers)
-        prevision = {"version": 1, "genere": genere, "derniere": derniere, "horizons": modele.HORIZONS, "seuil": modele.SEUIL,
+        apprentissage = {"base": "2 ans, SBF 120"}
+        series_app, indices_app = series, indices
+        try:
+            if not APPRENTISSAGE_10_ANS:
+                raise RuntimeError("désactivé")
+            # Apprentissage sur 10 ans, tout Paris, radiées comprises (essais du 27 octobre 2026 : meilleur que 2 ans pour « mieux que le CAC 40 »).
+            series_app, indices_app, radiees = series_10_ans(series, indices, cle)
+            apprentissage = {"base": "10 ans, actions de Paris", "valeurs": len(series_app), "radiees": radiees}
+        except Exception as e:
+            series_app, indices_app = series, indices
+            if APPRENTISSAGE_10_ANS:
+                manquants.append(f"historique 10 ans : {type(e).__name__} {str(e)[:100]} (apprentissage sur 2 ans)")
+        import numpy as np
+        long_actif = len(series_app) > len(series)
+        modele.ETENDU = long_actif  # mêmes paramètres pour les deux bases ; les groupes retenus ne valent que pour la base 10 ans
+        groupes = modele.GROUPES
+        toutes = {(h, c) for h in modele.HORIZONS for c in modele.CIBLES}
+        courtes = modele.BASE_COURTE & toutes if long_actif else toutes
+        resultat = {"bulletin": {}, "modeles": {}, "colonnes": {}}
+        if courtes:
+            modele.GROUPES = {}
+            X, noms, rang, _, etiq, derniers = modele.construire(series, indices, secteurs, series_ctx)
+            print(f"modèle sur 2 ans : {X.shape[0]} lignes, {len(noms)} paramètres, {len(courtes)} prévisions")
+            for k, v in modele.evaluer_et_prevoir(X, noms, rang, etiq, derniers, seulement=courtes).items():
+                resultat[k].update(v)
+            modele.GROUPES = groupes
+        if toutes - courtes:
+            X, noms, rang, ident, etiq, derniers_l = modele.construire(series_app, indices_app, secteurs, series_ctx)
+            _, inv = np.unique(ident, return_inverse=True)
+            garde = ((rang + inv) % PAS_APPRENTISSAGE) == 0
+            X, rang, etiq = X[garde].astype(np.float32), rang[garde], etiq[garde]
+            modele.PARAMS["num_threads"] = 4
+            print(f"modèle sur 10 ans : {X.shape[0]} lignes, {len(noms)} paramètres, {len(toutes - courtes)} prévisions")
+            for k, v in modele.evaluer_et_prevoir(X, noms, rang, etiq, derniers_l, seulement=toutes - courtes).items():
+                resultat[k].update(v)
+            derniers_l = {k: v for k, v in derniers_l.items() if k in series}
+            for cle_p in toutes - courtes:
+                resultat.setdefault("derniers", {})[cle_p] = derniers_l
+            if not courtes:
+                derniers = derniers_l
+        apprentissage["prevision_sur_2_ans"] = sorted(f"{h}/{c}" for h, c in courtes)
+        prevision = {"version": 1, "genere": genere, "derniere": derniere, "horizons": modele.HORIZONS, "seuil": modele.SEUIL, "apprentissage": apprentissage,
                      "libelles": {k: v for k, v in modele.LIBELLES.items() if k in noms}, "bulletin": modele.bulletin(resultat), "importance": modele.importance(resultat, noms),
                      "valeurs": modele.previsions(resultat, noms, derniers)}
         with open(os.path.join(sortie, "prevision.bin"), "wb") as f:

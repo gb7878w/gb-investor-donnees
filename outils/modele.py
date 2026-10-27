@@ -96,6 +96,21 @@ def _rolling(f, x, n):
 
 EXTERNES = None  # fonction (valeur, dates) -> {nom: colonne} pour des sources extérieures (AMF…), essais seulement tant qu'elles n'ont rien prouvé
 ETENDU = False  # paramètres de l'étape 1 (momentum long, volatilité, illiquidité, bêta, régime) : actifs seulement s'ils ont prouvé leur utilité
+NOMS_ETENDUS = ["ret126", "mom12_1", "vol21", "vol63", "volratio", "maxret21", "illiq", "liq_eur", "voltrend", "nuit21", "jour21", "ret252",
+                "cac_d200", "cac_vol21", "cac_dd", "beta63", "corr63"]
+NOMS_AMF = ["vad_total", "vad_nb", "vad_var30", "com30", "res_depuis", "res_avant"]
+# Groupes de paramètres retenus pour chaque prévision, d'après les essais sur 10 ans (périodes jamais vues).
+# Un groupe n'entre que s'il a fait mieux sur la majorité des périodes ET réduit l'erreur (Brier).
+GROUPES = {(5, "mieux"): {"etendu"}, (21, "mieux"): {"etendu"}}
+# Prévisions pour lesquelles l'apprentissage sur 2 ans (SBF 120) reste meilleur que celui sur 10 ans (tout Paris).
+BASE_COURTE = set()
+
+
+def colonnes(noms, h, cible):
+    """Indices des paramètres utilisés pour une prévision donnée."""
+    g = GROUPES.get((h, cible), set())
+    exclus = (set() if "etendu" in g else set(NOMS_ETENDUS)) | (set() if "amf" in g else set(NOMS_AMF))
+    return [j for j, n in enumerate(noms) if n not in exclus]
 
 
 def _somme_glissante(x, n):
@@ -416,17 +431,21 @@ def _voisins(cal, p, largeur=1500):
     return {"n": int((b - a) / cal["h"]), "freq": round(float(yt[a:b].mean()), 4)}
 
 
-def evaluer_et_prevoir(X, noms, rang, etiq, derniers, journal=print):
+def evaluer_et_prevoir(X_tout, noms, rang, etiq, derniers, journal=print, debut=0.45, seulement=None):
     """Walk-forward par horizon et cible, puis modèle final et prévisions du dernier jour."""
-    import lightgbm as lgb
     rangs_uniques = np.unique(rang)
-    debut_test = rangs_uniques[int(len(rangs_uniques) * 0.45)]
+    debut_test = rangs_uniques[int(len(rangs_uniques) * debut)]
     blocs = np.array_split(rangs_uniques[rangs_uniques >= debut_test], 5)
-    resultat = {"bulletin": {}, "modeles": {}}
+    resultat = {"bulletin": {}, "modeles": {}, "colonnes": {}}
     for h in HORIZONS:
         cibles = _cibles(etiq, h)
         for cible in CIBLES:
+            if seulement is not None and (h, cible) not in seulement:
+                continue
             y = cibles[cible]
+            idx = colonnes(noms, h, cible)
+            resultat["colonnes"][(h, cible)] = idx
+            X = X_tout[:, idx]
             p_oos, y_oos, par_bloc, p_ref = [], [], [], []
             for bloc in blocs:
                 if len(bloc) == 0:
@@ -489,12 +508,14 @@ def evaluer_et_prevoir(X, noms, rang, etiq, derniers, journal=print):
 def previsions(resultat, noms, derniers, secteurs=None):
     """Probabilité calibrée, confiance et explications (SHAP) de chaque valeur pour chaque horizon et cible."""
     isins = sorted(derniers)
-    M = np.vstack([derniers[i][0] for i in isins])
     sortie = {isin: {} for isin in isins}
     for (h, cible), modele in resultat["modeles"].items():
         b = resultat["bulletin"][(h, cible)]
-        p = modele.predict(M)
-        contrib = modele.predict(M, pred_contrib=True)[:, :-1]
+        idx = resultat["colonnes"][(h, cible)]
+        source = resultat.get("derniers", {}).get((h, cible), derniers)  # paramètres du dernier jour, calculés comme à l'apprentissage
+        Mc = np.vstack([source[i][0] if i in source else derniers[i][0] for i in isins])[:, idx]
+        p = modele.predict(Mc)
+        contrib = modele.predict(Mc, pred_contrib=True)[:, :-1]
         cal = b["calibration"]
         if cal["methode"] == "tranches":
             pcal = _appliquer_ancien(cal["tranches"], p)
@@ -506,7 +527,7 @@ def previsions(resultat, noms, derniers, secteurs=None):
             pc = float(pcal[k])
             voisins = _voisins(cal, float(p[k]))
             ordre = np.argsort(-np.abs(contrib[k]))[:4]
-            pourquoi = [[noms[j], float(contrib[k][j]), None if np.isnan(M[k][j]) else float(M[k][j])] for j in ordre if abs(contrib[k][j]) > 1e-6]
+            pourquoi = [[noms[idx[j]], float(contrib[k][j]), None if np.isnan(Mc[k][j]) else float(Mc[k][j])] for j in ordre if abs(contrib[k][j]) > 1e-6]
             sortie[isin].setdefault(str(h), {})[cible] = {
                 "p": round(float(pc), 4), "brut": round(float(p[k]), 4), "base": round(b["base"], 4),
                 "confiance": round(float(b["auc_prudent"]) * 100, 1), "pourquoi": pourquoi, "voisins": voisins}
@@ -516,10 +537,10 @@ def previsions(resultat, noms, derniers, secteurs=None):
 def importance(resultat, noms):
     """Poids de chaque paramètre dans les modèles finaux (gain moyen, ramené à 100 %)."""
     total = np.zeros(len(noms))
-    for modele in resultat["modeles"].values():
+    for cle, modele in resultat["modeles"].items():
         g = modele.feature_importance(importance_type="gain").astype(float)
         if g.sum() > 0:
-            total += g / g.sum()
+            total[resultat["colonnes"][cle]] += g / g.sum()
     if total.sum() == 0:
         return {}
     total = total / total.sum()
