@@ -90,6 +90,31 @@ def chiffrer(donnees, cle):
     return ENTETE + nonce + AESGCM(cle).encrypt(nonce, gzip.compress(donnees, 9, mtime=0), ENTETE)
 
 
+def preparer_modele(univers, series, indices, genere, derniere, sortie, cle):
+    """Contexte extérieur puis prévisions. Une panne ici ne doit jamais empêcher la publication des cours."""
+    manquants = []
+    try:
+        import contexte, modele
+        series_ctx, infos, manq = contexte.charger()
+        manquants += manq
+        resume = contexte.resume(series_ctx, infos)
+        json.dump({"version": 1, "genere": genere, "indicateurs": resume}, open(os.path.join(sortie, "contexte.json"), "w", encoding="utf-8"),
+                  ensure_ascii=False, separators=(",", ":"))
+        secteurs = {v["isin"]: v.get("secteur", "?") for v in univers["valeurs"]}
+        X, noms, rang, _, etiq, derniers = modele.construire(series, indices, secteurs, series_ctx)
+        print(f"modèle : {X.shape[0]} lignes, {len(noms)} paramètres")
+        resultat = modele.evaluer_et_prevoir(X, noms, rang, etiq, derniers)
+        prevision = {"version": 1, "genere": genere, "derniere": derniere, "horizons": modele.HORIZONS, "seuil": modele.SEUIL,
+                     "libelles": {k: v for k, v in modele.LIBELLES.items() if k in noms}, "bulletin": modele.bulletin(resultat),
+                     "valeurs": modele.previsions(resultat, noms, derniers)}
+        with open(os.path.join(sortie, "prevision.bin"), "wb") as f:
+            f.write(chiffrer(json.dumps(prevision, separators=(",", ":")).encode(), cle))
+    except Exception as e:  # le modèle est un plus : on publie les cours quoi qu'il arrive
+        manquants.append(f"modèle : {type(e).__name__} {str(e)[:120]}")
+        print("modèle indisponible :", manquants[-1])
+    return manquants
+
+
 def main(sortie):
     cle = base64.b64decode(os.environ.get("CLE_DONNEES", ""))
     if len(cle) != 32:
@@ -127,11 +152,12 @@ def main(sortie):
               "series": {k: {c: v[-15:] for c, v in s.items()} for k, s in series.items()},
               "indices": {k: {c: (v if c == "nom" else v[-15:]) for c, v in s.items()} for k, s in indices.items()}}
     os.makedirs(sortie, exist_ok=True)
+    manquants_modele = preparer_modele(univers, series, indices, genere, derniere, sortie, cle)
     for nom, contenu in [("seances.bin", complet), ("recentes.bin", recent)]:
         with open(os.path.join(sortie, nom), "wb") as f:
             f.write(chiffrer(json.dumps(contenu, separators=(",", ":")).encode(), cle))
     json.dump(univers, open(os.path.join(sortie, "univers.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    json.dump({"genere": genere, "derniere_seance": derniere, "valeurs": len(series), "indices": len(indices), "manquants": manquants},
+    json.dump({"genere": genere, "derniere_seance": derniere, "valeurs": len(series), "indices": len(indices), "manquants": manquants, "manquants_contexte_modele": manquants_modele},
               open(os.path.join(sortie, "etat.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print("dernière séance :", derniere, "· tailles :", {n: os.path.getsize(os.path.join(sortie, n)) for n in os.listdir(sortie)})
 
