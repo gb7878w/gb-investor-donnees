@@ -1,0 +1,14 @@
+name: Sonde des sources
+on:
+  workflow_dispatch:
+  push:
+    paths: [outils/sonde.py, .github/workflows/sonde.yml]
+permissions:
+  contents: read
+jobs:
+  sonde:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 outils/sonde.py
