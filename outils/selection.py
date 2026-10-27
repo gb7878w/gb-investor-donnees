@@ -85,8 +85,9 @@ def phrase(param, etat, M, noms, i, centile):
     if param == "modele":
         if np.isnan(centile[i]):
             return "Pas de prévision pour cette valeur"
-        r = round((1 - centile[i]) * 100)
-        return ("Parmi les mieux classées par le modèle" if etat > 0 else "Parmi les moins bien classées par le modèle" if etat < 0 else "Classement du modèle dans la moyenne") + f" (rang {r} % du haut)"
+        haut, bas = max(round((1 - centile[i]) * 100), 1), max(round(centile[i] * 100), 1)
+        return (f"Dans les {haut} % les mieux classées par le modèle (mieux que le CAC 40 à 1 mois)" if etat > 0 else f"Dans les {bas} % les moins bien classées par le modèle" if etat < 0
+                else "Classement du modèle au milieu du lot")
     if param == "tendance":
         return (f"Au-dessus des moyennes 50 et 200 séances ({pc(c('d_mm50'))} et {pc(c('d_mm200'))}), la moyenne 50 monte" if etat > 0
                 else f"Sous les moyennes 50 et 200 séances ({pc(c('d_mm50'))} et {pc(c('d_mm200'))})" if etat < 0
@@ -96,7 +97,7 @@ def phrase(param, etat, M, noms, i, centile):
                 else "Volume sans signal net")
     if param == "relative":
         return (f"Bat le CAC 40 : {pc(c('rel63'))} sur 3 mois, {pc(c('rel21'))} sur 1 mois" if etat > 0 else f"Fait moins bien que le CAC 40 : {pc(c('rel63'))} sur 3 mois, {pc(c('rel21'))} sur 1 mois" if etat < 0
-                else f"Proche du CAC 40 ({pc(c('rel63'))} sur 3 mois)")
+                else f"Écart au CAC 40 : {pc(c('rel63'))} sur 3 mois, {pc(c('rel21'))} sur 1 mois (pas assez net)")
     if param == "contexte":
         v = c("vix")
         vx = "n.d." if v is None else f"{v:.0f}"
@@ -165,7 +166,7 @@ def essai(X, noms, rang, ident, etiq, p_oos, series, cac, dates):
                 "ecart_univers_pct": round(float(np.mean(rel)) * 100, 2), "rendement_net_pct": round(float(np.mean(net[masque])) * 100, 2),
                 "part_gagnantes": round(float(np.mean(net[masque] > 0)), 3), "part_bat_cac": round(float(np.mean(exces[masque] > 0)), 3),
                 "t": None if math.isnan(t) else round(t, 2), "par_annee": par_an,
-                "par_semaine": round(masque.sum() / max(len(univers_moy), 1), 2),
+                "par_semaine": round(float(masque.sum()) / max(len(univers_moy), 1), 2),
                 "periodes_positives": f"{int((np.array(list(par_an.values())) > 0).sum())}/{len(par_an)}"}
 
     variantes = []
@@ -177,7 +178,7 @@ def essai(X, noms, rang, ident, etiq, p_oos, series, cac, dates):
                 variantes.append(dict(v, **resumer(ok)))
     ref_tous = resumer(np.ones(len(lignes), dtype=bool))
     ref_modele = resumer(centile >= PCT_FAVORABLE)
-    return {"periode": [str(date_ligne.min()), str(date_ligne.max())], "horizon": HORIZON, "frais": FRAIS_ALLER_RETOUR,
+    return {"periode": [min(date_ligne.tolist()), max(date_ligne.tolist())], "horizon": HORIZON, "frais": FRAIS_ALLER_RETOUR,
             "ecart_peu_liquide": ECART_PEU_LIQUIDE, "variantes": variantes, "reference_toutes_valeurs": ref_tous, "reference_modele_seul": ref_modele}
 
 
