@@ -11,6 +11,7 @@ from sonde import get
 MOTS_RESULTATS = re.compile(r"r[ée]sultats?|results?|chiffre d.affaires|revenues?|\bsales\b|earnings|rapport financier|trimestr|quarter|semestr|half.year|annuel|full.year|\bQ[1-4]\b|\bH[12]\b|\b9M\b", re.I)
 MOIS = {m: i + 1 for i, m in enumerate(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"])}
 
+EXCLUS = re.compile(r"liquidit|personne responsable|d[ée]claration|traffic|trafic|mise [àa] disposition|assembl[ée]e|droits de vote|actions propres|buyback|rachat|patients|essais|clinical|pr[ée]sentation|webcast|conf[ée]rence|call\b|invitation|calendrier", re.I)
 
 def _texte(url):
     st, body, _ = get(url)
@@ -59,7 +60,7 @@ def resultats(valeurs, aujourdhui, pause=0.35):
         passees = {}
         for r in lignes:
             d = (r.get("uin_dat_amf") or "")[:10]; titre = r.get("informationdeposee_inf_tit_inf") or ""
-            if len(d) == 10 and MOTS_RESULTATS.search(titre):
+            if len(d) == 10 and MOTS_RESULTATS.search(titre) and not EXCLUS.search(titre):
                 passees.setdefault(d, titre[:120])
         projections = []
         for d, titre in sorted(passees.items()):

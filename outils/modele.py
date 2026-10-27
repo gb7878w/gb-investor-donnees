@@ -15,6 +15,7 @@ import numpy as np
 import contexte as ctx
 
 HORIZONS = [5, 21, 63]
+DATES = []
 CIBLES = ["mieux", "hausse", "baisse"]
 SEUIL = 0.05  # 5 %
 LIBELLES = {
@@ -165,6 +166,8 @@ def construire(series, indices, secteurs, series_ctx, aujourdhui_dernier=None):
     X, rang, ident, etiq, derniers = [], [], [], [], {}
     toutes_dates = sorted({d for s in series.values() for d in s["d"]})
     rang_date = {d: i for i, d in enumerate(toutes_dates)}
+    global DATES
+    DATES = toutes_dates
     for isin, s in series.items():
         n = len(s["d"])
         if n < 120:
@@ -268,7 +271,7 @@ def evaluer_et_prevoir(X, noms, rang, etiq, derniers, journal=print):
         cibles = _cibles(etiq, h)
         for cible in CIBLES:
             y = cibles[cible]
-            p_oos, y_oos = [], []
+            p_oos, y_oos, par_bloc = [], [], []
             for bloc in blocs:
                 if len(bloc) == 0:
                     continue
@@ -277,7 +280,11 @@ def evaluer_et_prevoir(X, noms, rang, etiq, derniers, journal=print):
                 if tr.sum() < 3000 or te.sum() < 300 or len(np.unique(y[tr])) < 2:
                     continue
                 m = _entrainer(X[tr], y[tr])
-                p_oos.append(m.predict(X[te])); y_oos.append(y[te])
+                p_bloc = m.predict(X[te])
+                p_oos.append(p_bloc); y_oos.append(y[te])
+                if len(np.unique(y[te])) == 2:
+                    fin = int(bloc[-1])
+                    par_bloc.append({"jusqu_a": DATES[fin] if fin < len(DATES) else "", "auc": round(_auc(y[te], p_bloc), 4), "cas": int(te.sum())})
             if not p_oos:
                 resultat["bulletin"][(h, cible)] = None
                 journal(f"horizon {h} {cible} : pas assez de données pour valider")
@@ -295,7 +302,7 @@ def evaluer_et_prevoir(X, noms, rang, etiq, derniers, journal=print):
                 dans = (p_oos >= a) & ((p_oos < b) | (b == bornes[-1]))
                 cal.append((float(a), float(b), float((y_oos[dans].sum() + base * 60) / (dans.sum() + 60))))
             resultat["bulletin"][(h, cible)] = dict(auc=auc, auc_prudent=auc_prudent, base=base, brier=brier, brier_base=brier_base,
-                                                  cas=int(len(y_oos)), independants=float(n_eff), calibration=cal)
+                                                  cas=int(len(y_oos)), independants=float(n_eff), calibration=cal, blocs=par_bloc)
             journal(f"horizon {h} {cible} : AUC {auc:.3f} (prudent {auc_prudent:.3f}), taux de base {base:.3f}, Brier {brier:.4f} vs {brier_base:.4f}, {len(y_oos)} cas")
             ok = ~np.isnan(y)
             if ok.sum() > 3000 and len(np.unique(y[ok])) == 2:
@@ -326,6 +333,19 @@ def previsions(resultat, noms, derniers, secteurs=None):
     return sortie
 
 
+def importance(resultat, noms):
+    """Poids de chaque paramètre dans les modèles finaux (gain moyen, ramené à 100 %)."""
+    total = np.zeros(len(noms))
+    for modele in resultat["modeles"].values():
+        g = modele.feature_importance(importance_type="gain").astype(float)
+        if g.sum() > 0:
+            total += g / g.sum()
+    if total.sum() == 0:
+        return {}
+    total = total / total.sum()
+    return {noms[j]: round(float(total[j]) * 100, 2) for j in np.argsort(-total)}
+
+
 def bulletin(resultat):
     sortie = []
     for (h, cible), b in sorted(resultat["bulletin"].items()):
@@ -333,5 +353,5 @@ def bulletin(resultat):
             sortie.append({"horizon": h, "cible": cible, "valide": False}); continue
         sortie.append({"horizon": h, "cible": cible, "valide": True, "auc": round(b["auc"], 4), "confiance": round(b["auc_prudent"] * 100, 1),
                        "base": round(b["base"], 4), "brier": round(b["brier"], 5), "brier_base": round(b["brier_base"], 5),
-                       "cas": b["cas"], "independants": round(b["independants"])})
+                       "cas": b["cas"], "independants": round(b["independants"]), "blocs": b["blocs"]})
     return sortie

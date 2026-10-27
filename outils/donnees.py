@@ -113,7 +113,7 @@ def preparer_modele(univers, series, indices, genere, derniere, sortie, cle):
         print(f"modèle : {X.shape[0]} lignes, {len(noms)} paramètres")
         resultat = modele.evaluer_et_prevoir(X, noms, rang, etiq, derniers)
         prevision = {"version": 1, "genere": genere, "derniere": derniere, "horizons": modele.HORIZONS, "seuil": modele.SEUIL,
-                     "libelles": {k: v for k, v in modele.LIBELLES.items() if k in noms}, "bulletin": modele.bulletin(resultat),
+                     "libelles": {k: v for k, v in modele.LIBELLES.items() if k in noms}, "bulletin": modele.bulletin(resultat), "importance": modele.importance(resultat, noms),
                      "valeurs": modele.previsions(resultat, noms, derniers)}
         with open(os.path.join(sortie, "prevision.bin"), "wb") as f:
             f.write(chiffrer(json.dumps(prevision, separators=(",", ":")).encode(), cle))
