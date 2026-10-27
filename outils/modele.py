@@ -30,6 +30,12 @@ LIBELLES = {
     "jour": "jour de la semaine", "mois": "mois de l'année", "finmois": "fin de mois",
     "vix": "volatilité (VIX)", "vix5": "volatilité sur 1 semaine", "brent21": "pétrole sur 1 mois", "eurusd21": "euro/dollar sur 1 mois",
     "us10": "taux américain à 10 ans", "us10_21": "taux américain à 10 ans sur 1 mois", "sp5": "S&P 500 sur 1 semaine",
+    "ret126": "variation sur 6 mois", "ret252": "variation sur 1 an", "mom12_1": "momentum 12 mois hors dernier mois",
+    "vol21": "volatilité sur 1 mois", "vol63": "volatilité sur 3 mois", "volratio": "volatilité récente contre habituelle",
+    "maxret21": "plus forte hausse du mois", "illiq": "illiquidité (variation par euro échangé)", "liq_eur": "liquidité (euros échangés par jour)",
+    "voltrend": "tendance du volume", "nuit21": "rendement de nuit sur 1 mois", "jour21": "rendement de séance sur 1 mois",
+    "cac_d200": "CAC 40 par rapport à sa moyenne 200 jours", "cac_vol21": "volatilité du CAC 40", "cac_dd": "CAC 40 depuis son plus haut annuel",
+    "beta63": "sensibilité au CAC 40 (bêta)", "corr63": "corrélation avec le CAC 40",
     "ez10": "taux à 10 ans zone euro", "ez10_21": "taux à 10 ans zone euro sur 1 mois",
 }
 
@@ -88,6 +94,47 @@ def _rolling(f, x, n):
     return out
 
 
+ETENDU = False  # paramètres de l'étape 1 (momentum long, volatilité, illiquidité, bêta, régime) : actifs seulement s'ils ont prouvé leur utilité
+
+
+def _somme_glissante(x, n):
+    """Somme des n dernières valeurs (NaN ignorés comptent pour 0 mais la fenêtre doit être pleine)."""
+    out = np.full(len(x), np.nan)
+    if len(x) >= n:
+        ok = np.isnan(x)
+        c = np.cumsum(np.insert(np.where(ok, 0.0, x), 0, 0.0))
+        nb = np.cumsum(np.insert(ok.astype(float), 0, 0.0))
+        out[n - 1:] = np.where(nb[n:] - nb[:-n] > n // 4, np.nan, c[n:] - c[:-n])
+    return out
+
+
+def _caracteristiques_etendues(o, h, l, c, v):
+    n = len(c)
+    r = np.full(n, np.nan); r[1:] = c[1:] / c[:-1] - 1
+    veille = _avant(c, 1)
+    nuit = o / veille - 1
+    jour = c / o - 1
+    chiffre = c * v
+    with np.errstate(divide="ignore", invalid="ignore"):
+        carre = r * r
+        vol21 = np.sqrt(_somme_glissante(carre, 21) / 21 * 252)
+        vol63 = np.sqrt(_somme_glissante(carre, 63) / 63 * 252)
+        illiq_j = np.where(chiffre > 0, np.abs(r) / (chiffre / 1e6), np.nan)
+        liq = _sma(np.where(np.isnan(chiffre), 0.0, chiffre), 21)
+        ret252 = _ret(c, 252)
+        c21 = _avant(c, 21)
+        return {
+            "ret126": _ret(c, 126), "mom12_1": c21 / _avant(c, 252) - 1,
+            "vol21": vol21, "vol63": vol63, "volratio": vol21 / vol63,
+            "maxret21": _rolling(np.nanmax, r, 21) if n > 21 else np.full(n, np.nan),
+            "illiq": _somme_glissante(np.nan_to_num(illiq_j, nan=np.nan), 21) / 21,
+            "liq_eur": np.log10(np.where(liq > 0, liq, np.nan)),
+            "voltrend": _sma(v, 20) / _sma(v, 100),
+            "nuit21": _somme_glissante(nuit, 21), "jour21": _somme_glissante(jour, 21),
+            "ret252": ret252,
+        }
+
+
 def _caracteristiques(s):
     """Paramètres propres à la valeur, calculés avec les seules séances jusqu'au jour considéré."""
     o, h, l, c, v = (np.array(s[k], dtype=float) for k in "ohlcv")
@@ -128,6 +175,8 @@ def _caracteristiques(s):
             "volrel": np.where(vol_moy > 0, v / vol_moy, np.nan), "gap": o / veille - 1,
             "d_haut": c / haut - 1, "d_bas": c / basan - 1, "serie": serie,
         }
+    if ETENDU:
+        cols.update(_caracteristiques_etendues(o, h, l, c, v))
     return cols
 
 
@@ -152,6 +201,13 @@ def construire(series, indices, secteurs, series_ctx, aujourdhui_dernier=None):
     cac_dates, cac_c = cac["d"], np.array(cac["c"], dtype=float)
     cac_idx = {d: i for i, d in enumerate(cac_dates)}
     cac_cols = {"cac5": _ret(cac_c, 5), "cac21": _ret(cac_c, 21), "cac63": _ret(cac_c, 63)}
+    cac_r = np.full(len(cac_c), np.nan); cac_r[1:] = cac_c[1:] / cac_c[:-1] - 1
+    cac_reg = {}
+    if ETENDU:
+        with np.errstate(divide="ignore", invalid="ignore"):
+            cac_reg = {"cac_d200": cac_c / _sma(cac_c, 200) - 1,
+                       "cac_vol21": np.sqrt(_somme_glissante(cac_r * cac_r, 21) / 21 * 252),
+                       "cac_dd": cac_c / _rolling(np.max, cac_c, 252) - 1 if len(cac_c) >= 252 else np.full(len(cac_c), np.nan)}
     # Ampleur du marché : part des valeurs en hausse sur 5 séances, jour par jour.
     ampleur_tmp = {}
     pre = {}
@@ -186,6 +242,23 @@ def construire(series, indices, secteurs, series_ctx, aujourdhui_dernier=None):
         for nom in ("cac5", "cac21", "cac63"):
             cols[nom] = np.array([cac_cols[nom][cac_idx[d]] if d in cac_idx else np.nan for d in dates])
         cols["ampleur"] = np.array([ampleur.get(d, np.nan) for d in dates])
+        if ETENDU:
+            for nom, serie_reg in cac_reg.items():
+                cols[nom] = np.array([serie_reg[cac_idx[d]] if d in cac_idx else np.nan for d in dates])
+            rs = np.full(nb, np.nan); rs[1:] = c[1:] / c[:-1] - 1
+            rm = np.array([cac_r[cac_idx[d]] if d in cac_idx else np.nan for d in dates])
+            beta, corr = np.full(nb, np.nan), np.full(nb, np.nan)
+            if nb > 70:
+                from numpy.lib.stride_tricks import sliding_window_view as fenetre
+                a, b = fenetre(rs, 63), fenetre(rm, 63)
+                bonne = ~(np.isnan(a).any(axis=1) | np.isnan(b).any(axis=1))
+                a0 = a - a.mean(axis=1, keepdims=True); b0 = b - b.mean(axis=1, keepdims=True)
+                with np.errstate(divide="ignore", invalid="ignore"):
+                    cov = (a0 * b0).sum(axis=1); va = (b0 * b0).sum(axis=1); vs = (a0 * a0).sum(axis=1)
+                    bt = np.where(bonne & (va > 0), cov / va, np.nan)
+                    cr = np.where(bonne & (va > 0) & (vs > 0), cov / np.sqrt(va * vs), np.nan)
+                beta[62:] = bt; corr[62:] = cr
+            cols["beta63"] = beta; cols["corr63"] = corr
         cols["rel21"] = cols["ret21"] - cols["cac21"]
         cols["rel63"] = cols["ret63"] - cols["cac63"]
         cols["relsect21"] = np.array([cols["ret21"][i] - sect_moy.get((secteurs.get(isin) or "?" + isin, dates[i]), np.nan) for i in range(nb)])
