@@ -10,6 +10,7 @@ Les deux fichiers .bin sont compressés puis chiffrés (AES-256-GCM) avec la cl�
 les conditions d'Euronext interdisent de republier leurs cours, seul l'appli de Gilbert sait les lire.
 """
 import base64, datetime as dt, gzip, json, os, re, sys, time, urllib.parse, urllib.request
+from zoneinfo import ZoneInfo
 
 UA = "GB-Investor-donnees/1.0 (usage personnel; github.com/gb7878w/gb-investor-donnees)"
 ENTETE = b"GBI1"
@@ -65,6 +66,10 @@ def lire(csv_text):
         b = nombre(c[idx["Low"]]) or min(o, cl)
         v = nombre(c[idx["Number of Shares"]]) if "Number of Shares" in idx else None
         seances[date] = (o, max(h, o, cl), min(b, o, cl), cl, v or 0.0)
+    # Une séance en cours n'est pas une séance complète : on ne garde celle du jour qu'après la clôture (17 h 35 à Paris).
+    paris = dt.datetime.now(ZoneInfo("Europe/Paris"))
+    if paris.time() < dt.time(18, 0):
+        seances.pop(paris.date().isoformat(), None)
     return sorted(seances.items())
 
 
