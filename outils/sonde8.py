@@ -1,17 +1,23 @@
-"""Sonde 8 : sous quel identifiant de marché Euronext télécharge-t-on les valeurs de Growth ?"""
-import sys, os, datetime as dt, re
+"""Sonde 8 : comment savoir si une valeur cote sur le marché réglementé, sur Growth ou sur Access ?"""
+import sys, os, re, urllib.request
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import donnees
-fin = dt.date.today().isoformat(); debut = (dt.date.today() - dt.timedelta(days=40)).isoformat()
-for nom, isin in [("Capital B", "FR0011053636"), ("Biophytis", "FR0012816825"), ("Sensorion", "FR0012596468"), ("Mediantechn", "FR0011049824"),
-                  ("Keyrus", "FR0004029411"), ("OSE Pharma", "FR0012127173"), ("Adocia", "FR0011184241"), ("LVMH", "FR0000121014")]:
-    for mic in ("XPAR", "ALXP", "XMLI", "ALXB", "XAMS", "MLXB"):
-        try:
-            t = donnees.telecharger(isin, mic, debut, fin, essais=1)
-            try:
-                n = len(donnees.lire(t))
-            except Exception as e:
-                n = f"lecture : {e} ; début : {t[:90]!r}"
-            print(nom, mic, "->", n)
-        except Exception as e:
-            print(nom, mic, "erreur", type(e).__name__, str(e)[:80])
+
+def get(url, n=400):
+    try:
+        r = urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": donnees.UA, "Accept": "text/html,application/json"}), timeout=40)
+        b = r.read().decode("utf-8", "replace")
+        return r.status, b
+    except Exception as e:
+        return getattr(e, "code", 0), str(e)[:150]
+
+VALEURS = [("Capital B", "FR0011053636"), ("Biophytis", "FR0012816825"), ("Mediantechn", "FR0011049824"), ("Keyrus", "FR0004029411"),
+           ("OSE Pharma", "FR0012127173"), ("Adocia", "FR0011184241"), ("LVMH", "FR0000121014"), ("Archos", "FR0014007XT1")]
+for nom, isin in VALEURS:
+    for mic in ("XPAR", "ALXP", "XMLI"):
+        st, b = get(f"https://live.euronext.com/en/product/equities/{isin}-{mic}")
+        m = re.findall(r"(Euronext (?:Growth|Access|Expert)[^<\"]{0,25}|Euronext Paris|Regulated)", b) if st == 200 else []
+        t = re.search(r"<title>([^<]{0,100})", b)
+        print(nom, mic, st, len(b), (t.group(1).strip() if t else ""), sorted(set(m))[:6])
+st, b = get("https://live.euronext.com/en/pd_es/data/stocks?mics=ALXP&iDisplayLength=5")
+print("liste Growth", st, b[:300].replace("\n", " "))
