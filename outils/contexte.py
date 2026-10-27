@@ -21,6 +21,9 @@ FRED = [
     ("DFEDTARU", "Taux directeur de la Fed (haut)", "%", 2),
     ("PCOPPUSDM", "Cuivre (mensuel)", "$/t", 0),
     ("PNGASEUUSDM", "Gaz européen (mensuel)", "$/MBtu", 1),
+    ("IRLTLT01FRM156N", "Taux à 10 ans France (mensuel)", "%", 2),
+    ("IRLTLT01DEM156N", "Taux à 10 ans Allemagne (mensuel)", "%", 2),
+    ("UNRATE", "Chômage américain (mensuel)", "%", 1),
 ]
 BCE = [
     ("YC/B.U2.EUR.4F.G_N_A.SV_C_YM.SR_10Y", "Taux à 10 ans zone euro (courbe AAA)", "%", 2),
@@ -30,6 +33,7 @@ BCE_NIVEAU = [
     ("FM/B.U2.EUR.4F.KR.DFR.LEV", "Taux de dépôt de la BCE", "%", 2),
     ("ICP/M.U2.N.000000.4.ANR", "Inflation zone euro (annuelle)", "%", 1),
     ("ICP/M.FR.N.000000.4.ANR", "Inflation France (annuelle)", "%", 1),
+    ("MNA/Q.Y.I9.W2.S1.S1.B.B1GQ._Z._Z._Z.EUR.LR.GY", "Croissance zone euro (trimestre, annualisée)", "%", 1),
 ]
 
 
@@ -53,6 +57,9 @@ def _serie_fred(ident):
 
 def _date_iso(periode):
     """Les séries mensuelles de la BCE donnent « 2025-12 » : on les date du dernier jour du mois."""
+    if len(periode) == 7 and periode[4:6] == "-Q":
+        an, trimestre = int(periode[:4]), int(periode[6])
+        return (dt.date(an + (trimestre == 4), (trimestre * 3) % 12 + 1, 1) - dt.timedelta(days=1)).isoformat()
     if len(periode) == 7:
         an, mois = int(periode[:4]), int(periode[5:7])
         return (dt.date(an + (mois == 12), mois % 12 + 1, 1) - dt.timedelta(days=1)).isoformat()
@@ -127,6 +134,6 @@ def resume(series, infos, aujourdhui=None):
             "mode": "points" if unite == "%" else "pourcent",
             "var7": None if v5 in (None, 0) else (niveau - v5 if unite == "%" else (niveau / v5 - 1) * 100),
             "var30": None if v21 in (None, 0) else (niveau - v21 if unite == "%" else (niveau / v21 - 1) * 100),
-            "ancien": (dt.date.fromisoformat(aujourdhui) - dt.date.fromisoformat(dates[-1])).days > (70 if "M." in ident or ident in ("PCOPPUSDM", "PNGASEUUSDM") else 10),
+            "ancien": (dt.date.fromisoformat(aujourdhui) - dt.date.fromisoformat(dates[-1])).days > (70 if "M." in ident or ident in ("PCOPPUSDM", "PNGASEUUSDM", "IRLTLT01FRM156N", "IRLTLT01DEM156N", "UNRATE") or "Q." in ident else 10),
         })
     return sortie
