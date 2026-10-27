@@ -91,7 +91,7 @@ def chiffrer(donnees, cle):
 
 
 HISTORIQUE = "https://raw.githubusercontent.com/gb7878w/gb-investor-donnees/historique/"
-APPRENTISSAGE_10_ANS = False  # activé seulement après l'essai final (essai_final.py) contre le modèle actuel
+APPRENTISSAGE_10_ANS = True  # validé le 27 octobre 2026 par essai_final.py : meilleur que le modèle 2 ans pour 8 prévisions sur 9
 PAS_APPRENTISSAGE = 7  # une ligne sur sept pour l'apprentissage sur 10 ans (les étiquettes se chevauchent de toute façon)
 
 

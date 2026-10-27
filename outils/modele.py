@@ -112,7 +112,7 @@ NOMS_GROUPES = {"etendu": NOMS_ETENDUS, "amf": NOMS_AMF, "marches": NOMS_MARCHES
 # Un groupe n'entre que s'il a fait mieux sur la majorité des périodes ET réduit l'erreur (Brier).
 GROUPES = {(5, "mieux"): {"etendu"}, (21, "mieux"): {"etendu"}}
 # Prévisions pour lesquelles l'apprentissage sur 2 ans (SBF 120) reste meilleur que celui sur 10 ans (tout Paris).
-BASE_COURTE = set()
+BASE_COURTE = {(21, "baisse")}  # essai final : 10 ans meilleur sur 3 périodes sur 6 seulement
 
 
 def colonnes(noms, h, cible):
