@@ -1727,19 +1727,6 @@
    "liquidite": 1039
   },
   {
-   "isin": "FR00140072P8",
-   "nom": "Acheter Louer",
-   "code": "ALALO",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "acheter louer"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 2362
-  },
-  {
    "isin": "FR0014011O84",
    "nom": "Acheter-Louer.Fr",
    "code": "ALALO",
@@ -1805,19 +1792,6 @@
    "liquidite": 315633
   },
   {
-   "isin": "FR0013247244",
-   "nom": "Adomos",
-   "code": "ALADO",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "adomos"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 1086
-  },
-  {
    "isin": "FR00140153H3",
    "nom": "Adomos",
    "code": "ALADO",
@@ -1828,7 +1802,7 @@
    "cac40": false,
    "sbf120": false,
    "mic": "ALXP",
-   "liquidite": 1086
+   "liquidite": 0
   },
   {
    "isin": "FR0012821890",
@@ -2195,19 +2169,6 @@
    "liquidite": 103965
   },
   {
-   "isin": "FR0014007XT1",
-   "nom": "Archos",
-   "code": "ALJXR",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "archos"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 74067
-  },
-  {
    "isin": "FR001400KO61",
    "nom": "Archos",
    "code": "ALJXR",
@@ -2218,7 +2179,7 @@
    "cac40": false,
    "sbf120": false,
    "mic": "ALXP",
-   "liquidite": 74067
+   "liquidite": 0
   },
   {
    "isin": "FR0013398997",
@@ -2387,7 +2348,7 @@
    "cac40": false,
    "sbf120": false,
    "mic": "ALXP",
-   "liquidite": 18074
+   "liquidite": 0
   },
   {
    "isin": "FR0011992700",
@@ -2491,7 +2452,7 @@
    "cac40": false,
    "sbf120": false,
    "mic": "XPAR",
-   "liquidite": 11789
+   "liquidite": 0
   },
   {
    "isin": "IT0004812258",
@@ -2686,7 +2647,7 @@
    "cac40": false,
    "sbf120": false,
    "mic": "ALXP",
-   "liquidite": 1215383
+   "liquidite": 0
   },
   {
    "isin": "FR0011005933",
@@ -2816,7 +2777,7 @@
    "cac40": false,
    "sbf120": false,
    "mic": "ALXP",
-   "liquidite": 268
+   "liquidite": 0
   },
   {
    "isin": "FR0000054421",
@@ -3089,7 +3050,7 @@
    "cac40": false,
    "sbf120": false,
    "mic": "ALXP",
-   "liquidite": 1370647
+   "liquidite": 0
   },
   {
    "isin": "FR0011648716",
@@ -3648,7 +3609,7 @@
    "cac40": false,
    "sbf120": false,
    "mic": "ALXP",
-   "liquidite": 426137
+   "liquidite": 0
   },
   {
    "isin": "FR001400AYG6",
@@ -3755,19 +3716,6 @@
    "liquidite": 6441
   },
   {
-   "isin": "FR0014004QZ9",
-   "nom": "Dolfines",
-   "code": "ALDOL",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "dolfines"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 497
-  },
-  {
    "isin": "FR001400SP13",
    "nom": "Dolfines",
    "code": "ALDOL",
@@ -3778,7 +3726,7 @@
    "cac40": false,
    "sbf120": false,
    "mic": "ALXP",
-   "liquidite": 497
+   "liquidite": 0
   },
   {
    "isin": "FR0013331212",
@@ -4038,7 +3986,7 @@
    "cac40": false,
    "sbf120": false,
    "mic": "ALXP",
-   "liquidite": 6313
+   "liquidite": 0
   },
   {
    "isin": "ES0105687000",
@@ -4272,7 +4220,7 @@
    "cac40": false,
    "sbf120": false,
    "mic": "ALXP",
-   "liquidite": 19134
+   "liquidite": 0
   },
   {
    "isin": "FR0000064164",
@@ -5325,7 +5273,7 @@
    "cac40": false,
    "sbf120": false,
    "mic": "ALXP",
-   "liquidite": 24621
+   "liquidite": 0
   },
   {
    "isin": "FR0000065278",
@@ -6417,7 +6365,7 @@
    "cac40": false,
    "sbf120": false,
    "mic": "ALXP",
-   "liquidite": 42
+   "liquidite": 0
   },
   {
    "isin": "FR0000038242",
@@ -6927,19 +6875,6 @@
    "liquidite": 1913
   },
   {
-   "isin": "FR00140077X1",
-   "nom": "Neovacs",
-   "code": "ALNEV",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "neovacs"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 10623
-  },
-  {
    "isin": "FR0014018EV4",
    "nom": "Neovacs",
    "code": "ALNEV",
@@ -6950,7 +6885,7 @@
    "cac40": false,
    "sbf120": false,
    "mic": "ALXP",
-   "liquidite": 10623
+   "liquidite": 0
   },
   {
    "isin": "FR0004154060",
@@ -7782,7 +7717,7 @@
    "cac40": false,
    "sbf120": false,
    "mic": "ALXP",
-   "liquidite": 12652
+   "liquidite": 0
   },
   {
    "isin": "FR0000061376",
@@ -7899,7 +7834,7 @@
    "cac40": false,
    "sbf120": false,
    "mic": "ALXP",
-   "liquidite": 21533
+   "liquidite": 0
   },
   {
    "isin": "IT0005460081",
@@ -8064,19 +7999,6 @@
    "secteur": "Autres valeurs",
    "alias": [
     "safe"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
-   "isin": "FR001400F1V2",
-   "nom": "Safe Orthopaedics",
-   "code": "ALSAF",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "safe orthopaedics"
    ],
    "cac40": false,
    "sbf120": false,
@@ -8276,7 +8198,7 @@
    "cac40": false,
    "sbf120": false,
    "mic": "ALXP",
-   "liquidite": 146220
+   "liquidite": 0
   },
   {
    "isin": "NL0010623518",
@@ -8487,19 +8409,6 @@
    "liquidite": 0
   },
   {
-   "isin": "FR00140006O9",
-   "nom": "Solocal Group",
-   "code": "LOCAL",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "solocal group"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "XPAR",
-   "liquidite": 43373
-  },
-  {
    "isin": "FR001400SA10",
    "nom": "Solocal Group",
    "code": "LOCAL",
@@ -8510,7 +8419,7 @@
    "cac40": false,
    "sbf120": false,
    "mic": "XPAR",
-   "liquidite": 43373
+   "liquidite": 0
   },
   {
    "isin": "FR0013379484",
@@ -8575,7 +8484,7 @@
    "cac40": false,
    "sbf120": false,
    "mic": "ALXP",
-   "liquidite": 11649
+   "liquidite": 0
   },
   {
    "isin": "FR0013006558",
@@ -8760,19 +8669,6 @@
    "liquidite": 0
   },
   {
-   "isin": "FR0004197747",
-   "nom": "Theradiag",
-   "code": "ALTHE",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "theradiag"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 30495
-  },
-  {
    "isin": "FR0013286259",
    "nom": "Theranexus",
    "code": "ALTHX",
@@ -8835,7 +8731,7 @@
    "cac40": false,
    "sbf120": false,
    "mic": "ALXP",
-   "liquidite": 106002
+   "liquidite": 0
   },
   {
    "isin": "FR0013295789",
@@ -8913,7 +8809,7 @@
    "cac40": false,
    "sbf120": false,
    "mic": "ALXP",
-   "liquidite": 33156
+   "liquidite": 0
   },
   {
    "isin": "FR0005175080",
