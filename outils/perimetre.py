@@ -15,6 +15,15 @@ import base64, datetime as dt, html, json, os, re, statistics, sys, time, urllib
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import donnees
 
+JOURNAL = []
+
+
+def noter(*morceaux):
+    """Affiche et garde la ligne pour univers/perimetre-journal.txt (les journaux d'Actions ne sont pas toujours lisibles)."""
+    ligne = " ".join(str(m) for m in morceaux)
+    print(ligne)
+    JOURNAL.append(ligne)
+
 SEANCES_LIQUIDITE = 60
 FORMES = re.compile(r"\s+(S\.?A\.?S?\.?|S\.?C\.?A\.?|S\.?E\.?|N\.?V\.?|PLC|SA|SAS|SCA|SE)\.?$", re.I)
 MARCHES = {"XPAR": "Euronext Paris", "ALXP": "Euronext Growth Paris", "XMLI": "Euronext Access Paris"}
@@ -58,9 +67,11 @@ def liste_euronext():
                                                                      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
                                                                      "X-Requested-With": "XMLHttpRequest"})
         with urllib.request.urlopen(req, timeout=120) as r:
-            lignes = json.loads(r.read().decode("utf-8", "replace")).get("aaData", [])
+            reponse = json.loads(r.read().decode("utf-8", "replace"))
+        lignes = reponse.get("aaData", [])
+        noter(f"liste officielle Euronext : {len(lignes)} lignes reçues sur {reponse.get('iTotalRecords', reponse.get('recordsTotal', '?'))}")
     except Exception as e:
-        print(f"liste officielle Euronext indisponible ({type(e).__name__} {str(e)[:80]}) : couverture EODHD seule")
+        noter(f"liste officielle Euronext indisponible ({type(e).__name__} {str(e)[:80]}) : couverture EODHD seule")
         return {}
     sortie = {}
     for ligne in lignes:
@@ -72,7 +83,7 @@ def liste_euronext():
         texte = [html.unescape(re.sub(r"<[^>]+>", "", c)).strip() for c in cellules]
         code = next((t for t in texte if t != isin and re.fullmatch(r"[A-Z0-9]{1,8}", t)), "")
         sortie[isin] = (html.unescape(m.group(3)), code, m.group(2))
-    print(f"liste officielle Euronext : {len(sortie)} actions de Paris")
+    noter(f"liste officielle Euronext : {len(sortie)} actions de Paris")
     return sortie
 
 
@@ -81,17 +92,31 @@ DESCRIPTION = re.compile(r'content="Stock [^"]*? ([A-Z]{2}[A-Z0-9]{9}[0-9]) ([A-
 
 def marche(isin):
     """Marché de cotation lu dans la page produit publique d'Euronext (balise description : « … ISIN MIC Euronext … Live quotes »).
+    Essaie l'adresse de chaque marché de Paris, deux fois en cas d'erreur réseau.
     Renvoie le code MIC (XPAR marché réglementé, ALXP Growth, XMLI Access…) ou None si la valeur n'existe plus."""
-    try:
-        req = urllib.request.Request(f"https://live.euronext.com/en/product/equities/{isin}-XPAR", headers={"User-Agent": donnees.UA})
-        with urllib.request.urlopen(req, timeout=40) as r:
-            page = r.read().decode("utf-8", "replace")
-    except Exception:
-        return None
-    finally:
-        time.sleep(0.4)
-    m = DESCRIPTION.search(page)
-    return m.group(2) if m and m.group(1) == isin else None
+    for suffixe in MARCHES:
+        for essai in range(2):
+            try:
+                req = urllib.request.Request(f"https://live.euronext.com/en/product/equities/{isin}-{suffixe}", headers={"User-Agent": donnees.UA})
+                with urllib.request.urlopen(req, timeout=40) as r:
+                    page = r.read().decode("utf-8", "replace")
+            except urllib.error.HTTPError as e:
+                page = ""
+                if e.code < 500 and e.code != 429:
+                    break
+                time.sleep(3 * (essai + 1))
+                continue
+            except Exception:
+                page = ""
+                time.sleep(3 * (essai + 1))
+                continue
+            finally:
+                time.sleep(0.4)
+            m = DESCRIPTION.search(page)
+            if m and m.group(1) == isin:
+                return m.group(2)
+            break
+    return None
 
 
 def main(sortie):
@@ -108,7 +133,7 @@ def main(sortie):
                   if c.get("isin") and ISIN.match(c["isin"]) and not c.get("radiee") and c.get("fin", limite) >= limite and c["isin"] not in deja}
     officielle = {i: x for i, x in liste_euronext().items() if i not in deja}
     absentes_eodhd = sorted(set(officielle) - set(couverture))
-    print(f"{len(couverture)} actions vivantes dans la couverture, {len(officielle)} dans la liste officielle, "
+    noter(f"{len(couverture)} actions vivantes dans la couverture, {len(officielle)} dans la liste officielle, "
           f"{len(absentes_eodhd)} seulement dans la liste officielle")
     candidats = sorted(set(couverture) | set(officielle))
     liq = liquidites(cle, set(candidats) | deja)
@@ -127,11 +152,11 @@ def main(sortie):
         nom = nom_propre(nom)
         retenues.append({"isin": isin, "nom": nom, "code": code[:8], "secteur": "Autres valeurs", "alias": [nom.lower()],
                          "cac40": False, "sbf120": False, "mic": mic, "liquidite": round(liq.get(isin, 0))})
-    print(f"{len(retenues)} valeurs hors SBF 120 retenues, {len(ecartees)} écartées ; marchés : {marches}")
-    for e in ecartees[:80]:
-        print("  écartée :", e)
-    for i in absentes_eodhd[:80]:
-        print("  sans historique long :", officielle[i][0], f"({i}, {officielle[i][2]})")
+    noter(f"{len(retenues)} valeurs hors SBF 120 retenues, {len(ecartees)} écartées ; marchés : {marches}")
+    for e in ecartees:
+        noter("  écartée :", e)
+    for i in absentes_eodhd:
+        noter("  sans historique long :", officielle[i][0], f"({i}, {officielle[i][2]})")
     tout = []
     for v in sbf["valeurs"]:
         tout.append(dict(v, sbf120=True, liquidite=round(liq.get(v["isin"], 0))))
@@ -141,9 +166,9 @@ def main(sortie):
            "plancher_liquidite_euros": None, "seuil_liquidite_euros": None, "valeurs": tout}
     os.makedirs(os.path.dirname(sortie), exist_ok=True)
     json.dump(res, open(sortie, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    print(f"{len(tout)} valeurs au total : " + ", ".join(f"{sum(1 for v in tout if v['mic'] == m)} {n}" for m, n in MARCHES.items()))
+    noter(f"{len(tout)} valeurs au total : " + ", ".join(f"{sum(1 for v in tout if v['mic'] == m)} {n}" for m, n in MARCHES.items()))
     for nom in ("Sensorion",):
-        print(f"  contrôle {nom} :", "présente" if any(nom.lower() in v["nom"].lower() for v in tout) else "ABSENTE")
+        noter(f"  contrôle {nom} :", "présente" if any(nom.lower() in v["nom"].lower() for v in tout) else "ABSENTE")
 
 
 if __name__ == "__main__":

@@ -248,6 +248,7 @@ def preparer_modele(univers, series, indices, genere, derniere, sortie, cle):
         prevision["seuils_qualite"] = SEUILS_QUALITE
         prevision["perimetre"] = {"valeurs": len(series), "sbf120": sum(1 for v in univers["valeurs"] if v.get("sbf120", True) and v["isin"] in series),
                                   "growth": sum(1 for v in univers["valeurs"] if v.get("mic") == "ALXP" and v["isin"] in series),
+                                  "access": sum(1 for v in univers["valeurs"] if v.get("mic") == "XMLI" and v["isin"] in series),
                                   "seuil_liquidite_euros": univers.get("seuil_liquidite_euros")}
         with open(os.path.join(sortie, "prevision.bin"), "wb") as f:
             f.write(chiffrer(json.dumps(prevision, separators=(",", ":")).encode(), cle))
