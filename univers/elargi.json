@@ -1662,45 +1662,6 @@
    "liquidite": 151841
   },
   {
-   "isin": "FR001400ZRT0",
-   "nom": "Ab Science Bsa",
-   "code": "ABBS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "ab science bsa"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "XPAR",
-   "liquidite": 0
-  },
-  {
-   "isin": "FR00140118Z8",
-   "nom": "Ab Science Bsa 25",
-   "code": "ABSBS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "ab science bsa 25"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
-   "isin": "FR0014011S49",
-   "nom": "Ab Science Bsaau25",
-   "code": "ABBSA",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "ab science bsaau25"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
    "isin": "FR0004040608",
    "nom": "ABC arbitrage",
    "code": "ABCA",
@@ -1842,19 +1803,6 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 315633
-  },
-  {
-   "isin": "FR001400XVZ4",
-   "nom": "Adocia Bsa",
-   "code": "ADOBS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "adocia bsa"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
   },
   {
    "isin": "FR0013247244",
@@ -2273,19 +2221,6 @@
    "liquidite": 74067
   },
   {
-   "isin": "FR0014018EP6",
-   "nom": "Archos Bsa",
-   "code": "JXRBS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "archos bsa"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
    "isin": "FR0013398997",
    "nom": "Arcure",
    "code": "ALCUR",
@@ -2409,19 +2344,6 @@
    "secteur": "Autres valeurs",
    "alias": [
     "arverne group"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "XPAR",
-   "liquidite": 0
-  },
-  {
-   "isin": "FR0014003AC4",
-   "nom": "Arverne Warrant",
-   "code": "ARVBS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "arverne warrant"
    ],
    "cac40": false,
    "sbf120": false,
@@ -2767,58 +2689,6 @@
    "liquidite": 1215383
   },
   {
-   "isin": "FR001400LN79",
-   "nom": "Biophytis Bsa",
-   "code": "BPBS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "biophytis bsa"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
-   "isin": "FR001400YN90",
-   "nom": "Biophytis Bsa",
-   "code": "BPYBS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "biophytis bsa"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
-   "isin": "FR0014016WC0",
-   "nom": "Biophytis Bsa31",
-   "code": "BIBS3",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "biophytis bsa31"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
-   "isin": "FR001401AY03",
-   "nom": "Biophytis Bsa4",
-   "code": "BIBS4",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "biophytis bsa4"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
    "isin": "FR0011005933",
    "nom": "Biosynex",
    "code": "ALBIO",
@@ -2869,19 +2739,6 @@
    "sbf120": false,
    "mic": "ALXP",
    "liquidite": 388
-  },
-  {
-   "isin": "FR001401BN47",
-   "nom": "Bluelinea Ds",
-   "code": "BLUDS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "bluelinea ds"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
   },
   {
    "isin": "FR0011365907",
@@ -3209,32 +3066,6 @@
    "liquidite": 8683
   },
   {
-   "isin": "FR0013507985",
-   "nom": "Calibre Bsa K2A",
-   "code": "IBRKA",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "calibre bsa k2a"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
-   "isin": "FR0013508009",
-   "nom": "Calibre Bsa K2B",
-   "code": "IBRKB",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "calibre bsa k2b"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
    "isin": "FR001400SUB7",
    "nom": "Cambodge Nom",
    "code": "CBDG",
@@ -3287,32 +3118,6 @@
    "liquidite": 0
   },
   {
-   "isin": "FR001400OJ72",
-   "nom": "Casino Bsa1",
-   "code": "COBS1",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "casino bsa1"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "XPAR",
-   "liquidite": 0
-  },
-  {
-   "isin": "FR001400OJ98",
-   "nom": "Casino Bsa3",
-   "code": "COBS3",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "casino bsa3"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "XPAR",
-   "liquidite": 0
-  },
-  {
    "isin": "FR001400OKR3",
    "nom": "Casino Guichard Perrachon",
    "code": "CO",
@@ -3345,32 +3150,6 @@
    "secteur": "Autres valeurs",
    "alias": [
     "catering intl sces"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
-   "isin": "FR001400O416",
-   "nom": "Cbi Bsa A",
-   "code": "CBBSA",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "cbi bsa a"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
-   "isin": "FR001400O408",
-   "nom": "Cbi Bsa B",
-   "code": "CBSAB",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "cbi bsa b"
    ],
    "cac40": false,
    "sbf120": false,
@@ -3794,19 +3573,6 @@
    "liquidite": 186226
   },
   {
-   "isin": "FR001400UR90",
-   "nom": "Crossject Bs27",
-   "code": "CJBS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "crossject bs27"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
    "isin": "FR0000050395",
    "nom": "Crosswood",
    "code": "CROS",
@@ -3891,19 +3657,6 @@
    "secteur": "Autres valeurs",
    "alias": [
     "deezer"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "XPAR",
-   "liquidite": 0
-  },
-  {
-   "isin": "FR0014004JF6",
-   "nom": "Deezer Warrants",
-   "code": "DEEZW",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "deezer warrants"
    ],
    "cac40": false,
    "sbf120": false,
@@ -4052,58 +3805,6 @@
    "sbf120": false,
    "mic": "ALXP",
    "liquidite": 172004
-  },
-  {
-   "isin": "FR0014007951",
-   "nom": "Drone Volt Bs28",
-   "code": "BNBS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "drone volt bs28"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
-   "isin": "FR0014011219",
-   "nom": "Drone Volt Bsa",
-   "code": "DRNBS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "drone volt bsa"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
-   "isin": "FR001401ARU9",
-   "nom": "Dronevoltbs2031",
-   "code": "DV31",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "dronevoltbs2031"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
-   "isin": "FR00140188H9",
-   "nom": "Dronevoltbs31",
-   "code": "DVBS6",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "dronevoltbs31"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
   },
   {
    "isin": "FR0000052920",
@@ -5120,19 +4821,6 @@
    "liquidite": 108061
   },
   {
-   "isin": "FR0014010IB4",
-   "nom": "Gensight Bsa",
-   "code": "SIGBS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "gensight bsa"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
    "isin": "PTGVE1AM0017",
    "nom": "Gentlemens Equity",
    "code": "MLGEQ",
@@ -5209,19 +4897,6 @@
    "sbf120": false,
    "mic": "ALXP",
    "liquidite": 28361
-  },
-  {
-   "isin": "FR001401BGB0",
-   "nom": "Gold By Gold Ds",
-   "code": "GLDDS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "gold by gold ds"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
   },
   {
    "isin": "FR0000065971",
@@ -6342,19 +6017,6 @@
    "liquidite": 5056
   },
   {
-   "isin": "FR0014013TD1",
-   "nom": "Klarsen Bsa O",
-   "code": "KLBSO",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "klarsen bsa o"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
    "isin": "FR0013481835",
    "nom": "Klea Holding",
    "code": "ALKLH",
@@ -6940,32 +6602,6 @@
    "liquidite": 1434
   },
   {
-   "isin": "FR0013472446",
-   "nom": "Mastrad Bs29",
-   "code": "MASBS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "mastrad bs29"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
-   "isin": "FR00140140W9",
-   "nom": "Mauna Kea Bsa",
-   "code": "MKTBS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "mauna kea bsa"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
    "isin": "FR0010609263",
    "nom": "Mauna Kea Technologies",
    "code": "ALMKT",
@@ -6989,19 +6625,6 @@
    "cac40": false,
    "sbf120": false,
    "mic": "XMLI",
-   "liquidite": 0
-  },
-  {
-   "isin": "FR0014011D04",
-   "nom": "Median Tech Bsa",
-   "code": "MDTBS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "median tech bsa"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
    "liquidite": 0
   },
   {
@@ -7642,19 +7265,6 @@
    "liquidite": 0
   },
   {
-   "isin": "FR00140126G1",
-   "nom": "One Exp Bsa 2025 2",
-   "code": "ONEBS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "one exp bsa 2025 2"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
    "isin": "FR0013266772",
    "nom": "One Experience",
    "code": "ALEXP",
@@ -7965,32 +7575,6 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 201075
-  },
-  {
-   "isin": "FR001400B4H9",
-   "nom": "Pierre Vac Bsa Act",
-   "code": "VACBS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "pierre vac bsa act"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "XPAR",
-   "liquidite": 0
-  },
-  {
-   "isin": "FR001400B4G1",
-   "nom": "Pierre Vac Bsa Cre",
-   "code": "VACBT",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "pierre vac bsa cre"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "XPAR",
-   "liquidite": 0
   },
   {
    "isin": "FR0000061608",
@@ -8799,19 +8383,6 @@
    "liquidite": 37
   },
   {
-   "isin": "FR0010649228",
-   "nom": "Smalto Bsa",
-   "code": "SMLBS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "smalto bsa"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "XMLI",
-   "liquidite": 0
-  },
-  {
    "isin": "FR0013214145",
    "nom": "Smcp",
    "code": "SMCP",
@@ -9085,19 +8656,6 @@
    "liquidite": 20850
   },
   {
-   "isin": "FR001400Z5J4",
-   "nom": "Streamwide Bsaane",
-   "code": "STEBS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "streamwide bsaane"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
    "isin": "FR0000063976",
    "nom": "Streit Mecanique",
    "code": "MLSTR",
@@ -9163,32 +8721,6 @@
    "liquidite": 0
   },
   {
-   "isin": "FR0014012OE2",
-   "nom": "Td Bsa 2025-2",
-   "code": "TDBS2",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "td bsa 2025-2"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
-   "isin": "FR0014012ZX8",
-   "nom": "Td Bsa 2025-3",
-   "code": "TDBS3",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "td bsa 2025-3"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
    "isin": "FR0011076595",
    "nom": "Televista",
    "code": "MLVST",
@@ -9221,19 +8753,6 @@
    "secteur": "Autres valeurs",
    "alias": [
     "theraclion"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
-   "isin": "FR00140180O2",
-   "nom": "Theraclion Bsa",
-   "code": "THEBS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "theraclion bsa"
    ],
    "cac40": false,
    "sbf120": false,
@@ -9670,19 +9189,6 @@
    "liquidite": 4547
   },
   {
-   "isin": "FR0014014OK5",
-   "nom": "Vaziva Bsa",
-   "code": "VAZBS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "vaziva bsa"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 0
-  },
-  {
    "isin": "FR0010766667",
    "nom": "Vente Unique.com",
    "code": "ALVU",
@@ -10006,19 +9512,6 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 1892671
-  },
-  {
-   "isin": "LU2999660207",
-   "nom": "Younited Fin. Warr",
-   "code": "YOUNW",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "younited fin. warr"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "XPAR",
-   "liquidite": 0
   },
   {
    "isin": "LU2999653251",
