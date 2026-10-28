@@ -2,7 +2,7 @@ name: Périmètre (toutes les actions de Paris)
 on:
   workflow_dispatch:
   push:
-    branches: [claude/toutes-actions-francaises]
+    branches: [claude/correctif-modele]
     paths: [outils/perimetre.py, .github/workflows/perimetre.yml]
 permissions:
   contents: write
