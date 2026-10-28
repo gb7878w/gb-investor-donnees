@@ -526,7 +526,9 @@ def previsions(resultat, noms, derniers, secteurs=None):
         b = resultat["bulletin"][(h, cible)]
         idx = resultat["colonnes"][(h, cible)]
         source = resultat.get("derniers", {}).get((h, cible), derniers)  # paramètres du dernier jour, calculés comme à l'apprentissage
-        Mc = np.vstack([source[i][0] if i in source else derniers[i][0] for i in isins])[:, idx]
+        # Une valeur absente de la base d'apprentissage de ce modèle n'a pas ses paramètres (colonnes différentes) : pas de prévision pour elle
+        isins = [i for i in sorted(derniers) if i in source]
+        Mc = np.vstack([source[i][0] for i in isins])[:, idx]
         p = modele.predict(Mc)
         contrib = modele.predict(Mc, pred_contrib=True)[:, :-1]
         cal = b["calibration"]

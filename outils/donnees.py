@@ -132,7 +132,12 @@ def series_10_ans(series, indices, cle):
     for k in range(1, 5):
         for v in _lire_historique(f"historique-{k}.bin", cle)["valeurs"]:
             if v.get("isin") in series:
-                longues[v["isin"]] = _prolonger(v, series[v["isin"]])
+                recente = series[v["isin"]]
+                s = _prolonger(v, recente)
+                # Historique EODHD plus court ou arrêté (nouvel ISIN après un regroupement d'actions) : les deux ans Euronext valent mieux
+                if not s["d"] or len(s["d"]) < len(recente["d"]) or s["d"][-1] < recente["d"][-1]:
+                    s = recente
+                longues[v["isin"]] = s
             elif v.get("isin") not in longues:
                 longues[v["id"]] = _prolonger(v, None)
                 radiees += bool(v.get("radiee"))
