@@ -28,6 +28,7 @@ SEANCES_LIQUIDITE = 60
 FORMES = re.compile(r"\s+(S\.?A\.?S?\.?|S\.?C\.?A\.?|S\.?E\.?|N\.?V\.?|PLC|SA|SAS|SCA|SE)\.?$", re.I)
 MARCHES = {"XPAR": "Euronext Paris", "ALXP": "Euronext Growth Paris", "XMLI": "Euronext Access Paris"}
 ISIN = re.compile(r"^[A-Z]{2}[A-Z0-9]{9}[0-9]$")
+ISIN_DANS = re.compile(r"\b[A-Z]{2}[A-Z0-9]{9}[0-9]\b")
 
 
 def nom_propre(nom):
@@ -64,19 +65,35 @@ LIEN = re.compile(r"/product/equities/([A-Z]{2}[A-Z0-9]{9}[0-9])-([A-Z]{4})")
 
 def liste_euronext():
     """Liste officielle des actions de Paris (tableau « Equities » d'Euronext) : {isin: (nom, code, mic)}. Vide si la page ne répond pas."""
-    url = "https://live.euronext.com/en/pd_es/data/stocks?mics=" + urllib.parse.quote(",".join(MARCHES))
-    donnees_post = urllib.parse.urlencode({"draw": 1, "start": 0, "length": 5000, "iDisplayStart": 0, "iDisplayLength": 5000}).encode()
-    try:
-        req = urllib.request.Request(url, data=donnees_post, headers={"User-Agent": donnees.UA, "Accept": "application/json, */*",
-                                                                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                                                                     "X-Requested-With": "XMLHttpRequest"})
-        with urllib.request.urlopen(req, timeout=120) as r:
-            reponse = json.loads(r.read().decode("utf-8", "replace"))
-        lignes = reponse.get("aaData", [])
-        noter(f"liste officielle Euronext : {len(lignes)} lignes reçues sur {reponse.get('iTotalRecords', reponse.get('recordsTotal', '?'))}")
-    except Exception as e:
-        noter(f"liste officielle Euronext indisponible ({type(e).__name__} {str(e)[:80]}) : couverture EODHD seule")
-        return {}
+    mics = urllib.parse.quote(",".join(MARCHES))
+    essais = [  # le tableau ne remplit ses colonnes qu'avec display_datapoints ; le téléchargement CSV sert de repli
+        ("tableau", f"https://live.euronext.com/en/pd_es/data/stocks?mics={mics}&display_datapoints=dp_stocks&display_filters=df_stocks",
+         {"draw": 1, "start": 0, "length": 5000, "iDisplayStart": 0, "iDisplayLength": 5000}),
+        ("csv", f"https://live.euronext.com/pd_es/data/stocks/download?mics={mics}",
+         {"iDisplayLength": 5000, "iDisplayStart": 0, "args[initialLetter]": "", "args[fe_type]": "csv", "args[fe_decimal]": ".",
+          "args[fe_date_format]": "d/m/Y"}),
+    ]
+    lignes = []
+    for nom_essai, url, champs in essais:
+        try:
+            req = urllib.request.Request(url, data=urllib.parse.urlencode(champs).encode(),
+                                         headers={"User-Agent": donnees.UA, "Accept": "application/json, text/csv, */*",
+                                                  "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", "X-Requested-With": "XMLHttpRequest"})
+            with urllib.request.urlopen(req, timeout=120) as r:
+                brut = r.read().decode("utf-8-sig", "replace")
+        except Exception as e:
+            noter(f"liste officielle Euronext ({nom_essai}) indisponible : {type(e).__name__} {str(e)[:80]}")
+            continue
+        if nom_essai == "tableau":
+            try:
+                lignes = [l for l in json.loads(brut).get("aaData", []) if l]
+            except ValueError:
+                lignes = []
+        else:
+            lignes = [l.split(";") for l in brut.splitlines() if ISIN_DANS.search(l)]
+        noter(f"liste officielle Euronext ({nom_essai}) : {len(lignes)} lignes utiles ; début : {brut[:300]!r}")
+        if lignes:
+            break
     if lignes:
         noter("  première ligne :", str(lignes[0])[:600])
     sortie = {}
