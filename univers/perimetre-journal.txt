@@ -1,8 +1,8 @@
 liste officielle Euronext (tableau) : 772 lignes utiles ; début : '{"iTotalRecords":772,"iTotalDisplayRecords":772,"aaData":[["","\\u003Ca href=\\u0022\\/en\\/product\\/equities\\/FR0013341781-ALXP\\u0022 data-order=\\u00222CRSI\\u0022 data-title-hover=\\u00222CRSI\\u0022\\u003E2CRSI\\u003C\\/a\\u003E","FR0013341781","AL2SI","\\u003Cdiv class=\\u0022nowrap pointer\\u0022 title=\\u002'
-  première ligne : ['', '<a href="/en/product/equities/FR0013341781-ALXP" data-order="2CRSI" data-title-hover="2CRSI">2CRSI</a>', 'FR0013341781', 'AL2SI', '<div class="nowrap pointer" title="Euronext Growth Paris">ALXP</div>', '<div class="text-right pd_currency_es">EUR <span class="pd_last_price_es">27.82</span></div>', '<div class="text-right pd_percent"><span class=red>-1.21%</span></div>', '<div class="text-right pointer tooltipDesign">09:34 CET<span class="tooltiptext">28 Oct 2026</span></div>']
+  première ligne : ['', '<a href="/en/product/equities/FR0013341781-ALXP" data-order="2CRSI" data-title-hover="2CRSI">2CRSI</a>', 'FR0013341781', 'AL2SI', '<div class="nowrap pointer" title="Euronext Growth Paris">ALXP</div>', '<div class="text-right pd_currency_es">EUR <span class="pd_last_price_es">27.92</span></div>', '<div class="text-right pd_percent"><span class=red>-0.85%</span></div>', '<div class="text-right pointer tooltipDesign">09:35 CET<span class="tooltiptext">28 Oct 2026</span></div>']
 liste officielle Euronext : 721 actions de Paris
-431 actions vivantes dans la couverture, 602 dans la liste officielle, 202 seulement dans la liste officielle
-611 valeurs hors SBF 120 retenues, 22 écartées ; marchés : {'ALXP': 270, 'XMLI': 139, 'XPAR': 202}
+430 actions vivantes dans la couverture, 602 dans la liste officielle, 202 seulement dans la liste officielle
+610 valeurs hors SBF 120 retenues, 22 écartées ; marchés : {'ALXP': 269, 'XMLI': 139, 'XPAR': 202}
   écartée : Tractial S.A. (FR0000035305) : page Euronext introuvable (radiée ?)
   écartée : Avenir Telecom S.A (FR0000066052) : page Euronext introuvable (radiée ?)
   écartée : GECI International SA (FR0000079634) : page Euronext introuvable (radiée ?)
@@ -227,5 +227,5 @@ liste officielle Euronext : 721 actions de Paris
   sans historique long : FIN.OUEST AFRICAIN (SN0000033192, XPAR)
   sans historique long : AERKOMM INC (US00774B2088, XPAR)
   sans historique long : COTY (US2220702037, XPAR)
-732 valeurs au total : 320 Euronext Paris, 270 Euronext Growth Paris, 139 Euronext Access Paris
+732 valeurs au total : 321 Euronext Paris, 269 Euronext Growth Paris, 139 Euronext Access Paris
   contrôle Sensorion : présente
