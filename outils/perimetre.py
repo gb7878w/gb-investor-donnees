@@ -1,20 +1,24 @@
-"""Périmètre élargi de GB Investor : SBF 120 + valeurs liquides d'Euronext Paris (marché réglementé) et d'Euronext Growth Paris.
+"""Périmètre de GB Investor : toutes les actions cotées à Paris (Euronext Paris, Euronext Growth Paris et Euronext Access Paris).
 
-Euronext Access est exclu (très peu échangé, peu d'information). La liste vient de la couverture de l'historique long
-(couverture.json, publique, sans aucun cours) ; la liquidité est mesurée sur les 60 dernières séances de l'historique chiffré
-(médiane des euros échangés par jour), puis chaque valeur retenue est classée d'après sa page produit publique chez Euronext :
-marché réglementé (XPAR) ou Growth (ALXP) acceptés, Access (XMLI) refusé.
-Sortie : univers/elargi.json, relu chaque soir par donnees.py. À relancer à la main à chaque révision trimestrielle du SBF 120.
+Deux listes sont réunies pour ne rien oublier :
+- la couverture de l'historique long (couverture.json, publique, sans aucun cours) : toutes les actions de Paris connues d'EODHD ;
+- la liste officielle des actions de Paris publiée par Euronext (si elle répond), qui rattrape les valeurs absentes d'EODHD.
+Chaque valeur est rattachée à son marché (XPAR réglementé, ALXP Growth, XMLI Access), lu dans la liste officielle ou, à défaut,
+dans sa page produit publique chez Euronext ; une valeur sans page ni marché de Paris est écartée (radiée ou cotée ailleurs).
+Aucun plancher de liquidité : la liquidité (médiane des euros échangés par jour sur 60 séances) est seulement notée, et c'est la
+page Sélection qui écarte les valeurs trop peu échangées.
+Sortie : univers/elargi.json, relu chaque soir par donnees.py. À relancer à la main à chaque révision trimestrielle du SBF 120,
+ou quand une introduction en Bourse doit apparaître dans l'appli.
 """
-import base64, datetime as dt, json, os, re, statistics, sys, time, urllib.request
+import base64, datetime as dt, html, json, os, re, statistics, sys, time, urllib.parse, urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import donnees
 
-TOTAL_VISE = 330           # SBF 120 compris
-PLANCHER_EUROS = 50_000    # euros échangés par jour (médiane sur 60 séances) : en dessous, une valeur n'est jamais retenue
 SEANCES_LIQUIDITE = 60
 FORMES = re.compile(r"\s+(S\.?A\.?S?\.?|S\.?C\.?A\.?|S\.?E\.?|N\.?V\.?|PLC|SA|SAS|SCA|SE)\.?$", re.I)
+MARCHES = {"XPAR": "Euronext Paris", "ALXP": "Euronext Growth Paris", "XMLI": "Euronext Access Paris"}
+ISIN = re.compile(r"^[A-Z]{2}[A-Z0-9]{9}[0-9]$")
 
 
 def nom_propre(nom):
@@ -37,12 +41,41 @@ def liquidites(cle, isins):
         for v in donnees._lire_historique(f"historique-{k}.bin", cle)["valeurs"]:
             if v.get("isin") in isins and not v.get("radiee") and v["d"]:
                 chiffres = [c * q for c, q in zip(v["c"][-SEANCES_LIQUIDITE:], v["v"][-SEANCES_LIQUIDITE:])]
-                if len(chiffres) >= 30:
+                if chiffres:
                     sortie[v["isin"]] = statistics.median(chiffres)
     return sortie
 
 
-MARCHES = {"XPAR": "Euronext Paris", "ALXP": "Euronext Growth Paris"}   # XMLI (Euronext Access Paris) est volontairement absent
+LIEN = re.compile(r"/product/equities/([A-Z]{2}[A-Z0-9]{9}[0-9])-([A-Z]{4})[^>]*>\s*([^<]+?)\s*<")
+
+
+def liste_euronext():
+    """Liste officielle des actions de Paris (tableau « Equities » d'Euronext) : {isin: (nom, code, mic)}. Vide si la page ne répond pas."""
+    url = "https://live.euronext.com/en/pd_es/data/stocks?mics=" + urllib.parse.quote(",".join(MARCHES))
+    donnees_post = urllib.parse.urlencode({"draw": 1, "start": 0, "length": 5000, "iDisplayStart": 0, "iDisplayLength": 5000}).encode()
+    try:
+        req = urllib.request.Request(url, data=donnees_post, headers={"User-Agent": donnees.UA, "Accept": "application/json, */*",
+                                                                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                                                                     "X-Requested-With": "XMLHttpRequest"})
+        with urllib.request.urlopen(req, timeout=120) as r:
+            lignes = json.loads(r.read().decode("utf-8", "replace")).get("aaData", [])
+    except Exception as e:
+        print(f"liste officielle Euronext indisponible ({type(e).__name__} {str(e)[:80]}) : couverture EODHD seule")
+        return {}
+    sortie = {}
+    for ligne in lignes:
+        cellules = [str(c) for c in ligne] if isinstance(ligne, list) else [str(c) for c in dict(ligne).values()]
+        m = LIEN.search(" ".join(cellules))
+        if not m or m.group(2) not in MARCHES:
+            continue
+        isin = m.group(1)
+        texte = [html.unescape(re.sub(r"<[^>]+>", "", c)).strip() for c in cellules]
+        code = next((t for t in texte if t != isin and re.fullmatch(r"[A-Z0-9]{1,8}", t)), "")
+        sortie[isin] = (html.unescape(m.group(3)), code, m.group(2))
+    print(f"liste officielle Euronext : {len(sortie)} actions de Paris")
+    return sortie
+
+
 DESCRIPTION = re.compile(r'content="Stock [^"]*? ([A-Z]{2}[A-Z0-9]{9}[0-9]) ([A-Z]{4}) Euronext ')
 
 
@@ -70,43 +103,47 @@ def main(sortie):
     deja = {v["isin"] for v in sbf["valeurs"]}
     aujourdhui = dt.date.today()
     limite = (aujourdhui - dt.timedelta(days=12)).isoformat()
-    candidats = {c["isin"]: c for c in lire_couverture()["couverture"]
-                 if c.get("isin") and not c.get("radiee") and c.get("fin", "") >= limite and c.get("seances", 0) >= 250 and c["isin"] not in deja}
+    # Toutes les actions vivantes de la couverture, y compris les introductions récentes (moins de 60 séances, sans date de fin)
+    couverture = {c["isin"]: c for c in lire_couverture()["couverture"]
+                  if c.get("isin") and ISIN.match(c["isin"]) and not c.get("radiee") and c.get("fin", limite) >= limite and c["isin"] not in deja}
+    officielle = {i: x for i, x in liste_euronext().items() if i not in deja}
+    absentes_eodhd = sorted(set(officielle) - set(couverture))
+    print(f"{len(couverture)} actions vivantes dans la couverture, {len(officielle)} dans la liste officielle, "
+          f"{len(absentes_eodhd)} seulement dans la liste officielle")
+    candidats = sorted(set(couverture) | set(officielle))
     liq = liquidites(cle, set(candidats) | deja)
-    classes = sorted(((liq[i], i) for i in candidats if i in liq and liq[i] >= PLANCHER_EUROS), reverse=True)
-    print(f"{len(candidats)} candidates vivantes, {len(classes)} au-dessus de {PLANCHER_EUROS} €/jour")
-    valeurs_liq = sorted(liq.values())
-    for q in (10, 25, 50, 75, 90):
-        print(f"  liquidité médiane des valeurs, centile {q} : {valeurs_liq[len(valeurs_liq) * q // 100]:,.0f} €/jour")
-    for seuil in (10_000, 25_000, 50_000, 100_000, 250_000, 500_000, 1_000_000):
-        print(f"  au moins {seuil:>9,} € par jour : {sum(1 for e, _ in ((liq[i], i) for i in candidats if i in liq) if e >= seuil)} valeurs de plus que le SBF 120")
-    besoin = TOTAL_VISE - len(sbf["valeurs"])
     retenues, ecartees, marches = [], [], {}
-    for euros, isin in classes:
-        if len(retenues) >= besoin:
-            break
-        mic = marche(isin)
-        c = candidats[isin]
+    for isin in candidats:
+        mic = officielle[isin][2] if isin in officielle else marche(isin)
         if mic not in MARCHES:
-            ecartees.append(f"{c['nom']} ({isin}) : " + (f"marché {mic}, hors périmètre (Access ou autre)" if mic else "page Euronext introuvable ou sans marché"))
+            c = couverture[isin]
+            ecartees.append(f"{c['nom']} ({isin}) : " + (f"marché {mic}, hors Paris" if mic else "page Euronext introuvable (radiée ?)"))
             continue
         marches[mic] = marches.get(mic, 0) + 1
-        nom = nom_propre(c["nom"])
-        retenues.append({"isin": isin, "nom": nom, "code": c["id"].split(":")[1][:8], "secteur": "Autres valeurs", "alias": [nom.lower()],
-                         "cac40": False, "sbf120": False, "mic": mic, "liquidite": round(euros)})
-    seuil = retenues[-1]["liquidite"] if retenues else PLANCHER_EUROS
-    print(f"{len(retenues)} valeurs ajoutées (dernière : {seuil:,} €/jour), {len(ecartees)} écartées ; marchés des ajoutées : {marches}")
-    for e in ecartees[:60]:
+        if isin in couverture:
+            nom, code = couverture[isin]["nom"], couverture[isin]["id"].split(":")[1]
+        else:
+            nom, code = officielle[isin][0], officielle[isin][1]
+        nom = nom_propre(nom)
+        retenues.append({"isin": isin, "nom": nom, "code": code[:8], "secteur": "Autres valeurs", "alias": [nom.lower()],
+                         "cac40": False, "sbf120": False, "mic": mic, "liquidite": round(liq.get(isin, 0))})
+    print(f"{len(retenues)} valeurs hors SBF 120 retenues, {len(ecartees)} écartées ; marchés : {marches}")
+    for e in ecartees[:80]:
         print("  écartée :", e)
+    for i in absentes_eodhd[:80]:
+        print("  sans historique long :", officielle[i][0], f"({i}, {officielle[i][2]})")
     tout = []
     for v in sbf["valeurs"]:
         tout.append(dict(v, sbf120=True, liquidite=round(liq.get(v["isin"], 0))))
     tout += sorted(retenues, key=lambda v: v["nom"].lower())
-    res = {"revue": aujourdhui.isoformat(), "source": "SBF 120 (sbf120.json) + valeurs de Paris les plus échangées (Euronext Paris et Euronext Growth Paris, Access exclu)",
-           "plancher_liquidite_euros": PLANCHER_EUROS, "seuil_liquidite_euros": seuil, "valeurs": tout}
+    res = {"revue": aujourdhui.isoformat(),
+           "source": "Toutes les actions de Paris : SBF 120 (sbf120.json) + Euronext Paris, Euronext Growth Paris et Euronext Access Paris",
+           "plancher_liquidite_euros": None, "seuil_liquidite_euros": None, "valeurs": tout}
     os.makedirs(os.path.dirname(sortie), exist_ok=True)
     json.dump(res, open(sortie, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    print(f"{len(tout)} valeurs au total, dont {sum(1 for v in tout if v['mic'] == 'ALXP')} sur Growth")
+    print(f"{len(tout)} valeurs au total : " + ", ".join(f"{sum(1 for v in tout if v['mic'] == m)} {n}" for m, n in MARCHES.items()))
+    for nom in ("Sensorion",):
+        print(f"  contrôle {nom} :", "présente" if any(nom.lower() in v["nom"].lower() for v in tout) else "ABSENTE")
 
 
 if __name__ == "__main__":

@@ -1,15 +1,15 @@
-name: Périmètre élargi (SBF 120 + valeurs liquides de Paris)
+name: Périmètre (toutes les actions de Paris)
 on:
   workflow_dispatch:
   push:
-    branches: [claude/project-thread-2iypx2]
+    branches: [claude/toutes-actions-francaises]
     paths: [outils/perimetre.py, .github/workflows/perimetre.yml]
 permissions:
   contents: write
 jobs:
   perimetre:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
