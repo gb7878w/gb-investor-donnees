@@ -28,6 +28,8 @@ SEANCES_LIQUIDITE = 60
 FORMES = re.compile(r"\s+(S\.?A\.?S?\.?|S\.?C\.?A\.?|S\.?E\.?|N\.?V\.?|PLC|SA|SAS|SCA|SE)\.?$", re.I)
 MARCHES = {"XPAR": "Euronext Paris", "ALXP": "Euronext Growth Paris", "XMLI": "Euronext Access Paris"}
 ISIN = re.compile(r"^[A-Z]{2}[A-Z0-9]{9}[0-9]$")
+# Bons de souscription, droits et warrants : cotés avec les actions chez Euronext, mais ce ne sont pas des actions
+NON_ACTION = re.compile(r"\bBSA|\bBS ?\d|BS\d{2,4}\b|WARR|\bDS$", re.I)
 ISIN_DANS = re.compile(r"\b[A-Z]{2}[A-Z0-9]{9}[0-9]\b")
 
 
@@ -115,6 +117,8 @@ def liste_euronext():
         j_nom = next((j for j, c in enumerate(cellules) if "/product/equities/" in c and texte[j]), None)
         nom = texte[j_nom] if j_nom is not None else (texte[k - 1] if k else "?")
         code = texte[k + 1] if k is not None and k + 1 < len(texte) and re.fullmatch(r"[A-Z0-9]{1,8}", texte[k + 1]) else ""
+        if NON_ACTION.search(nom):
+            continue
         sortie[isin] = (nom, code, mic)
     noter(f"liste officielle Euronext : {len(sortie)} actions de Paris")
     return sortie
