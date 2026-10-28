@@ -37,6 +37,10 @@ def nom_propre(nom):
     return nom[:60] or "?"
 
 
+def cle_nom(nom):
+    return re.sub(r"[^a-z0-9]", "", nom_propre(nom).lower())
+
+
 def lire_couverture():
     url = donnees.HISTORIQUE + "couverture.json"
     with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": donnees.UA}), timeout=120) as r:
@@ -55,7 +59,7 @@ def liquidites(cle, isins):
     return sortie
 
 
-LIEN = re.compile(r"/product/equities/([A-Z]{2}[A-Z0-9]{9}[0-9])-([A-Z]{4})[^>]*>\s*([^<]+?)\s*<")
+LIEN = re.compile(r"/product/equities/([A-Z]{2}[A-Z0-9]{9}[0-9])-([A-Z]{4})")
 
 
 def liste_euronext():
@@ -73,16 +77,28 @@ def liste_euronext():
     except Exception as e:
         noter(f"liste officielle Euronext indisponible ({type(e).__name__} {str(e)[:80]}) : couverture EODHD seule")
         return {}
+    if lignes:
+        noter("  première ligne :", str(lignes[0])[:600])
     sortie = {}
     for ligne in lignes:
         cellules = [str(c) for c in ligne] if isinstance(ligne, list) else [str(c) for c in dict(ligne).values()]
-        m = LIEN.search(" ".join(cellules))
-        if not m or m.group(2) not in MARCHES:
+        texte = [html.unescape(re.sub(r"<[^>]+>", " ", c)).strip() for c in cellules]
+        texte = [re.sub(r"\s+", " ", t) for t in texte]
+        k = next((j for j, t in enumerate(texte) if ISIN.match(t)), None)
+        lien = LIEN.search(" ".join(cellules))
+        isin = texte[k] if k is not None else (lien.group(1) if lien else None)
+        if not isin:
             continue
-        isin = m.group(1)
-        texte = [html.unescape(re.sub(r"<[^>]+>", "", c)).strip() for c in cellules]
-        code = next((t for t in texte if t != isin and re.fullmatch(r"[A-Z0-9]{1,8}", t)), "")
-        sortie[isin] = (html.unescape(m.group(3)), code, m.group(2))
+        mic = lien.group(2) if lien and lien.group(1) == isin else None
+        if mic not in MARCHES:
+            marche_txt = " ".join(texte).lower()
+            mic = "XMLI" if "access" in marche_txt else "ALXP" if "growth" in marche_txt else "XPAR" if "euronext paris" in marche_txt else None
+        if mic not in MARCHES:
+            continue
+        j_nom = next((j for j, c in enumerate(cellules) if "/product/equities/" in c and texte[j]), None)
+        nom = texte[j_nom] if j_nom is not None else (texte[k - 1] if k else "?")
+        code = texte[k + 1] if k is not None and k + 1 < len(texte) and re.fullmatch(r"[A-Z0-9]{1,8}", texte[k + 1]) else ""
+        sortie[isin] = (nom, code, mic)
     noter(f"liste officielle Euronext : {len(sortie)} actions de Paris")
     return sortie
 
@@ -136,6 +152,9 @@ def main(sortie):
     noter(f"{len(couverture)} actions vivantes dans la couverture, {len(officielle)} dans la liste officielle, "
           f"{len(absentes_eodhd)} seulement dans la liste officielle")
     candidats = sorted(set(couverture) | set(officielle))
+    # Une société qui a regroupé ses actions change d'ISIN : l'ancien reste dans la couverture, le nouveau vient de la liste officielle
+    ancien_nom = {cle_nom(c["nom"]): c["nom"] for c in couverture.values()}
+    ancien_isin = {cle_nom(c["nom"]): i for i, c in couverture.items()}
     liq = liquidites(cle, set(candidats) | deja)
     retenues, ecartees, marches = [], [], {}
     for isin in candidats:
@@ -149,9 +168,10 @@ def main(sortie):
             nom, code = couverture[isin]["nom"], couverture[isin]["id"].split(":")[1]
         else:
             nom, code = officielle[isin][0], officielle[isin][1]
+            nom = ancien_nom.get(cle_nom(nom), nom.title() if nom.isupper() else nom)
         nom = nom_propre(nom)
         retenues.append({"isin": isin, "nom": nom, "code": code[:8], "secteur": "Autres valeurs", "alias": [nom.lower()],
-                         "cac40": False, "sbf120": False, "mic": mic, "liquidite": round(liq.get(isin, 0))})
+                         "cac40": False, "sbf120": False, "mic": mic, "liquidite": round(liq.get(isin) or liq.get(ancien_isin.get(cle_nom(nom)), 0))})
     noter(f"{len(retenues)} valeurs hors SBF 120 retenues, {len(ecartees)} écartées ; marchés : {marches}")
     for e in ecartees:
         noter("  écartée :", e)
