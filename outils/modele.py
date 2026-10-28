@@ -13,6 +13,7 @@ import datetime as dt, math
 import numpy as np
 
 import contexte as ctx
+import graphique
 
 HORIZONS = [5, 21, 63]
 DATES = []
@@ -43,6 +44,7 @@ LIBELLES = {
     "vad_var30": "variation des ventes à découvert sur 30 jours", "com30": "communiqués officiels sur 30 jours",
     "res_depuis": "jours depuis les derniers résultats", "res_avant": "jours avant les prochains résultats (estimés)",
     "ez10": "taux à 10 ans zone euro", "ez10_21": "taux à 10 ans zone euro sur 1 mois",
+    **graphique.LIBELLES,
 }
 
 
@@ -107,11 +109,15 @@ NOMS_ETENDUS = ["ret126", "mom12_1", "vol21", "vol63", "volratio", "maxret21", "
 NOMS_AMF = ["vad_total", "vad_nb", "vad_var30", "com30", "res_depuis", "res_avant"]
 NOMS_MARCHES = ["nikkei_j", "nasdaq5", "cuivre_m", "gaz_m", "echeance", "echeance_trim"]
 NOMS_ATTENTION = ["wiki7_90", "wiki90"]
-NOMS_GROUPES = {"etendu": NOMS_ETENDUS, "amf": NOMS_AMF, "marches": NOMS_MARCHES, "attention": NOMS_ATTENTION}
+GRAPHIQUE = False  # analyse graphique et technique (outils/graphique.py) : calculée seulement si une de ses familles est retenue ou essayée
+NOMS_GROUPES = {"etendu": NOMS_ETENDUS, "amf": NOMS_AMF, "marches": NOMS_MARCHES, "attention": NOMS_ATTENTION, **graphique.GROUPES}
 # Groupes de paramètres retenus pour chaque prévision, d'après les essais sur 10 ans (périodes jamais vues).
 # Un groupe n'entre que s'il a fait mieux sur la majorité des périodes ET réduit l'erreur (Brier).
 GROUPES = {(5, "mieux"): {"etendu"}, (21, "mieux"): {"etendu"},
            (5, "hausse"): {"amf"}}  # étape 2 : 6 périodes sur 6, seul résultat AMF assez net pour résister au nombre d'essais
+# Analyse graphique (essai du 28 octobre 2026) : seule « baisse à 1 mois » progresse sur 10 ans (oscillateurs, 6 périodes sur 6),
+# mais reste moins bonne que le modèle 2 ans publié pour cette prévision (essai final : AUC 0,546 contre 0,558), et sur la base 2 ans
+# aucune famille ne fait mieux sur 5 périodes sur 6 : rien n'est retenu, les paramètres restent calculables pour de futurs essais.
 # Prévisions pour lesquelles l'apprentissage sur 2 ans (SBF 120) reste meilleur que celui sur 10 ans (tout Paris).
 BASE_COURTE = {(21, "baisse")}  # essai final : 10 ans meilleur sur 3 périodes sur 6 seulement
 
@@ -203,6 +209,8 @@ def _caracteristiques(s):
         }
     if ETENDU:
         cols.update(_caracteristiques_etendues(o, h, l, c, v))
+    if GRAPHIQUE:
+        cols.update(graphique.caracteristiques(o, h, l, c, v, cols["rsi"]))
     return cols
 
 
