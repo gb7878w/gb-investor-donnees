@@ -3,6 +3,8 @@
 Base : le modèle de production (10 ans, tout Paris, groupes déjà retenus dans modele.GROUPES).
 Variantes testées séparément : base + chaque famille (oscillateurs, tendance, volume, bougies, figures), puis base + toutes.
 Même protocole que les étapes 1 à 3 : 6 périodes jamais vues, écart égal à l'horizon, test sur les valeurs du SBF 120 encore cotées.
+Avec l'argument « court » : même comparaison sur la base 2 ans (SBF 120, 520 dernières séances avant chaque test, toutes les séances),
+celle qu'utilisent en production les prévisions de modele.BASE_COURTE, et pour ces seules prévisions.
 Une variante n'est retenue pour une prévision que si elle fait mieux sur au moins 5 périodes sur 6 (exigence relevée car six essais)
 ET réduit l'erreur (Brier). Ne publie rien.
 """
@@ -31,7 +33,12 @@ def main():
     _, inv = np.unique(ident, return_inverse=True)
     garde = ((rang + inv) % L.PAS) == 0
     sbf_mask = np.isin(ident, list(sbf))[garde]
+    court = "court" in sys.argv[1:]
+    if court:  # base 2 ans : valeurs du SBF 120, toutes les séances
+        garde = np.isin(ident, list(sbf))
     X, rang, etiq = X[garde].astype(np.float32), rang[garde], etiq[garde]
+    if court:
+        sbf_mask = np.ones(len(rang), bool)
     for n in graphique.NOMS:
         x = X[:, noms.index(n)]
         ok = ~np.isnan(x)
@@ -40,12 +47,14 @@ def main():
     rangs = np.unique(rang)
     debut = rangs[int(len(rangs) * 0.5)]
     blocs = np.array_split(rangs[rangs >= debut], 6)
-    base_groupes = {k: set(v) for k, v in M.GROUPES.items()}
+    base_groupes = {} if court else {k: set(v) for k, v in M.GROUPES.items()}
     familles = {f: {f} for f in graphique.GROUPES} | {"complet": set(graphique.GROUPES)}
     sortie, retenus, gains = {}, {}, {}
     for h in M.HORIZONS:
         cibles = M._cibles(etiq, h)
         for cible in M.CIBLES:
+            if court and (h, cible) not in M.BASE_COURTE:
+                continue
             y = cibles[cible]
             g0 = base_groupes.get((h, cible), set())
             M.GROUPES = {(h, cible): g0}; i0 = M.colonnes(noms, h, cible)
@@ -55,6 +64,8 @@ def main():
             res = {k: ([], [], 0) for k in ["base"] + list(variantes)}
             for bloc in blocs:
                 tr = (rang <= bloc[0] - h) & ~np.isnan(y)
+                if court:
+                    tr &= rang > bloc[0] - h - L.FENETRE_B
                 te = np.isin(rang, bloc) & ~np.isnan(y) & sbf_mask
                 if te.sum() < 300 or tr.sum() < 5000:
                     continue
