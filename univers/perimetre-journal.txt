@@ -1,4 +1,5 @@
 liste officielle Euronext : 772 lignes reçues sur 772
+  première ligne : []
 liste officielle Euronext : 0 actions de Paris
 431 actions vivantes dans la couverture, 0 dans la liste officielle, 0 seulement dans la liste officielle
 409 valeurs hors SBF 120 retenues, 22 écartées ; marchés : {'ALXP': 185, 'XMLI': 50, 'XPAR': 174}
