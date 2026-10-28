@@ -1,8 +1,8 @@
 {
- "revue": "2026-10-27",
- "source": "SBF 120 (sbf120.json) + valeurs de Paris les plus échangées (Euronext Paris et Euronext Growth Paris, Access exclu)",
- "plancher_liquidite_euros": 50000,
- "seuil_liquidite_euros": 50045,
+ "revue": "2026-10-28",
+ "source": "Toutes les actions de Paris : SBF 120 (sbf120.json) + Euronext Paris, Euronext Growth Paris et Euronext Access Paris",
+ "plancher_liquidite_euros": null,
+ "seuil_liquidite_euros": null,
  "valeurs": [
   {
    "isin": "FR0012333284",
@@ -1662,6 +1662,19 @@
    "liquidite": 247667
   },
   {
+   "isin": "FR0013185857",
+   "nom": "Abeo",
+   "code": "ABEO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "abeo"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 5863
+  },
+  {
    "isin": "FR0012616852",
    "nom": "Abionyx Pharma",
    "code": "ABNX",
@@ -1673,6 +1686,58 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 228882
+  },
+  {
+   "isin": "FR001400AHX6",
+   "nom": "AbL Diagnostics",
+   "code": "ABLD",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "abl diagnostics"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 8569
+  },
+  {
+   "isin": "FR0000064602",
+   "nom": "Acanthe Développement",
+   "code": "ACAN",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "acanthe développement"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 1039
+  },
+  {
+   "isin": "FR00140072P8",
+   "nom": "Acheter Louer",
+   "code": "ALALO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "acheter louer"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 2362
+  },
+  {
+   "isin": "FR0000076861",
+   "nom": "ACTEOS",
+   "code": "EOS",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "acteos"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 67
   },
   {
    "isin": "FR0011184241",
@@ -1688,6 +1753,19 @@
    "liquidite": 315633
   },
   {
+   "isin": "FR0013247244",
+   "nom": "Adomos",
+   "code": "ALADO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "adomos"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 1086
+  },
+  {
    "isin": "FR0013296746",
    "nom": "Advicenne",
    "code": "ALDVI",
@@ -1699,6 +1777,58 @@
    "sbf120": false,
    "mic": "ALXP",
    "liquidite": 59835
+  },
+  {
+   "isin": "FR0014007ZB4",
+   "nom": "Aelis Farma",
+   "code": "AELIS",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "aelis farma"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 8351
+  },
+  {
+   "isin": "FR0014005AC9",
+   "nom": "Afyren",
+   "code": "ALAFY",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "afyren"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 27589
+  },
+  {
+   "isin": "FR0013452281",
+   "nom": "Agripower France",
+   "code": "ALAGP",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "agripower france"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 5030
+  },
+  {
+   "isin": "FR0010641449",
+   "nom": "Agrogeneration",
+   "code": "ALAGR",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "agrogeneration"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 1254
   },
   {
    "isin": "IT0005450819",
@@ -1714,6 +1844,58 @@
    "liquidite": 116843
   },
   {
+   "isin": "FR0000053027",
+   "nom": "Akwel",
+   "code": "AKW",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "akwel"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 25957
+  },
+  {
+   "isin": "FR0000062465",
+   "nom": "Alan Allman Associates",
+   "code": "AAA",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "alan allman associates"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 162
+  },
+  {
+   "isin": "BE0974269012",
+   "nom": "Alliance Developpement Capital SIIC",
+   "code": "ALDV",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "alliance developpement capital siic"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 112
+  },
+  {
+   "isin": "FR0000053837",
+   "nom": "Altamir",
+   "code": "LTA",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "altamir"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 3483
+  },
+  {
    "isin": "FR0000033219",
    "nom": "Altarea",
    "code": "ALTA",
@@ -1725,6 +1907,71 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 789218
+  },
+  {
+   "isin": "FR0000039216",
+   "nom": "Altareit",
+   "code": "AREIT",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "altareit"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 575
+  },
+  {
+   "isin": "FR0000061244",
+   "nom": "Altheora",
+   "code": "ALORA",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "altheora"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 930
+  },
+  {
+   "isin": "FR0013253812",
+   "nom": "Alveen",
+   "code": "MLALV",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "alveen"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
+  },
+  {
+   "isin": "GB00BNKGZC51",
+   "nom": "AMA Corp",
+   "code": "ALAMA",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "ama corp"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 1350
+  },
+  {
+   "isin": "NL0010273694",
+   "nom": "Amatheon Agri Holding",
+   "code": "MLAAH",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "amatheon agri holding"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 5
   },
   {
    "isin": "FR0011051598",
@@ -1753,6 +2000,19 @@
    "liquidite": 223428
   },
   {
+   "isin": "FR0010340711",
+   "nom": "Aquila",
+   "code": "ALAQU",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "aquila"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 205
+  },
+  {
    "isin": "FR0014003U94",
    "nom": "Aramis",
    "code": "ARAMI",
@@ -1777,6 +2037,58 @@
    "sbf120": false,
    "mic": "ALXP",
    "liquidite": 74067
+  },
+  {
+   "isin": "FR0013398997",
+   "nom": "Arcure",
+   "code": "ALCUR",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "arcure"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 8213
+  },
+  {
+   "isin": "FR0012185536",
+   "nom": "Artea",
+   "code": "ARTE",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "artea"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 34
+  },
+  {
+   "isin": "FR0000074783",
+   "nom": "Artmarket.com",
+   "code": "PRC",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "artmarket.com"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 22669
+  },
+  {
+   "isin": "FR0000076952",
+   "nom": "Artois Nom",
+   "code": "ARTO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "artois nom"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 16883
   },
   {
    "isin": "FR0000074148",
@@ -1818,6 +2130,58 @@
    "liquidite": 311254
   },
   {
+   "isin": "FR00140059B5",
+   "nom": "Audacia",
+   "code": "ALAUD",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "audacia"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 12076
+  },
+  {
+   "isin": "FR0000061780",
+   "nom": "Augros Cosmetic Packaging",
+   "code": "AUGR",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "augros cosmetic packaging"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 66
+  },
+  {
+   "isin": "FR0000039232",
+   "nom": "Aurea",
+   "code": "AURE",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "aurea"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 5797
+  },
+  {
+   "isin": "FR0013384369",
+   "nom": "Baikowski SASU",
+   "code": "ALBKK",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "baikowski sasu"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 17606
+  },
+  {
    "isin": "MC0000031187",
    "nom": "Bains Mer Monaco",
    "code": "BAIN",
@@ -1831,6 +2195,32 @@
    "liquidite": 67600
   },
   {
+   "isin": "FR0000062788",
+   "nom": "Barbara Bui",
+   "code": "BUI",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "barbara bui"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0004023208",
+   "nom": "Bassac",
+   "code": "BASS",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "bassac"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 49932
+  },
+  {
    "isin": "FR0000035370",
    "nom": "Bastide Le Confort Médical",
    "code": "BLC",
@@ -1842,6 +2232,136 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 56844
+  },
+  {
+   "isin": "CH1148983609",
+   "nom": "BEBO Health",
+   "code": "MLBBO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "bebo health"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0000066961",
+   "nom": "Bernard Loisea",
+   "code": "ALDBL",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "bernard loisea"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 66
+  },
+  {
+   "isin": "FR0000074072",
+   "nom": "BigBen Interactive",
+   "code": "BIG",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "bigben interactive"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 5015
+  },
+  {
+   "isin": "FR0004174233",
+   "nom": "Bilendi",
+   "code": "ALBLD",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "bilendi"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 43055
+  },
+  {
+   "isin": "FR0013345493",
+   "nom": "BIO UV Group",
+   "code": "ALTUV",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "bio uv group"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 13325
+  },
+  {
+   "isin": "FR0011005933",
+   "nom": "Biosynex",
+   "code": "ALBIO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "biosynex"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 9375
+  },
+  {
+   "isin": "FR0013340973",
+   "nom": "Blue Shark Power System",
+   "code": "MLBSP",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "blue shark power system"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 18
+  },
+  {
+   "isin": "FR0011041011",
+   "nom": "Bluelinea",
+   "code": "ALBLU",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "bluelinea"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 388
+  },
+  {
+   "isin": "FR0011365907",
+   "nom": "Boa Concept",
+   "code": "ALBOA",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "boa concept"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 2789
+  },
+  {
+   "isin": "FR0010106039",
+   "nom": "Body One",
+   "code": "MLONE",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "body one"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
   },
   {
    "isin": "FR0000061129",
@@ -1870,6 +2390,71 @@
    "liquidite": 98103
   },
   {
+   "isin": "BE6333353298",
+   "nom": "Bonyf",
+   "code": "MLBON",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "bonyf"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0000054421",
+   "nom": "Bourrelier Group",
+   "code": "ALBOU",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "bourrelier group"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0000074254",
+   "nom": "Bourse Direct",
+   "code": "BSD",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "bourse direct"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 21137
+  },
+  {
+   "isin": "FR001400AJZ7",
+   "nom": "Broadpeak",
+   "code": "ALBPK",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "broadpeak"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 11568
+  },
+  {
+   "isin": "FR0000061137",
+   "nom": "Burelle",
+   "code": "BUR",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "burelle"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 24434
+  },
+  {
    "isin": "FR0000035164",
    "nom": "Bénéteau",
    "code": "BEN",
@@ -1881,6 +2466,45 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 385671
+  },
+  {
+   "isin": "FR0000045544",
+   "nom": "Ca Toulouse 31 CCI",
+   "code": "CAT31",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "ca toulouse 31 cci"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 44660
+  },
+  {
+   "isin": "FR0010151589",
+   "nom": "CAFOM",
+   "code": "ALCAF",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "cafom"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 6034
+  },
+  {
+   "isin": "FR0000045304",
+   "nom": "Caisse Reg Cred Agric Mut Tourain Poitou",
+   "code": "CRTO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "caisse reg cred agric mut tourain poitou"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 27284
   },
   {
    "isin": "FR0010483768",
@@ -1896,6 +2520,58 @@
    "liquidite": 227245
   },
   {
+   "isin": "FR0000044364",
+   "nom": "Caisse Regionale de Credit Agricole Mutuel de Normandie Sein",
+   "code": "CCN",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "caisse regionale de credit agricole mutuel de normandie sein"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 32776
+  },
+  {
+   "isin": "FR0010461053",
+   "nom": "Caisse Regionale de Credit Agricole Mutuel du Languedoc",
+   "code": "CRLA",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "caisse regionale de credit agricole mutuel du languedoc"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 22668
+  },
+  {
+   "isin": "FR0000045239",
+   "nom": "Caisse Regionale de Credit Agricole Mutuel Loire HauteLoire",
+   "code": "CRLO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "caisse regionale de credit agricole mutuel loire hauteloire"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 23716
+  },
+  {
+   "isin": "FR0000045346",
+   "nom": "Caisse Regionale De Credit Agricole Mutuel Sud Rhone Alpes",
+   "code": "CRSU",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "caisse regionale de credit agricole mutuel sud rhone alpes"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 24694
+  },
+  {
    "isin": "FR0000045551",
    "nom": "Caisse Régionale de Crédit Agricole du Morbihan",
    "code": "CMO",
@@ -1907,6 +2583,45 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 59178
+  },
+  {
+   "isin": "FR0000044323",
+   "nom": "Caisse Régionale de Crédit Agricole Mutuel Alpes Provence So",
+   "code": "CRAP",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "caisse régionale de crédit agricole mutuel alpes provence so"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 25831
+  },
+  {
+   "isin": "FR0000185506",
+   "nom": "Caisse régionale de Crédit Agricole Mutuel Atlantique Vendée",
+   "code": "CRAV",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "caisse régionale de crédit agricole mutuel atlantique vendée"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 43649
+  },
+  {
+   "isin": "FR0000045213",
+   "nom": "Caisse régionale de Crédit Agricole Mutuel d-Ille-et-Vilaine",
+   "code": "CIV",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "caisse régionale de crédit agricole mutuel d-ille-et-vilaine"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 42199
   },
   {
    "isin": "FR0000045528",
@@ -1922,6 +2637,19 @@
    "liquidite": 59035
   },
   {
+   "isin": "BE0974334667",
+   "nom": "Calibre",
+   "code": "ALWIN",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "calibre"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 8683
+  },
+  {
    "isin": "FR0011648716",
    "nom": "Carbios",
    "code": "ALCRB",
@@ -1933,6 +2661,32 @@
    "sbf120": false,
    "mic": "ALXP",
    "liquidite": 90834
+  },
+  {
+   "isin": "FR001400OKR3",
+   "nom": "Casino Guichard Perrachon",
+   "code": "CO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "casino guichard perrachon"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 32458
+  },
+  {
+   "isin": "FR0010193979",
+   "nom": "CBO Territoria",
+   "code": "CBOT",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "cbo territoria"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 43019
   },
   {
    "isin": "FR0010425595",
@@ -1948,6 +2702,45 @@
    "liquidite": 325082
   },
   {
+   "isin": "FR0000053506",
+   "nom": "Centrale dAchat Française pour lOutre-Mer Société Anonyme",
+   "code": "ALCGM",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "centrale dachat française pour loutre-mer société anonyme"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 47789
+  },
+  {
+   "isin": "FR0000037475",
+   "nom": "CFI-Compagnie Foncière Internationale",
+   "code": "CFI",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "cfi-compagnie foncière internationale"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 0
+  },
+  {
+   "isin": "MC0010000826",
+   "nom": "CFM Indosuez Wealth",
+   "code": "MLCFM",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "cfm indosuez wealth"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 2590
+  },
+  {
    "isin": "FR0000130692",
    "nom": "Chargeurs",
    "code": "CRI",
@@ -1961,6 +2754,19 @@
    "liquidite": 50045
   },
   {
+   "isin": "FR0010447086",
+   "nom": "Cheops Technology France",
+   "code": "MLCHE",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "cheops technology france"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
+  },
+  {
    "isin": "FR0000130403",
    "nom": "Christian Dior",
    "code": "CDI",
@@ -1972,6 +2778,110 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 2056417
+  },
+  {
+   "isin": "FR0013426004",
+   "nom": "Claranova",
+   "code": "ALCLA",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "claranova"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 27026
+  },
+  {
+   "isin": "FR0013406881",
+   "nom": "CMG Cleantech",
+   "code": "MLCMG",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "cmg cleantech"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0013257409",
+   "nom": "Cofidur",
+   "code": "ALCOF",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "cofidur"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 3113
+  },
+  {
+   "isin": "FR0011071570",
+   "nom": "Cogra 48 Société Anonyme",
+   "code": "ALCOG",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "cogra 48 société anonyme"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 6633
+  },
+  {
+   "isin": "FR0004031763",
+   "nom": "Coheris",
+   "code": "COH",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "coheris"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 8794
+  },
+  {
+   "isin": "BE0160342011",
+   "nom": "Coil S.A./N.V",
+   "code": "ALCOI",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "coil s.a./n.v"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 108
+  },
+  {
+   "isin": "FR0010959684",
+   "nom": "Colipays Reunion",
+   "code": "MLCLP",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "colipays reunion"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 186
+  },
+  {
+   "isin": "FR0000037871",
+   "nom": "Compagnie de Chemins de Fer Départementaux Société Anonyme",
+   "code": "MLCFD",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "compagnie de chemins de fer départementaux société anonyme"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
   },
   {
    "isin": "FR0000062234",
@@ -2000,6 +2910,58 @@
    "liquidite": 616325
   },
   {
+   "isin": "FR0007200100",
+   "nom": "Compagnie des Eaux de Royan",
+   "code": "MLEDR",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "compagnie des eaux de royan"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 146
+  },
+  {
+   "isin": "FR0000060428",
+   "nom": "Compagnie Du Mont-Blanc",
+   "code": "MLCMB",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "compagnie du mont-blanc"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 4826
+  },
+  {
+   "isin": "FR0000065393",
+   "nom": "Courtois",
+   "code": "COUR",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "courtois"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0000060303",
+   "nom": "Covivio Hotels",
+   "code": "COVH",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "covivio hotels"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 8349
+  },
+  {
    "isin": "FR0011716265",
    "nom": "Crossject",
    "code": "ALCJ",
@@ -2011,6 +2973,19 @@
    "sbf120": false,
    "mic": "ALXP",
    "liquidite": 186226
+  },
+  {
+   "isin": "FR0000050395",
+   "nom": "Crosswood",
+   "code": "CROS",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "crosswood"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 0
   },
   {
    "isin": "FR0014007LW0",
@@ -2026,6 +3001,149 @@
    "liquidite": 95199
   },
   {
+   "isin": "FR0000185423",
+   "nom": "Damartex",
+   "code": "ALDAR",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "damartex"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 249
+  },
+  {
+   "isin": "FR0014018PW8",
+   "nom": "DATE DEVEL APPLIC TECH ENERGIE",
+   "code": "ALDAT",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "date devel applic tech energie"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0000062978",
+   "nom": "Dekuple",
+   "code": "DKUPL",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "dekuple"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 15380
+  },
+  {
+   "isin": "FR0000054132",
+   "nom": "Delfingen",
+   "code": "ALDEL",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "delfingen"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 15476
+  },
+  {
+   "isin": "FR0013283108",
+   "nom": "Delta Plus Group",
+   "code": "ALDLT",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "delta plus group"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 36951
+  },
+  {
+   "isin": "FR0000060840",
+   "nom": "Devernois",
+   "code": "ALDEV",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "devernois"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0012202497",
+   "nom": "Diagnostic Medical Systems",
+   "code": "ALDMS",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "diagnostic medical systems"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 8387
+  },
+  {
+   "isin": "FR0010404368",
+   "nom": "DLSI",
+   "code": "ALDLS",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "dlsi"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 1156
+  },
+  {
+   "isin": "FR0010436584",
+   "nom": "DNXcorp",
+   "code": "ALDNX",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "dnxcorp"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 6441
+  },
+  {
+   "isin": "FR0014004QZ9",
+   "nom": "Dolfines",
+   "code": "ALDOL",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "dolfines"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 497
+  },
+  {
+   "isin": "FR0013331212",
+   "nom": "DONTNOD Entertainment",
+   "code": "ALDNE",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "dontnod entertainment"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 1716
+  },
+  {
    "isin": "FR001400SVN0",
    "nom": "Drone Volt",
    "code": "ALDRV",
@@ -2037,6 +3155,71 @@
    "sbf120": false,
    "mic": "ALXP",
    "liquidite": 172004
+  },
+  {
+   "isin": "FR0014004339",
+   "nom": "E-Pango",
+   "code": "ALAGO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "e-pango"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 46644
+  },
+  {
+   "isin": "HK0000038783",
+   "nom": "Easson Holdings Ltd",
+   "code": "MLEAS",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "easson holdings ltd"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0013534617",
+   "nom": "Ecomiam",
+   "code": "ALECO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "ecomiam"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 689
+  },
+  {
+   "isin": "FR0011490648",
+   "nom": "Ecoslops",
+   "code": "ALESA",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "ecoslops"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 6122
+  },
+  {
+   "isin": "IT0005351504",
+   "nom": "EdiliziAcrobatica S.p.A",
+   "code": "ALEAC",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "ediliziacrobatica s.p.a"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 0
   },
   {
    "isin": "FR0011466069",
@@ -2052,6 +3235,19 @@
    "liquidite": 139425
   },
   {
+   "isin": "FR0000035719",
+   "nom": "Electricite et Eaux de Madagascar",
+   "code": "EEM",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "electricite et eaux de madagascar"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 141
+  },
+  {
    "isin": "FR0011950732",
    "nom": "Elior",
    "code": "ELIOR",
@@ -2065,6 +3261,58 @@
    "liquidite": 649319
   },
   {
+   "isin": "FR0013356755",
+   "nom": "Emova Group",
+   "code": "ALEMV",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "emova group"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 198
+  },
+  {
+   "isin": "FR0004030708",
+   "nom": "Encres Dubuit",
+   "code": "ALDUB",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "encres dubuit"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 484
+  },
+  {
+   "isin": "FR0013330792",
+   "nom": "ENENSYS Technologies",
+   "code": "ALNN6",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "enensys technologies"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 3228
+  },
+  {
+   "isin": "FR0014004974",
+   "nom": "Enogia",
+   "code": "ALENO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "enogia"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 21628
+  },
+  {
    "isin": "FR0014004362",
    "nom": "Entech",
    "code": "ALESE",
@@ -2076,6 +3324,32 @@
    "sbf120": false,
    "mic": "ALXP",
    "liquidite": 164224
+  },
+  {
+   "isin": "FR0010424697",
+   "nom": "Entreparticuli",
+   "code": "ALENT",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "entreparticuli"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 24332
+  },
+  {
+   "isin": "FR0010465534",
+   "nom": "Eo2 Société Anonyme",
+   "code": "ALEO2",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "eo2 société anonyme"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 114
   },
   {
    "isin": "FR0014003AQ4",
@@ -2104,6 +3378,19 @@
    "liquidite": 537226
   },
   {
+   "isin": "FR0000061475",
+   "nom": "Eurasia Fonciere Investissements Société Anonyme",
+   "code": "EFI",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "eurasia fonciere investissements société anonyme"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 0
+  },
+  {
    "isin": "FR0014008VX5",
    "nom": "Euroapi",
    "code": "EAPI",
@@ -2115,6 +3402,123 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 139772
+  },
+  {
+   "isin": "FR0013240934",
+   "nom": "Eurobio Scientific",
+   "code": "ALERS",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "eurobio scientific"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 21341
+  },
+  {
+   "isin": "FR0013256518",
+   "nom": "Eurofins-Cerep",
+   "code": "ALECR",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "eurofins-cerep"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0000075343",
+   "nom": "Euromedis Groupe",
+   "code": "ALEMG",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "euromedis groupe"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 1422
+  },
+  {
+   "isin": "FR0010490920",
+   "nom": "Europacorp",
+   "code": "ALECP",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "europacorp"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 1779
+  },
+  {
+   "isin": "FR0000064164",
+   "nom": "Exacompta Clairefontaine",
+   "code": "ALEXA",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "exacompta clairefontaine"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 2202
+  },
+  {
+   "isin": "FR0004527638",
+   "nom": "Exel Industries",
+   "code": "EXE",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "exel industries"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 15930
+  },
+  {
+   "isin": "FR0000062101",
+   "nom": "Ferm. Casino Mun. Canne",
+   "code": "FCMC",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "ferm. casino mun. canne"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 5660
+  },
+  {
+   "isin": "FR0000061418",
+   "nom": "Fiducial Office Solutions",
+   "code": "SACI",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "fiducial office solutions"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 71
+  },
+  {
+   "isin": "FR0000060535",
+   "nom": "Fiducial Real Estate",
+   "code": "ORIA",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "fiducial real estate"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 172
   },
   {
    "isin": "FR0011665280",
@@ -2130,6 +3534,58 @@
    "liquidite": 175232
   },
   {
+   "isin": "FR0000060824",
+   "nom": "Financiere Marjos",
+   "code": "FINM",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "financiere marjos"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 1437
+  },
+  {
+   "isin": "FR0000038184",
+   "nom": "FIPP",
+   "code": "FIPP",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "fipp"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 71
+  },
+  {
+   "isin": "FR0000074759",
+   "nom": "Fleury Michon",
+   "code": "ALFLE",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "fleury michon"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 17250
+  },
+  {
+   "isin": "FR001400GO75",
+   "nom": "Florentaise",
+   "code": "ALFLO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "florentaise"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 21
+  },
+  {
    "isin": "FR0011476928",
    "nom": "Fnac Darty",
    "code": "FNAC",
@@ -2141,6 +3597,175 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 183538
+  },
+  {
+   "isin": "FR0013230067",
+   "nom": "FNP Technologies",
+   "code": "MLFNP",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "fnp technologies"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0010341032",
+   "nom": "Fonciere Inea",
+   "code": "INEA",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "fonciere inea"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 7159
+  },
+  {
+   "isin": "FR0000065930",
+   "nom": "Foncière 7 investissement Société Anonyme",
+   "code": "LEBL",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "foncière 7 investissement société anonyme"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0000053944",
+   "nom": "Foncière Volta",
+   "code": "SPEL",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "foncière volta"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 88
+  },
+  {
+   "isin": "FR0010485268",
+   "nom": "Fountaine Pajo",
+   "code": "ALFPC",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "fountaine pajo"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 41526
+  },
+  {
+   "isin": "FR0010823724",
+   "nom": "France Tourisme Immobilier",
+   "code": "MLFTI",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "france tourisme immobilier"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 509
+  },
+  {
+   "isin": "FR0004187367",
+   "nom": "Freelance.Com",
+   "code": "ALFRE",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "freelance.com"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 10859
+  },
+  {
+   "isin": "FR0010588079",
+   "nom": "Frey",
+   "code": "FREY",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "frey"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 1101
+  },
+  {
+   "isin": "FR0011100759",
+   "nom": "Galeo Concept",
+   "code": "MLGAL",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "galeo concept"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 119
+  },
+  {
+   "isin": "FR0000124414",
+   "nom": "Gascogne",
+   "code": "ALBI",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "gascogne"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 322
+  },
+  {
+   "isin": "FR0000034894",
+   "nom": "Gaumont",
+   "code": "GAM",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "gaumont"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 2790
+  },
+  {
+   "isin": "FR0000053035",
+   "nom": "GEA Grenobl. Elect",
+   "code": "GEA",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "gea grenobl. elect"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 2363
+  },
+  {
+   "isin": "FR0004053510",
+   "nom": "Genoway",
+   "code": "ALGEN",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "genoway"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 6832
   },
   {
    "isin": "FR0013183985",
@@ -2156,6 +3781,19 @@
    "liquidite": 108061
   },
   {
+   "isin": "FR0000033888",
+   "nom": "Gevelot",
+   "code": "ALGEV",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "gevelot"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 1628
+  },
+  {
    "isin": "FR0000066672",
    "nom": "GL Events",
    "code": "GLO",
@@ -2167,6 +3805,71 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 322842
+  },
+  {
+   "isin": "FR0011208693",
+   "nom": "Gold By Gold",
+   "code": "ALGLD",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "gold by gold"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 28361
+  },
+  {
+   "isin": "FR0000065971",
+   "nom": "Graines Voltz",
+   "code": "GRVO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "graines voltz"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 3971
+  },
+  {
+   "isin": "FR0014005ZM5",
+   "nom": "Grolleau",
+   "code": "ALGRO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "grolleau"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 6094
+  },
+  {
+   "isin": "FR0014003V77",
+   "nom": "Groupe Airwell Société anonyme",
+   "code": "ALAIR",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "groupe airwell société anonyme"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 9384
+  },
+  {
+   "isin": "FR0000036675",
+   "nom": "Groupe CRIT",
+   "code": "CEN",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "groupe crit"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 33328
   },
   {
    "isin": "FR0012819381",
@@ -2182,6 +3885,97 @@
    "liquidite": 58429
   },
   {
+   "isin": "FR0004010338",
+   "nom": "Groupe JAJ",
+   "code": "GJAJ",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "groupe jaj"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 13
+  },
+  {
+   "isin": "FR0000075442",
+   "nom": "Groupe LDLC",
+   "code": "ALLDL",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "groupe ldlc"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 27943
+  },
+  {
+   "isin": "FR0012612646",
+   "nom": "Groupe Partouche",
+   "code": "PARP",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "groupe partouche"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 6975
+  },
+  {
+   "isin": "FR0010214064",
+   "nom": "Groupe Pizzorno Environnement",
+   "code": "GPE",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "groupe pizzorno environnement"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 8511
+  },
+  {
+   "isin": "FR0004155000",
+   "nom": "Groupe Sfpi",
+   "code": "SFPI",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "groupe sfpi"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 23003
+  },
+  {
+   "isin": "FR0013429404",
+   "nom": "Groupe Tera",
+   "code": "ALGTR",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "groupe tera"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 3172
+  },
+  {
+   "isin": "FR0014000RP6",
+   "nom": "Groupimo",
+   "code": "ALIMO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "groupimo"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 4
+  },
+  {
    "isin": "FR0000032526",
    "nom": "Guerbet S. A",
    "code": "GBT",
@@ -2195,6 +3989,32 @@
    "liquidite": 63128
   },
   {
+   "isin": "FR0000066722",
+   "nom": "Guillemot Corporation",
+   "code": "GUI",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "guillemot corporation"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 6270
+  },
+  {
+   "isin": "DE000A11Q133",
+   "nom": "H&K AG",
+   "code": "MLHK",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "h&k ag"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 4357
+  },
+  {
    "isin": "FR0014007ND6",
    "nom": "Haffner Energy",
    "code": "ALHAF",
@@ -2206,6 +4026,305 @@
    "sbf120": false,
    "mic": "ALXP",
    "liquidite": 4755374
+  },
+  {
+   "isin": "GB00BMDXQ672",
+   "nom": "Hamilton Global Opportunities",
+   "code": "ALHGO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "hamilton global opportunities"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0000066755",
+   "nom": "Haulotte Group",
+   "code": "PIG",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "haulotte group"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 8919
+  },
+  {
+   "isin": "FR0000066540",
+   "nom": "Herige",
+   "code": "ALHRG",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "herige"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 8830
+  },
+  {
+   "isin": "FR0000038531",
+   "nom": "HF Company",
+   "code": "ALHF",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "hf company"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 4288
+  },
+  {
+   "isin": "FR0000054231",
+   "nom": "High Co",
+   "code": "HCO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "high co"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 32970
+  },
+  {
+   "isin": "FR0012821916",
+   "nom": "Hipay Group",
+   "code": "ALHYP",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "hipay group"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 8013
+  },
+  {
+   "isin": "FR0010396309",
+   "nom": "Hitechpros",
+   "code": "ALHIT",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "hitechpros"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 1300
+  },
+  {
+   "isin": "FR0013451044",
+   "nom": "Hoffmann Green Cement Technologies",
+   "code": "ALHGR",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "hoffmann green cement technologies"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 31717
+  },
+  {
+   "isin": "FR0010312181",
+   "nom": "Hopening",
+   "code": "MLHPE",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "hopening"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0000053738",
+   "nom": "Hotelim Société Anonyme",
+   "code": "MLHOT",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "hotelim société anonyme"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 55
+  },
+  {
+   "isin": "FR0014007LQ2",
+   "nom": "Hunyvers",
+   "code": "ALHUN",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "hunyvers"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 703
+  },
+  {
+   "isin": "FR0005843125",
+   "nom": "Hydro Exploitations",
+   "code": "MLHYE",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "hydro exploitations"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0014001PM5",
+   "nom": "Hydrogen Refueling Solutions",
+   "code": "ALHRS",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "hydrogen refueling solutions"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 24322
+  },
+  {
+   "isin": "FR0014003VY4",
+   "nom": "Hydrogene De France",
+   "code": "HDF",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "hydrogene de france"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 15129
+  },
+  {
+   "isin": "FR0005854700",
+   "nom": "i2S",
+   "code": "ALI2S",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "i2s"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 415
+  },
+  {
+   "isin": "FR0000051393",
+   "nom": "IDI",
+   "code": "IDIP",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "idi"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 25407
+  },
+  {
+   "isin": "FR00140048X2",
+   "nom": "Ikonisys",
+   "code": "ALIKO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "ikonisys"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 2653
+  },
+  {
+   "isin": "FR0010086371",
+   "nom": "Imalliance",
+   "code": "MLIML",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "imalliance"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 140
+  },
+  {
+   "isin": "FR0013060100",
+   "nom": "Immersion",
+   "code": "ALIMR",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "immersion"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 218
+  },
+  {
+   "isin": "FR0000033243",
+   "nom": "Immobiliere Dassault",
+   "code": "IMDA",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "immobiliere dassault"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 20360
+  },
+  {
+   "isin": "FR0013470168",
+   "nom": "Implanet",
+   "code": "ALIMP",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "implanet"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 7157
+  },
+  {
+   "isin": "FR0000065773",
+   "nom": "Imprimerie Chirat Société Anonyme",
+   "code": "MLIMP",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "imprimerie chirat société anonyme"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
+  },
+  {
+   "isin": "ES0105590006",
+   "nom": "Impulse Fitness Solutions",
+   "code": "MLIFS",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "impulse fitness solutions"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
   },
   {
    "isin": "FR0000071797",
@@ -2232,6 +4351,162 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 365796
+  },
+  {
+   "isin": "FR0000064297",
+   "nom": "Innelec Multimedia",
+   "code": "ALINN",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "innelec multimedia"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 2042
+  },
+  {
+   "isin": "IT0005391161",
+   "nom": "Innovative Rfk SpA",
+   "code": "MLIRF",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "innovative rfk spa"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0000060451",
+   "nom": "Installux",
+   "code": "ALLUX",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "installux"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 8766
+  },
+  {
+   "isin": "FR0010908723",
+   "nom": "Integragen",
+   "code": "ALINT",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "integragen"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 2394
+  },
+  {
+   "isin": "FR0014003FN0",
+   "nom": "Integritas Viager",
+   "code": "MLVIE",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "integritas viager"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0011179886",
+   "nom": "Intrasense",
+   "code": "ALINS",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "intrasense"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 10844
+  },
+  {
+   "isin": "BE0974299316",
+   "nom": "Invibes Advertising",
+   "code": "ALINV",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "invibes advertising"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 6114
+  },
+  {
+   "isin": "ES0109429037",
+   "nom": "ISPD Network",
+   "code": "ALISP",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "ispd network"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 32
+  },
+  {
+   "isin": "FR0000072597",
+   "nom": "IT Link",
+   "code": "ALITL",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "it link"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 10973
+  },
+  {
+   "isin": "IT0005336521",
+   "nom": "Italy Innovazioni SpA",
+   "code": "MLITN",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "italy innovazioni spa"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
+  },
+  {
+   "isin": "MA0000011488",
+   "nom": "Itissalat Al-Maghrib",
+   "code": "IAM",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "itissalat al-maghrib"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 1240
+  },
+  {
+   "isin": "FR0012872141",
+   "nom": "Jacques Bogart",
+   "code": "JBOG",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "jacques bogart"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 1530
   },
   {
    "isin": "FR0000033904",
@@ -2273,6 +4548,84 @@
    "liquidite": 672061
   },
   {
+   "isin": "FR0013156007",
+   "nom": "Kerlink",
+   "code": "ALKLK",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "kerlink"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 8638
+  },
+  {
+   "isin": "FR0004029411",
+   "nom": "Keyrus",
+   "code": "ALKEY",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "keyrus"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 2302
+  },
+  {
+   "isin": "FR0013374667",
+   "nom": "Kko International",
+   "code": "ALKKO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "kko international"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 7246
+  },
+  {
+   "isin": "FR0011038348",
+   "nom": "Klarsen",
+   "code": "ALKLA",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "klarsen"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 5056
+  },
+  {
+   "isin": "FR0013419876",
+   "nom": "Kumulus Vape",
+   "code": "ALVAP",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "kumulus vape"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 1160
+  },
+  {
+   "isin": "FR0014005WE9",
+   "nom": "L Agence Automobiliere",
+   "code": "MLAA",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "l agence automobiliere"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 6
+  },
+  {
    "isin": "FR0013030152",
    "nom": "La Française de l-Energie",
    "code": "FDE",
@@ -2286,6 +4639,32 @@
    "liquidite": 492103
   },
   {
+   "isin": "FR0013155975",
+   "nom": "La Savonnerie de Nyons",
+   "code": "MLSDN",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "la savonnerie de nyons"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 517
+  },
+  {
+   "isin": "FR0000066607",
+   "nom": "Lacroix Group",
+   "code": "LACR",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "lacroix group"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 36076
+  },
+  {
    "isin": "FR0000130213",
    "nom": "Lagardere",
    "code": "MMB",
@@ -2297,6 +4676,45 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 187754
+  },
+  {
+   "isin": "FR0004027068",
+   "nom": "Lanson BCC",
+   "code": "ALLAN",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "lanson bcc"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 1888
+  },
+  {
+   "isin": "FR0013308582",
+   "nom": "Largo",
+   "code": "ALLGO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "largo"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 2797
+  },
+  {
+   "isin": "FR001400JY13",
+   "nom": "Latécoère",
+   "code": "LAT",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "latécoère"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 17779
   },
   {
    "isin": "FR0006864484",
@@ -2325,6 +4743,71 @@
    "liquidite": 816410
   },
   {
+   "isin": "FR00140007I9",
+   "nom": "Les Constructeurs du Bois",
+   "code": "MLLCB",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "les constructeurs du bois"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 266
+  },
+  {
+   "isin": "FR0000065260",
+   "nom": "Les Docks des Pétroles d-Ambès -",
+   "code": "DPAM",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "les docks des pétroles d-ambès -"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 1715
+  },
+  {
+   "isin": "FR0007080254",
+   "nom": "Les Hotels Bav",
+   "code": "ALLHB",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "les hotels bav"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 578
+  },
+  {
+   "isin": "FR0004165801",
+   "nom": "Les Hôtels de Paris",
+   "code": "HDP",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "les hôtels de paris"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 418
+  },
+  {
+   "isin": "FR0000033599",
+   "nom": "Lexibook Linguistic Electronic System",
+   "code": "ALLEX",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "lexibook linguistic electronic system"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 1275
+  },
+  {
    "isin": "FR0013230950",
    "nom": "LIGHTON",
    "code": "ALTAI",
@@ -2338,6 +4821,32 @@
    "liquidite": 93168
   },
   {
+   "isin": "FR0004156297",
+   "nom": "Linedata Services",
+   "code": "LIN",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "linedata services"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 27282
+  },
+  {
+   "isin": "ES0105089009",
+   "nom": "LleidaNetworks Serveis Telemàtics",
+   "code": "ALLLN",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "lleidanetworks serveis telemàtics"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 550
+  },
+  {
    "isin": "FR0004170017",
    "nom": "LNA Sante",
    "code": "LNA",
@@ -2349,6 +4858,32 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 131408
+  },
+  {
+   "isin": "FR0000044943",
+   "nom": "Logic Instrume",
+   "code": "ALLOG",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "logic instrume"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 43673
+  },
+  {
+   "isin": "FR0006205019",
+   "nom": "Lombard et Medot",
+   "code": "MLCAC",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "lombard et medot"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
   },
   {
    "isin": "FR001400TL40",
@@ -2390,6 +4925,45 @@
    "liquidite": 89768
   },
   {
+   "isin": "FR0000062796",
+   "nom": "MAISON POMMERY & ASSOCIES",
+   "code": "POMRY",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "maison pommery & associes"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 15727
+  },
+  {
+   "isin": "FR0013153541",
+   "nom": "Maisons du Monde",
+   "code": "MDM",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "maisons du monde"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 6962
+  },
+  {
+   "isin": "FR0000030074",
+   "nom": "Malteries Franco-Belges Société Anonyme",
+   "code": "MALT",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "malteries franco-belges société anonyme"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 3310
+  },
+  {
    "isin": "FR0000038606",
    "nom": "Manitou BF",
    "code": "MTU",
@@ -2403,6 +4977,71 @@
    "liquidite": 206082
   },
   {
+   "isin": "FR0013400835",
+   "nom": "Mare Nostrum",
+   "code": "ALMAR",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "mare nostrum"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 1106
+  },
+  {
+   "isin": "FR0000060873",
+   "nom": "Marie Brizard Wine & Spirits",
+   "code": "MBWS",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "marie brizard wine & spirits"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 10997
+  },
+  {
+   "isin": "FR0004155687",
+   "nom": "Mastrad",
+   "code": "ALMAS",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "mastrad"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 1434
+  },
+  {
+   "isin": "FR0010609263",
+   "nom": "Mauna Kea Technologies",
+   "code": "ALMKT",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "mauna kea technologies"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 42870
+  },
+  {
+   "isin": "IT0005324105",
+   "nom": "Media Lab SpA",
+   "code": "MLLAB",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "media lab spa"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
+  },
+  {
    "isin": "FR0011049824",
    "nom": "Mediantechn",
    "code": "ALMDT",
@@ -2414,6 +5053,240 @@
    "sbf120": false,
    "mic": "ALXP",
    "liquidite": 440766
+  },
+  {
+   "isin": "FR0010298620",
+   "nom": "Memscap Regpt",
+   "code": "MEMS",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "memscap regpt"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 35022
+  },
+  {
+   "isin": "FR00140066X4",
+   "nom": "Metavisio (Thomson Computing)",
+   "code": "ALTHO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "metavisio (thomson computing)"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 4563
+  },
+  {
+   "isin": "FR0011217710",
+   "nom": "Methanor",
+   "code": "ALMET",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "methanor"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 632
+  },
+  {
+   "isin": "BE0974328602",
+   "nom": "Metrics in Balance",
+   "code": "MLMIB",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "metrics in balance"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0010204453",
+   "nom": "Mg Internation",
+   "code": "ALMGI",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "mg internation"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 13
+  },
+  {
+   "isin": "FR0010353888",
+   "nom": "MGI Digital",
+   "code": "ALMDG",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "mgi digital"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 43842
+  },
+  {
+   "isin": "FR0013053535",
+   "nom": "Miliboo",
+   "code": "ALMLB",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "miliboo"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 547
+  },
+  {
+   "isin": "FR001400H3A0",
+   "nom": "Mon Courtier Energie Groupe",
+   "code": "ALMCE",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "mon courtier energie groupe"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 3243
+  },
+  {
+   "isin": "ES0105549002",
+   "nom": "Montepino Logistica SOCIMI",
+   "code": "MLMTP",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "montepino logistica socimi"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 10100
+  },
+  {
+   "isin": "FR0011033083",
+   "nom": "Moulinvest",
+   "code": "ALMOU",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "moulinvest"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 8464
+  },
+  {
+   "isin": "FR0004034320",
+   "nom": "Mr Bricolage",
+   "code": "ALMRB",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "mr bricolage"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 9098
+  },
+  {
+   "isin": "FR0013462231",
+   "nom": "Munic",
+   "code": "ALMUN",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "munic"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 605
+  },
+  {
+   "isin": "FR0013482791",
+   "nom": "Nacon",
+   "code": "NACON",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "nacon"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 6592
+  },
+  {
+   "isin": "FR0014003J32",
+   "nom": "NamR",
+   "code": "ALNMR",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "namr"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0011636083",
+   "nom": "Neolife",
+   "code": "ALNLF",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "neolife"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 1913
+  },
+  {
+   "isin": "FR00140077X1",
+   "nom": "Neovacs",
+   "code": "ALNEV",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "neovacs"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 10623
+  },
+  {
+   "isin": "FR0004154060",
+   "nom": "Netgem",
+   "code": "ALNTG",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "netgem"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 14940
+  },
+  {
+   "isin": "FR001400RF99",
+   "nom": "Netmedia Group",
+   "code": "ALNMG",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "netmedia group"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 680
   },
   {
    "isin": "FR0004050250",
@@ -2442,6 +5315,58 @@
    "liquidite": 1053931
   },
   {
+   "isin": "FR0004171346",
+   "nom": "Nextedia",
+   "code": "ALNXT",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "nextedia"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 13019
+  },
+  {
+   "isin": "FR0014003XT0",
+   "nom": "NFL Biosciences",
+   "code": "ALNFL",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "nfl biosciences"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 15237
+  },
+  {
+   "isin": "FR0010500363",
+   "nom": "Nicolas Miguet et Associes",
+   "code": "MLNMA",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "nicolas miguet et associes"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0000120669",
+   "nom": "North Atlantic Energies",
+   "code": "NAE",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "north atlantic energies"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 608060
+  },
+  {
    "isin": "FR0010397232",
    "nom": "Novacyt",
    "code": "ALNOV",
@@ -2453,6 +5378,32 @@
    "sbf120": false,
    "mic": "ALXP",
    "liquidite": 73523
+  },
+  {
+   "isin": "FR0000185464",
+   "nom": "Novatech Industries",
+   "code": "MLNOV",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "novatech industries"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 113
+  },
+  {
+   "isin": "FR0014001PV6",
+   "nom": "NR 21",
+   "code": "NR21",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "nr 21"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 0
   },
   {
    "isin": "FR0000121691",
@@ -2468,6 +5419,123 @@
    "liquidite": 78108
   },
   {
+   "isin": "FR0000064529",
+   "nom": "NSC Groupe",
+   "code": "ALNSC",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "nsc groupe"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 244
+  },
+  {
+   "isin": "FR0004065639",
+   "nom": "NSE",
+   "code": "ALNSE",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "nse"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 12965
+  },
+  {
+   "isin": "FR0014003711",
+   "nom": "Obiz Concept",
+   "code": "ALBIZ",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "obiz concept"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 1213
+  },
+  {
+   "isin": "FR0013310281",
+   "nom": "Octopus Robots",
+   "code": "MLOCT",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "octopus robots"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 235
+  },
+  {
+   "isin": "FR0000052680",
+   "nom": "Oeneo",
+   "code": "SBT",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "oeneo"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 8504
+  },
+  {
+   "isin": "FR0014003T71",
+   "nom": "Omer-Decugis & Cie",
+   "code": "ALODC",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "omer-decugis & cie"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 13400
+  },
+  {
+   "isin": "FR0004174712",
+   "nom": "Onlineformapro",
+   "code": "MLONL",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "onlineformapro"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0013318052",
+   "nom": "Ordissimo",
+   "code": "ALORD",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "ordissimo"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 457
+  },
+  {
+   "isin": "FR0010609206",
+   "nom": "Orege Société Anonyme",
+   "code": "OREGE",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "orege société anonyme"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 2588
+  },
+  {
    "isin": "FR0012127173",
    "nom": "OSE Pharma",
    "code": "OSE",
@@ -2479,6 +5547,19 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 333977
+  },
+  {
+   "isin": "FR001400IUV6",
+   "nom": "Osmosun",
+   "code": "ALWTR",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "osmosun"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 19979
   },
   {
    "isin": "FR0014005HJ9",
@@ -2494,6 +5575,19 @@
    "liquidite": 1787215
   },
   {
+   "isin": "FR0000077992",
+   "nom": "Pacte Novation",
+   "code": "MLPAC",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "pacte novation"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 17
+  },
+  {
    "isin": "FR0004038263",
    "nom": "Parrot",
    "code": "PARRO",
@@ -2505,6 +5599,71 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 304961
+  },
+  {
+   "isin": "NL0012650535",
+   "nom": "Parx Plastics",
+   "code": "MLPRX",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "parx plastics"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 665
+  },
+  {
+   "isin": "FR0004034072",
+   "nom": "Passat Société Anonyme",
+   "code": "ALXIL",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "passat société anonyme"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 25656
+  },
+  {
+   "isin": "FR0011027135",
+   "nom": "Patrimoine et Commerce",
+   "code": "PAT",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "patrimoine et commerce"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 7801
+  },
+  {
+   "isin": "FR0013479730",
+   "nom": "Paulic Meunerie",
+   "code": "ALPAU",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "paulic meunerie"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 1873
+  },
+  {
+   "isin": "FR0000038465",
+   "nom": "Pet Service Holding",
+   "code": "ALPAS",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "pet service holding"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 2154
   },
   {
    "isin": "FR0000064784",
@@ -2520,6 +5679,19 @@
    "liquidite": 331202
   },
   {
+   "isin": "BE0948608451",
+   "nom": "Photonike Capital",
+   "code": "MLPHO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "photonike capital"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 162
+  },
+  {
    "isin": "FR0000073041",
    "nom": "Pierre et Vacances",
    "code": "VAC",
@@ -2531,6 +5703,32 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 201075
+  },
+  {
+   "isin": "FR0000061608",
+   "nom": "Piscines Desjoyaux",
+   "code": "ALPDX",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "piscines desjoyaux"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 8833
+  },
+  {
+   "isin": "FR0000030769",
+   "nom": "Placoplatre",
+   "code": "MLPLC",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "placoplatre"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
   },
   {
    "isin": "FR001400PFU4",
@@ -2546,6 +5744,97 @@
    "liquidite": 1613904
   },
   {
+   "isin": "FR0010785790",
+   "nom": "Plant Advanced Technologies",
+   "code": "ALPAT",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "plant advanced technologies"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 474
+  },
+  {
+   "isin": "FR0000066441",
+   "nom": "Poujoulat",
+   "code": "ALPJT",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "poujoulat"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 7857
+  },
+  {
+   "isin": "FR0012432516",
+   "nom": "Poxel",
+   "code": "POXEL",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "poxel"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 49350
+  },
+  {
+   "isin": "FR0010169920",
+   "nom": "Predilife",
+   "code": "ALPRE",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "predilife"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 310
+  },
+  {
+   "isin": "FR0004044600",
+   "nom": "Prismaflex Intl",
+   "code": "ALPRI",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "prismaflex intl"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 2603
+  },
+  {
+   "isin": "FR0004052561",
+   "nom": "Proactis",
+   "code": "PROAC",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "proactis"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 3695
+  },
+  {
+   "isin": "FR0012613610",
+   "nom": "PRODWAYS GROUP",
+   "code": "ALPWG",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "prodways group"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 22432
+  },
+  {
    "isin": "FR0000120560",
    "nom": "Quadient",
    "code": "QDT",
@@ -2557,6 +5846,45 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 615814
+  },
+  {
+   "isin": "FR0011648971",
+   "nom": "Quantum Genomics",
+   "code": "ALQGC",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "quantum genomics"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0010889386",
+   "nom": "Qwamplify",
+   "code": "ALQWA",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "qwamplify"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 110
+  },
+  {
+   "isin": "FR0000044471",
+   "nom": "Ramsay Generale De Sante",
+   "code": "GDS",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "ramsay generale de sante"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 4393
   },
   {
    "isin": "FR0000075954",
@@ -2572,6 +5900,19 @@
    "liquidite": 679168
   },
   {
+   "isin": "FR00140164Q1",
+   "nom": "Rising Stone",
+   "code": "ALRIS",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "rising stone"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 69490
+  },
+  {
    "isin": "FR0000039091",
    "nom": "Robertet",
    "code": "RBT",
@@ -2583,6 +5924,19 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 602748
+  },
+  {
+   "isin": "FR0013344173",
+   "nom": "Roche Bobois",
+   "code": "RBO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "roche bobois"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 15595
   },
   {
    "isin": "FR0010523167",
@@ -2598,6 +5952,84 @@
    "liquidite": 93326
   },
   {
+   "isin": "FR0000037640",
+   "nom": "Rougier",
+   "code": "ALRGR",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "rougier"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 11
+  },
+  {
+   "isin": "FR001400F1V2",
+   "nom": "Safe Orthopaedics",
+   "code": "ALSAF",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "safe orthopaedics"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0000060121",
+   "nom": "Saint Jean Groupe Société anonyme",
+   "code": "SABE",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "saint jean groupe société anonyme"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 1919
+  },
+  {
+   "isin": "FR0000060071",
+   "nom": "Samse",
+   "code": "SAMS",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "samse"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 12187
+  },
+  {
+   "isin": "FR0010776617",
+   "nom": "Sapmer",
+   "code": "ALMER",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "sapmer"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 9
+  },
+  {
+   "isin": "FR0000120107",
+   "nom": "Savencia",
+   "code": "SAVE",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "savencia"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 46529
+  },
+  {
    "isin": "FR0000039109",
    "nom": "Seche Environnem",
    "code": "SCHP",
@@ -2609,6 +6041,19 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 286385
+  },
+  {
+   "isin": "FR0004175842",
+   "nom": "Selectirente",
+   "code": "SELER",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "selectirente"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 519
   },
   {
    "isin": "FR0014010H01",
@@ -2624,6 +6069,19 @@
    "liquidite": 656027
   },
   {
+   "isin": "NL0010623518",
+   "nom": "Sequa Petroleum",
+   "code": "MLSEQ",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "sequa petroleum"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
+  },
+  {
    "isin": "FR0010202606",
    "nom": "Sidetrade",
    "code": "ALBFR",
@@ -2635,6 +6093,45 @@
    "sbf120": false,
    "mic": "ALXP",
    "liquidite": 176969
+  },
+  {
+   "isin": "FR0000060790",
+   "nom": "Signaux Girod",
+   "code": "ALGIR",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "signaux girod"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 806
+  },
+  {
+   "isin": "FR0014005I80",
+   "nom": "SMAIO",
+   "code": "ALSMA",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "smaio"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 2454
+  },
+  {
+   "isin": "FR0011131788",
+   "nom": "Smalto",
+   "code": "MLSML",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "smalto"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 37
   },
   {
    "isin": "FR0013214145",
@@ -2650,6 +6147,32 @@
    "liquidite": 536615
   },
   {
+   "isin": "FR0006239109",
+   "nom": "Soc Centrale Bois Scieries Manche",
+   "code": "CBSM",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "soc centrale bois scieries manche"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 1025
+  },
+  {
+   "isin": "FR0010209809",
+   "nom": "Soc Franc Casinos",
+   "code": "SFCA",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "soc franc casinos"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 606
+  },
+  {
    "isin": "FR001400SF56",
    "nom": "Societe LDC",
    "code": "LOUP",
@@ -2663,6 +6186,32 @@
    "liquidite": 451583
   },
   {
+   "isin": "FR0006563904",
+   "nom": "Société Hôtelière et Immobilière de Nice",
+   "code": "MLHIN",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "société hôtelière et immobilière de nice"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 1136
+  },
+  {
+   "isin": "FR00140006O9",
+   "nom": "Solocal Group",
+   "code": "LOCAL",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "solocal group"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 43373
+  },
+  {
    "isin": "FR0013379484",
    "nom": "Solutions 30",
    "code": "S30",
@@ -2674,6 +6223,71 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 175014
+  },
+  {
+   "isin": "FR00140043Y1",
+   "nom": "Spartoo",
+   "code": "ALSPT",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "spartoo"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 1214
+  },
+  {
+   "isin": "FR0000054371",
+   "nom": "Speed Rabbit Pizza",
+   "code": "MLSRP",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "speed rabbit pizza"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0011464452",
+   "nom": "Spineguard",
+   "code": "ALSGD",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "spineguard"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 33299
+  },
+  {
+   "isin": "FR0013006558",
+   "nom": "SRP Groupe",
+   "code": "SRP",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "srp groupe"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 45573
+  },
+  {
+   "isin": "FR0000054199",
+   "nom": "ST Dupont",
+   "code": "DPT",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "st dupont"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 387
   },
   {
    "isin": "FR0000064271",
@@ -2702,6 +6316,32 @@
    "liquidite": 332520
   },
   {
+   "isin": "FR0000074775",
+   "nom": "Stradim Espace Finances",
+   "code": "ALSAS",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "stradim espace finances"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 540
+  },
+  {
+   "isin": "FR0010528059",
+   "nom": "Streamwide",
+   "code": "ALSTW",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "streamwide"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 20850
+  },
+  {
    "isin": "FR0004180578",
    "nom": "Sword Group",
    "code": "SWP",
@@ -2713,6 +6353,32 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 154957
+  },
+  {
+   "isin": "FR0000032658",
+   "nom": "Synergie",
+   "code": "SDG",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "synergie"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 20885
+  },
+  {
+   "isin": "FR0004197747",
+   "nom": "Theradiag",
+   "code": "ALTHE",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "theradiag"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 30495
   },
   {
    "isin": "FR0013286259",
@@ -2754,6 +6420,45 @@
    "liquidite": 580217
   },
   {
+   "isin": "FR0014004QR6",
+   "nom": "Tingsvalvet Fastighets AB (publ)",
+   "code": "ALIBR",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "tingsvalvet fastighets ab (publ)"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 6128
+  },
+  {
+   "isin": "FR0013295789",
+   "nom": "Tonnellerie Francois Freres",
+   "code": "TFF",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "tonnellerie francois freres"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 28360
+  },
+  {
+   "isin": "FR001400RIB4",
+   "nom": "TONNER DRONES BSA",
+   "code": "TDBS",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "tonner drones bsa"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 618
+  },
+  {
    "isin": "GA0000121459",
    "nom": "TotalEnergies EP Gabon",
    "code": "EC",
@@ -2767,6 +6472,162 @@
    "liquidite": 121416
   },
   {
+   "isin": "FR0000033003",
+   "nom": "TOUAX",
+   "code": "ALTOU",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "touax"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 7776
+  },
+  {
+   "isin": "FR0005175080",
+   "nom": "Transgene",
+   "code": "TNG",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "transgene"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 36447
+  },
+  {
+   "isin": "FR0000035784",
+   "nom": "Transition Evergreen",
+   "code": "EGR",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "transition evergreen"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 1753
+  },
+  {
+   "isin": "FR0010397901",
+   "nom": "Trilogiq",
+   "code": "ALTRI",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "trilogiq"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 2990
+  },
+  {
+   "isin": "FR0000031106",
+   "nom": "TROC DE L'ILE",
+   "code": "MLTRO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "troc de l'ile"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
+  },
+  {
+   "isin": "FR0010654087",
+   "nom": "Txcom",
+   "code": "ALTXC",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "txcom"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 482
+  },
+  {
+   "isin": "CH0008175645",
+   "nom": "Téléverbier",
+   "code": "TVRB",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "téléverbier"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 68
+  },
+  {
+   "isin": "FR0000079147",
+   "nom": "U10",
+   "code": "ALU10",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "u10"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 641
+  },
+  {
+   "isin": "FR0000074197",
+   "nom": "Union Technologies Informatique Group",
+   "code": "FPG",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "union technologies informatique group"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 39
+  },
+  {
+   "isin": "FR0012709160",
+   "nom": "Uniti",
+   "code": "ALUNT",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "uniti"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 4
+  },
+  {
+   "isin": "FR0010337865",
+   "nom": "Upergy",
+   "code": "ALUPG",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "upergy"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 303
+  },
+  {
+   "isin": "FR0011898584",
+   "nom": "UV Germi",
+   "code": "ALUVI",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "uv germi"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 1943
+  },
+  {
    "isin": "FR0013254851",
    "nom": "Valbiotis",
    "code": "ALVAL",
@@ -2778,6 +6639,58 @@
    "sbf120": false,
    "mic": "ALXP",
    "liquidite": 52757
+  },
+  {
+   "isin": "FR0013505062",
+   "nom": "VANTIVA",
+   "code": "VANTI",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "vantiva"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 5164
+  },
+  {
+   "isin": "FR0014007T10",
+   "nom": "Vaziva",
+   "code": "ALVAZ",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "vaziva"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 4547
+  },
+  {
+   "isin": "FR0010766667",
+   "nom": "Vente Unique.com",
+   "code": "ALVU",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "vente unique.com"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 9479
+  },
+  {
+   "isin": "FR0010291245",
+   "nom": "Verimatrix",
+   "code": "VMX",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "verimatrix"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 23454
   },
   {
    "isin": "FR0004186856",
@@ -2806,6 +6719,45 @@
    "liquidite": 162403
   },
   {
+   "isin": "FR001400AXT1",
+   "nom": "Vinpai",
+   "code": "ALVIN",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "vinpai"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 73
+  },
+  {
+   "isin": "FR0010309096",
+   "nom": "Vitura",
+   "code": "VTR",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "vitura"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 213
+  },
+  {
+   "isin": "FR0011532225",
+   "nom": "VOGO",
+   "code": "ALVGO",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "vogo"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 38
+  },
+  {
    "isin": "FR0011995588",
    "nom": "Voltalia",
    "code": "VLTSA",
@@ -2830,6 +6782,19 @@
    "sbf120": false,
    "mic": "ALXP",
    "liquidite": 121432
+  },
+  {
+   "isin": "FR0012532810",
+   "nom": "Waga Energy",
+   "code": "WAGA",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "waga energy"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XPAR",
+   "liquidite": 11390
   },
   {
    "isin": "FR0010131409",
@@ -2858,6 +6823,84 @@
    "liquidite": 681712
   },
   {
+   "isin": "FR0010688465",
+   "nom": "Weaccess Group",
+   "code": "MLWEA",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "weaccess group"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 162
+  },
+  {
+   "isin": "FR0013079092",
+   "nom": "WeConnect",
+   "code": "ALWEC",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "weconnect"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 13015
+  },
+  {
+   "isin": "ES0105740007",
+   "nom": "Wellness Resorts Socimi",
+   "code": "MLWRS",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "wellness resorts socimi"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 0
+  },
+  {
+   "isin": "NL0015001HZ9",
+   "nom": "Winamp Group",
+   "code": "ALPET",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "winamp group"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 1022
+  },
+  {
+   "isin": "FR0014000P11",
+   "nom": "Winfarm",
+   "code": "ALWF",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "winfarm"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 3026
+  },
+  {
+   "isin": "FR0013143872",
+   "nom": "Witbe Net",
+   "code": "ALWIT",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "witbe net"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "ALXP",
+   "liquidite": 17756
+  },
+  {
    "isin": "BE0974310428",
    "nom": "X Fab Silicon Foundries EV",
    "code": "XFAB",
@@ -2869,6 +6912,19 @@
    "sbf120": false,
    "mic": "XPAR",
    "liquidite": 1892671
+  },
+  {
+   "isin": "ZM0000000037",
+   "nom": "ZCCM Investments Holdings",
+   "code": "MLZAM",
+   "secteur": "Autres valeurs",
+   "alias": [
+    "zccm investments holdings"
+   ],
+   "cac40": false,
+   "sbf120": false,
+   "mic": "XMLI",
+   "liquidite": 7348
   },
   {
    "isin": "FR0000031023",
