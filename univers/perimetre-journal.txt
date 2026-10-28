@@ -1,0 +1,28 @@
+liste officielle Euronext : 772 lignes reçues sur 772
+liste officielle Euronext : 0 actions de Paris
+431 actions vivantes dans la couverture, 0 dans la liste officielle, 0 seulement dans la liste officielle
+409 valeurs hors SBF 120 retenues, 22 écartées ; marchés : {'ALXP': 185, 'XMLI': 50, 'XPAR': 174}
+  écartée : Tractial S.A. (FR0000035305) : page Euronext introuvable (radiée ?)
+  écartée : Avenir Telecom S.A (FR0000066052) : page Euronext introuvable (radiée ?)
+  écartée : GECI International SA (FR0000079634) : page Euronext introuvable (radiée ?)
+  écartée : Compagnie du Cambodge (FR0000079659) : page Euronext introuvable (radiée ?)
+  écartée : Vergnet (FR0004155240) : page Euronext introuvable (radiée ?)
+  écartée : Prologue (FR0010380626) : page Euronext introuvable (radiée ?)
+  écartée : Atari S.A. (FR0010478248) : page Euronext introuvable (radiée ?)
+  écartée : Capital B (FR0011053636) : page Euronext introuvable (radiée ?)
+  écartée : MyHotelMatch S.A. (FR0011277391) : page Euronext introuvable (radiée ?)
+  écartée : Spineway (FR0011398874) : page Euronext introuvable (radiée ?)
+  écartée : Boostheat (FR0011814938) : page Euronext introuvable (radiée ?)
+  écartée : Lucibel (FR0011884378) : page Euronext introuvable (radiée ?)
+  écartée : Sensorion SA (FR0012596468) : page Euronext introuvable (radiée ?)
+  écartée : Biophytis S.A. (FR0012816825) : page Euronext introuvable (radiée ?)
+  écartée : DBT SA (FR0013066750) : page Euronext introuvable (radiée ?)
+  écartée : Energisme (FR0013399359) : page Euronext introuvable (radiée ?)
+  écartée : Europlasma SA (FR0013514114) : page Euronext introuvable (radiée ?)
+  écartée : Hopium SA (FR0014000U63) : page Euronext introuvable (radiée ?)
+  écartée : Rapid Nutrition PLC (GB00BLG2TX24) : page Euronext introuvable (radiée ?)
+  écartée : WisdomTree Europe Defence UCITS ETF - EUR Acc EUR (IE0002Y8CX98) : page Euronext introuvable (radiée ?)
+  écartée : TME Pharma N.V. (NL0012044762) : page Euronext introuvable (radiée ?)
+  écartée : Gentlemens Equity S.A. (PTGVE1AE0009) : page Euronext introuvable (radiée ?)
+531 valeurs au total : 293 Euronext Paris, 185 Euronext Growth Paris, 50 Euronext Access Paris
+  contrôle Sensorion : ABSENTE
