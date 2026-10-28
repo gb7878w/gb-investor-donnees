@@ -169,6 +169,8 @@ def main(sortie):
     noter(f"{len(tout)} valeurs au total : " + ", ".join(f"{sum(1 for v in tout if v['mic'] == m)} {n}" for m, n in MARCHES.items()))
     for nom in ("Sensorion",):
         noter(f"  contrôle {nom} :", "présente" if any(nom.lower() in v["nom"].lower() for v in tout) else "ABSENTE")
+    with open(os.path.join(os.path.dirname(sortie), "perimetre-journal.txt"), "w", encoding="utf-8") as f:
+        f.write("\n".join(JOURNAL) + "\n")
 
 
 if __name__ == "__main__":
