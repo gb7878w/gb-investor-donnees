@@ -1,0 +1,38 @@
+name: Essai de la préparation des données (branche essai-publication)
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/correctif-modele]
+    paths: [outils/donnees.py, outils/contexte.py, outils/modele.py, outils/agenda.py, univers/**, .github/workflows/donnees.yml, .github/workflows/donnees-essai.yml]
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: donnees-essai
+  cancel-in-progress: false
+jobs:
+  donnees:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Installer la bibliothèque de chiffrement
+        run: pip install --quiet cryptography==44.0.0 numpy==2.1.3 lightgbm==4.5.0
+      - name: Télécharger, vérifier et chiffrer les séances
+        env:
+          CLE_DONNEES: ${{ secrets.CLE_DONNEES }}
+        run: python3 outils/donnees.py essai-publication
+      - name: Publier sur la branche « essai-publication » (sans historique, pour garder le dépôt léger)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd essai-publication
+          git init -q -b essai-publication
+          git config user.name "GB Investor"
+          git config user.email "gb-investor@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Données du $(date -u +%Y-%m-%d)"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" essai-publication

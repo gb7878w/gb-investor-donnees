@@ -273,7 +273,9 @@ def preparer_modele(univers, series, indices, genere, derniere, sortie, cle):
             manquants.append(f"sélection : {type(e).__name__} {str(e)[:120]}")
             print(manquants[-1])
     except Exception as e:  # le modèle est un plus : on publie les cours quoi qu'il arrive
-        manquants.append(f"modèle : {type(e).__name__} {str(e)[:120]}")
+        import traceback  # l'endroit de la panne, lisible dans etat.json (les journaux d'Actions ne le sont pas toujours)
+        lieu = " < ".join(f"{os.path.basename(f.filename)}:{f.lineno} {f.name}" for f in reversed(traceback.extract_tb(e.__traceback__)[-4:]))
+        manquants.append(f"modèle : {type(e).__name__} {str(e)[:120]} ({lieu})")
         print("modèle indisponible :", manquants[-1])
     return manquants
 
