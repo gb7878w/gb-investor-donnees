@@ -1,20 +1,36 @@
-"""Périmètre élargi de GB Investor : SBF 120 + valeurs liquides d'Euronext Paris (marché réglementé) et d'Euronext Growth Paris.
+"""Périmètre de GB Investor : toutes les actions cotées à Paris (Euronext Paris, Euronext Growth Paris et Euronext Access Paris).
 
-Euronext Access est exclu (très peu échangé, peu d'information). La liste vient de la couverture de l'historique long
-(couverture.json, publique, sans aucun cours) ; la liquidité est mesurée sur les 60 dernières séances de l'historique chiffré
-(médiane des euros échangés par jour), puis chaque valeur retenue est classée d'après sa page produit publique chez Euronext :
-marché réglementé (XPAR) ou Growth (ALXP) acceptés, Access (XMLI) refusé.
-Sortie : univers/elargi.json, relu chaque soir par donnees.py. À relancer à la main à chaque révision trimestrielle du SBF 120.
+Deux listes sont réunies pour ne rien oublier :
+- la couverture de l'historique long (couverture.json, publique, sans aucun cours) : toutes les actions de Paris connues d'EODHD ;
+- la liste officielle des actions de Paris publiée par Euronext (si elle répond), qui rattrape les valeurs absentes d'EODHD.
+Chaque valeur est rattachée à son marché (XPAR réglementé, ALXP Growth, XMLI Access), lu dans la liste officielle ou, à défaut,
+dans sa page produit publique chez Euronext ; une valeur sans page ni marché de Paris est écartée (radiée ou cotée ailleurs).
+Aucun plancher de liquidité : la liquidité (médiane des euros échangés par jour sur 60 séances) est seulement notée, et c'est la
+page Sélection qui écarte les valeurs trop peu échangées.
+Sortie : univers/elargi.json, relu chaque soir par donnees.py. À relancer à la main à chaque révision trimestrielle du SBF 120,
+ou quand une introduction en Bourse doit apparaître dans l'appli.
 """
-import base64, datetime as dt, json, os, re, statistics, sys, time, urllib.request
+import base64, datetime as dt, html, json, os, re, statistics, sys, time, urllib.parse, urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import donnees
 
-TOTAL_VISE = 330           # SBF 120 compris
-PLANCHER_EUROS = 50_000    # euros échangés par jour (médiane sur 60 séances) : en dessous, une valeur n'est jamais retenue
+JOURNAL = []
+
+
+def noter(*morceaux):
+    """Affiche et garde la ligne pour univers/perimetre-journal.txt (les journaux d'Actions ne sont pas toujours lisibles)."""
+    ligne = " ".join(str(m) for m in morceaux)
+    print(ligne)
+    JOURNAL.append(ligne)
+
 SEANCES_LIQUIDITE = 60
 FORMES = re.compile(r"\s+(S\.?A\.?S?\.?|S\.?C\.?A\.?|S\.?E\.?|N\.?V\.?|PLC|SA|SAS|SCA|SE)\.?$", re.I)
+MARCHES = {"XPAR": "Euronext Paris", "ALXP": "Euronext Growth Paris", "XMLI": "Euronext Access Paris"}
+ISIN = re.compile(r"^[A-Z]{2}[A-Z0-9]{9}[0-9]$")
+# Bons de souscription, droits et warrants : cotés avec les actions chez Euronext, mais ce ne sont pas des actions
+NON_ACTION = re.compile(r"\bBSA|\bBS ?\d|BS\d{2,4}\b|WARR|\bDS$", re.I)
+ISIN_DANS = re.compile(r"\b[A-Z]{2}[A-Z0-9]{9}[0-9]\b")
 
 
 def nom_propre(nom):
@@ -22,6 +38,10 @@ def nom_propre(nom):
     for _ in range(2):
         nom = FORMES.sub("", nom).strip(" .,")
     return nom[:60] or "?"
+
+
+def cle_nom(nom):
+    return re.sub(r"[^a-z0-9]", "", nom_propre(nom).lower())
 
 
 def lire_couverture():
@@ -37,28 +57,103 @@ def liquidites(cle, isins):
         for v in donnees._lire_historique(f"historique-{k}.bin", cle)["valeurs"]:
             if v.get("isin") in isins and not v.get("radiee") and v["d"]:
                 chiffres = [c * q for c, q in zip(v["c"][-SEANCES_LIQUIDITE:], v["v"][-SEANCES_LIQUIDITE:])]
-                if len(chiffres) >= 30:
+                if chiffres:
                     sortie[v["isin"]] = statistics.median(chiffres)
     return sortie
 
 
-MARCHES = {"XPAR": "Euronext Paris", "ALXP": "Euronext Growth Paris"}   # XMLI (Euronext Access Paris) est volontairement absent
+LIEN = re.compile(r"/product/equities/([A-Z]{2}[A-Z0-9]{9}[0-9])-([A-Z]{4})")
+
+
+def liste_euronext():
+    """Liste officielle des actions de Paris (tableau « Equities » d'Euronext) : {isin: (nom, code, mic)}. Vide si la page ne répond pas."""
+    mics = urllib.parse.quote(",".join(MARCHES))
+    essais = [  # le tableau ne remplit ses colonnes qu'avec display_datapoints ; le téléchargement CSV sert de repli
+        ("tableau", f"https://live.euronext.com/en/pd_es/data/stocks?mics={mics}&display_datapoints=dp_stocks&display_filters=df_stocks",
+         {"draw": 1, "start": 0, "length": 5000, "iDisplayStart": 0, "iDisplayLength": 5000}),
+        ("csv", f"https://live.euronext.com/pd_es/data/stocks/download?mics={mics}",
+         {"iDisplayLength": 5000, "iDisplayStart": 0, "args[initialLetter]": "", "args[fe_type]": "csv", "args[fe_decimal]": ".",
+          "args[fe_date_format]": "d/m/Y"}),
+    ]
+    lignes = []
+    for nom_essai, url, champs in essais:
+        try:
+            req = urllib.request.Request(url, data=urllib.parse.urlencode(champs).encode(),
+                                         headers={"User-Agent": donnees.UA, "Accept": "application/json, text/csv, */*",
+                                                  "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", "X-Requested-With": "XMLHttpRequest"})
+            with urllib.request.urlopen(req, timeout=120) as r:
+                brut = r.read().decode("utf-8-sig", "replace")
+        except Exception as e:
+            noter(f"liste officielle Euronext ({nom_essai}) indisponible : {type(e).__name__} {str(e)[:80]}")
+            continue
+        if nom_essai == "tableau":
+            try:
+                lignes = [l for l in json.loads(brut).get("aaData", []) if l]
+            except ValueError:
+                lignes = []
+        else:
+            lignes = [l.split(";") for l in brut.splitlines() if ISIN_DANS.search(l)]
+        noter(f"liste officielle Euronext ({nom_essai}) : {len(lignes)} lignes utiles ; début : {brut[:300]!r}")
+        if lignes:
+            break
+    if lignes:
+        noter("  première ligne :", str(lignes[0])[:600])
+    sortie = {}
+    for ligne in lignes:
+        cellules = [str(c) for c in ligne] if isinstance(ligne, list) else [str(c) for c in dict(ligne).values()]
+        texte = [html.unescape(re.sub(r"<[^>]+>", " ", c)).strip() for c in cellules]
+        texte = [re.sub(r"\s+", " ", t) for t in texte]
+        k = next((j for j, t in enumerate(texte) if ISIN.match(t)), None)
+        lien = LIEN.search(" ".join(cellules))
+        isin = texte[k] if k is not None else (lien.group(1) if lien else None)
+        if not isin:
+            continue
+        mic = lien.group(2) if lien and lien.group(1) == isin else None
+        if mic not in MARCHES:
+            marche_txt = " ".join(texte).lower()
+            mic = "XMLI" if "access" in marche_txt else "ALXP" if "growth" in marche_txt else "XPAR" if "euronext paris" in marche_txt else None
+        if mic not in MARCHES:
+            continue
+        j_nom = next((j for j, c in enumerate(cellules) if "/product/equities/" in c and texte[j]), None)
+        nom = texte[j_nom] if j_nom is not None else (texte[k - 1] if k else "?")
+        code = texte[k + 1] if k is not None and k + 1 < len(texte) and re.fullmatch(r"[A-Z0-9]{1,8}", texte[k + 1]) else ""
+        if NON_ACTION.search(nom):
+            continue
+        sortie[isin] = (nom, code, mic)
+    noter(f"liste officielle Euronext : {len(sortie)} actions de Paris")
+    return sortie
+
+
 DESCRIPTION = re.compile(r'content="Stock [^"]*? ([A-Z]{2}[A-Z0-9]{9}[0-9]) ([A-Z]{4}) Euronext ')
 
 
 def marche(isin):
     """Marché de cotation lu dans la page produit publique d'Euronext (balise description : « … ISIN MIC Euronext … Live quotes »).
+    Essaie l'adresse de chaque marché de Paris, deux fois en cas d'erreur réseau.
     Renvoie le code MIC (XPAR marché réglementé, ALXP Growth, XMLI Access…) ou None si la valeur n'existe plus."""
-    try:
-        req = urllib.request.Request(f"https://live.euronext.com/en/product/equities/{isin}-XPAR", headers={"User-Agent": donnees.UA})
-        with urllib.request.urlopen(req, timeout=40) as r:
-            page = r.read().decode("utf-8", "replace")
-    except Exception:
-        return None
-    finally:
-        time.sleep(0.4)
-    m = DESCRIPTION.search(page)
-    return m.group(2) if m and m.group(1) == isin else None
+    for suffixe in MARCHES:
+        for essai in range(2):
+            try:
+                req = urllib.request.Request(f"https://live.euronext.com/en/product/equities/{isin}-{suffixe}", headers={"User-Agent": donnees.UA})
+                with urllib.request.urlopen(req, timeout=40) as r:
+                    page = r.read().decode("utf-8", "replace")
+            except urllib.error.HTTPError as e:
+                page = ""
+                if e.code < 500 and e.code != 429:
+                    break
+                time.sleep(3 * (essai + 1))
+                continue
+            except Exception:
+                page = ""
+                time.sleep(3 * (essai + 1))
+                continue
+            finally:
+                time.sleep(0.4)
+            m = DESCRIPTION.search(page)
+            if m and m.group(1) == isin:
+                return m.group(2)
+            break
+    return None
 
 
 def main(sortie):
@@ -70,43 +165,54 @@ def main(sortie):
     deja = {v["isin"] for v in sbf["valeurs"]}
     aujourdhui = dt.date.today()
     limite = (aujourdhui - dt.timedelta(days=12)).isoformat()
-    candidats = {c["isin"]: c for c in lire_couverture()["couverture"]
-                 if c.get("isin") and not c.get("radiee") and c.get("fin", "") >= limite and c.get("seances", 0) >= 250 and c["isin"] not in deja}
+    # Toutes les actions vivantes de la couverture, y compris les introductions récentes (moins de 60 séances, sans date de fin)
+    couverture = {c["isin"]: c for c in lire_couverture()["couverture"]
+                  if c.get("isin") and ISIN.match(c["isin"]) and not c.get("radiee") and c.get("fin", limite) >= limite and c["isin"] not in deja
+                  and not NON_ACTION.search(c.get("nom", ""))}
+    officielle = {i: x for i, x in liste_euronext().items() if i not in deja}
+    absentes_eodhd = sorted(set(officielle) - set(couverture))
+    noter(f"{len(couverture)} actions vivantes dans la couverture, {len(officielle)} dans la liste officielle, "
+          f"{len(absentes_eodhd)} seulement dans la liste officielle")
+    candidats = sorted(set(couverture) | set(officielle))
+    # Une société qui a regroupé ses actions change d'ISIN : l'ancien reste dans la couverture, le nouveau vient de la liste officielle
+    ancien_nom = {cle_nom(c["nom"]): c["nom"] for c in couverture.values()}
+    ancien_isin = {cle_nom(c["nom"]): i for i, c in couverture.items()}
     liq = liquidites(cle, set(candidats) | deja)
-    classes = sorted(((liq[i], i) for i in candidats if i in liq and liq[i] >= PLANCHER_EUROS), reverse=True)
-    print(f"{len(candidats)} candidates vivantes, {len(classes)} au-dessus de {PLANCHER_EUROS} €/jour")
-    valeurs_liq = sorted(liq.values())
-    for q in (10, 25, 50, 75, 90):
-        print(f"  liquidité médiane des valeurs, centile {q} : {valeurs_liq[len(valeurs_liq) * q // 100]:,.0f} €/jour")
-    for seuil in (10_000, 25_000, 50_000, 100_000, 250_000, 500_000, 1_000_000):
-        print(f"  au moins {seuil:>9,} € par jour : {sum(1 for e, _ in ((liq[i], i) for i in candidats if i in liq) if e >= seuil)} valeurs de plus que le SBF 120")
-    besoin = TOTAL_VISE - len(sbf["valeurs"])
     retenues, ecartees, marches = [], [], {}
-    for euros, isin in classes:
-        if len(retenues) >= besoin:
-            break
-        mic = marche(isin)
-        c = candidats[isin]
+    for isin in candidats:
+        mic = officielle[isin][2] if isin in officielle else marche(isin)
         if mic not in MARCHES:
-            ecartees.append(f"{c['nom']} ({isin}) : " + (f"marché {mic}, hors périmètre (Access ou autre)" if mic else "page Euronext introuvable ou sans marché"))
+            c = couverture[isin]
+            ecartees.append(f"{c['nom']} ({isin}) : " + (f"marché {mic}, hors Paris" if mic else "page Euronext introuvable (radiée ?)"))
             continue
         marches[mic] = marches.get(mic, 0) + 1
-        nom = nom_propre(c["nom"])
-        retenues.append({"isin": isin, "nom": nom, "code": c["id"].split(":")[1][:8], "secteur": "Autres valeurs", "alias": [nom.lower()],
-                         "cac40": False, "sbf120": False, "mic": mic, "liquidite": round(euros)})
-    seuil = retenues[-1]["liquidite"] if retenues else PLANCHER_EUROS
-    print(f"{len(retenues)} valeurs ajoutées (dernière : {seuil:,} €/jour), {len(ecartees)} écartées ; marchés des ajoutées : {marches}")
-    for e in ecartees[:60]:
-        print("  écartée :", e)
+        if isin in couverture:
+            nom, code = couverture[isin]["nom"], couverture[isin]["id"].split(":")[1]
+        else:
+            nom, code = officielle[isin][0], officielle[isin][1]
+            nom = ancien_nom.get(cle_nom(nom), nom.title() if nom.isupper() else nom)
+        nom = nom_propre(nom)
+        retenues.append({"isin": isin, "nom": nom, "code": code[:8], "secteur": "Autres valeurs", "alias": [nom.lower()],
+                         "cac40": False, "sbf120": False, "mic": mic, "liquidite": round(liq.get(isin) or liq.get(ancien_isin.get(cle_nom(nom)), 0))})
+    noter(f"{len(retenues)} valeurs hors SBF 120 retenues, {len(ecartees)} écartées ; marchés : {marches}")
+    for e in ecartees:
+        noter("  écartée :", e)
+    for i in absentes_eodhd:
+        noter("  sans historique long :", officielle[i][0], f"({i}, {officielle[i][2]})")
     tout = []
     for v in sbf["valeurs"]:
         tout.append(dict(v, sbf120=True, liquidite=round(liq.get(v["isin"], 0))))
     tout += sorted(retenues, key=lambda v: v["nom"].lower())
-    res = {"revue": aujourdhui.isoformat(), "source": "SBF 120 (sbf120.json) + valeurs de Paris les plus échangées (Euronext Paris et Euronext Growth Paris, Access exclu)",
-           "plancher_liquidite_euros": PLANCHER_EUROS, "seuil_liquidite_euros": seuil, "valeurs": tout}
+    res = {"revue": aujourdhui.isoformat(),
+           "source": "Toutes les actions de Paris : SBF 120 (sbf120.json) + Euronext Paris, Euronext Growth Paris et Euronext Access Paris",
+           "plancher_liquidite_euros": None, "seuil_liquidite_euros": None, "valeurs": tout}
     os.makedirs(os.path.dirname(sortie), exist_ok=True)
     json.dump(res, open(sortie, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    print(f"{len(tout)} valeurs au total, dont {sum(1 for v in tout if v['mic'] == 'ALXP')} sur Growth")
+    noter(f"{len(tout)} valeurs au total : " + ", ".join(f"{sum(1 for v in tout if v['mic'] == m)} {n}" for m, n in MARCHES.items()))
+    for nom in ("Sensorion",):
+        noter(f"  contrôle {nom} :", "présente" if any(nom.lower() in v["nom"].lower() for v in tout) else "ABSENTE")
+    with open(os.path.join(os.path.dirname(sortie), "perimetre-journal.txt"), "w", encoding="utf-8") as f:
+        f.write("\n".join(JOURNAL) + "\n")
 
 
 if __name__ == "__main__":

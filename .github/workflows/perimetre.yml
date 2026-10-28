@@ -1,15 +1,15 @@
-name: Périmètre élargi (SBF 120 + valeurs liquides de Paris)
+name: Périmètre (toutes les actions de Paris)
 on:
   workflow_dispatch:
   push:
-    branches: [claude/project-thread-2iypx2]
+    branches: [claude/toutes-actions-francaises]
     paths: [outils/perimetre.py, .github/workflows/perimetre.yml]
 permissions:
   contents: write
 jobs:
   perimetre:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -27,6 +27,6 @@ jobs:
         run: |
           git config user.name "GB Investor"
           git config user.email "gb-investor@users.noreply.github.com"
-          git add univers/elargi.json
+          git add univers/elargi.json univers/perimetre-journal.txt
           git commit -q -m "Périmètre élargi du $(date -u +%Y-%m-%d)" || exit 0
           git push -q origin "HEAD:${GITHUB_REF_NAME}"
