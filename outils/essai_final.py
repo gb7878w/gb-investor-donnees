@@ -13,6 +13,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import modele as M
 import contexte
 import essai_long as L
+import graphique
 
 
 def main():
@@ -29,6 +30,7 @@ def main():
         isins = sorted({i for k, i in isin_de.items() if i and k in series})
         M.EXTERNES = amf.Caracteristiques(amf.positions_courtes(), {i: amf.communiques(i) for i in isins}, isin_de.get)
     M.ETENDU = True
+    M.GRAPHIQUE = any(g & set(graphique.GROUPES) for g in M.GROUPES.values())
     X, noms, rang, ident, etiq, _ = M.construire(series, indices, secteurs, series_ctx)
     X = X.astype(np.float32)
     print(f"{X.shape[0]} lignes, {len(noms)} paramètres ({time.time() - t0:.0f} s) ; groupes retenus : {M.GROUPES}")

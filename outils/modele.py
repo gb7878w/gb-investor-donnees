@@ -114,7 +114,8 @@ NOMS_GROUPES = {"etendu": NOMS_ETENDUS, "amf": NOMS_AMF, "marches": NOMS_MARCHES
 # Groupes de paramètres retenus pour chaque prévision, d'après les essais sur 10 ans (périodes jamais vues).
 # Un groupe n'entre que s'il a fait mieux sur la majorité des périodes ET réduit l'erreur (Brier).
 GROUPES = {(5, "mieux"): {"etendu"}, (21, "mieux"): {"etendu"},
-           (5, "hausse"): {"amf"}}  # étape 2 : 6 périodes sur 6, seul résultat AMF assez net pour résister au nombre d'essais
+           (5, "hausse"): {"amf"},  # étape 2 : 6 périodes sur 6, seul résultat AMF assez net pour résister au nombre d'essais
+           (21, "baisse"): {"oscillateurs"}}  # analyse graphique : 6 périodes sur 6, AUC 0,535 → 0,548, Brier 0,2030 → 0,2004
 # Prévisions pour lesquelles l'apprentissage sur 2 ans (SBF 120) reste meilleur que celui sur 10 ans (tout Paris).
 BASE_COURTE = {(21, "baisse")}  # essai final : 10 ans meilleur sur 3 périodes sur 6 seulement
 

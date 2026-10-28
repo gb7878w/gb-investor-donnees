@@ -210,6 +210,7 @@ def preparer_modele(univers, series, indices, genere, derniere, sortie, cle):
         import numpy as np
         long_actif = len(series_app) > len(series)
         modele.ETENDU = long_actif  # mêmes paramètres pour les deux bases ; les groupes retenus ne valent que pour la base 10 ans
+        modele.GRAPHIQUE = long_actif and any(g & set(modele.graphique.GROUPES) for g in modele.GROUPES.values())
         groupes = modele.GROUPES
         toutes = {(h, c) for h in modele.HORIZONS for c in modele.CIBLES}
         courtes = modele.BASE_COURTE & toutes if long_actif else toutes

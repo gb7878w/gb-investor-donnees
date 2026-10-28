@@ -534,5 +534,5 @@ def caracteristiques(o, h, l, c, v, rsi):
         pas = 10 ** np.floor(np.log10(np.where(c > 0, c, np.nan))) / 2
         cols["seuil_rond"] = (c - np.round(c / pas) * pas) / c
         for k, x in cols.items():
-            cols[k] = np.where(np.isfinite(x), x, np.nan)
+            cols[k] = np.where(np.isfinite(x), np.clip(x, -1e6, 1e6), np.nan)  # bornes : division par un écart quasi nul
     return {k: cols[k] for k in NOMS}
