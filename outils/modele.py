@@ -116,7 +116,8 @@ NOMS_GROUPES = {"etendu": NOMS_ETENDUS, "amf": NOMS_AMF, "marches": NOMS_MARCHES
 GROUPES = {(5, "mieux"): {"etendu"}, (21, "mieux"): {"etendu"},
            (5, "hausse"): {"amf"}}  # étape 2 : 6 périodes sur 6, seul résultat AMF assez net pour résister au nombre d'essais
 # Analyse graphique (essai du 28 octobre 2026) : seule « baisse à 1 mois » progresse sur 10 ans (oscillateurs, 6 périodes sur 6),
-# mais reste moins bonne que le modèle 2 ans publié pour cette prévision (essai final : AUC 0,546 contre 0,558) : rien n'est retenu.
+# mais reste moins bonne que le modèle 2 ans publié pour cette prévision (essai final : AUC 0,546 contre 0,558), et sur la base 2 ans
+# aucune famille ne fait mieux sur 5 périodes sur 6 : rien n'est retenu, les paramètres restent calculables pour de futurs essais.
 # Prévisions pour lesquelles l'apprentissage sur 2 ans (SBF 120) reste meilleur que celui sur 10 ans (tout Paris).
 BASE_COURTE = {(21, "baisse")}  # essai final : 10 ans meilleur sur 3 périodes sur 6 seulement
 
