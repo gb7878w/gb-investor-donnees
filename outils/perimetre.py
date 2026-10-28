@@ -173,7 +173,14 @@ def main(sortie):
     absentes_eodhd = sorted(set(officielle) - set(couverture))
     noter(f"{len(couverture)} actions vivantes dans la couverture, {len(officielle)} dans la liste officielle, "
           f"{len(absentes_eodhd)} seulement dans la liste officielle")
-    candidats = sorted(set(couverture) | set(officielle))
+    if len(officielle) >= 300:
+        # La liste officielle fait foi : un ISIN connu seulement d'EODHD est un ancien code (regroupement d'actions) ou une radiation,
+        # et sa page Euronext peut survivre sans aucune séance.
+        for i in sorted(set(couverture) - set(officielle)):
+            noter("  écartée :", f"{couverture[i]['nom']} ({i}) : absente de la liste officielle d'Euronext (ancien ISIN ou radiée)")
+        candidats = sorted(officielle)
+    else:
+        candidats = sorted(set(couverture) | set(officielle))
     # Une société qui a regroupé ses actions change d'ISIN : l'ancien reste dans la couverture, le nouveau vient de la liste officielle
     ancien_nom = {cle_nom(c["nom"]): c["nom"] for c in couverture.values()}
     ancien_isin = {cle_nom(c["nom"]): i for i, c in couverture.items()}
