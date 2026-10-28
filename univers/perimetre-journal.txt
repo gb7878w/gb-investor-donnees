@@ -227,5 +227,5 @@ liste officielle Euronext : 721 actions de Paris
   sans historique long : FIN.OUEST AFRICAIN (SN0000033192, XPAR)
   sans historique long : AERKOMM INC (US00774B2088, XPAR)
   sans historique long : COTY (US2220702037, XPAR)
-733 valeurs au total : 321 Euronext Paris, 270 Euronext Growth Paris, 139 Euronext Access Paris
+732 valeurs au total : 320 Euronext Paris, 270 Euronext Growth Paris, 139 Euronext Access Paris
   contrôle Sensorion : présente

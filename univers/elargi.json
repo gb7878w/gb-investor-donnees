@@ -8864,19 +8864,6 @@
    "liquidite": 0
   },
   {
-   "isin": "FR001400RIB4",
-   "nom": "TONNER DRONES BSA",
-   "code": "TDBS",
-   "secteur": "Autres valeurs",
-   "alias": [
-    "tonner drones bsa"
-   ],
-   "cac40": false,
-   "sbf120": false,
-   "mic": "ALXP",
-   "liquidite": 618
-  },
-  {
    "isin": "FR00140062B9",
    "nom": "Toosla",
    "code": "ALTOO",

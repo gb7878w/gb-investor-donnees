@@ -167,7 +167,8 @@ def main(sortie):
     limite = (aujourdhui - dt.timedelta(days=12)).isoformat()
     # Toutes les actions vivantes de la couverture, y compris les introductions récentes (moins de 60 séances, sans date de fin)
     couverture = {c["isin"]: c for c in lire_couverture()["couverture"]
-                  if c.get("isin") and ISIN.match(c["isin"]) and not c.get("radiee") and c.get("fin", limite) >= limite and c["isin"] not in deja}
+                  if c.get("isin") and ISIN.match(c["isin"]) and not c.get("radiee") and c.get("fin", limite) >= limite and c["isin"] not in deja
+                  and not NON_ACTION.search(c.get("nom", ""))}
     officielle = {i: x for i, x in liste_euronext().items() if i not in deja}
     absentes_eodhd = sorted(set(officielle) - set(couverture))
     noter(f"{len(couverture)} actions vivantes dans la couverture, {len(officielle)} dans la liste officielle, "
