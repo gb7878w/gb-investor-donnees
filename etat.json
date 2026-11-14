@@ -1,0 +1,12 @@
+{
+ "genere": "2026-11-14T12:25:59+00:00",
+ "derniere_seance": "2026-11-13",
+ "valeurs": 723,
+ "indices": 2,
+ "manquants": [
+  "Acheter-Louer.Fr (FR0014011O84) : 1 séances seulement"
+ ],
+ "manquants_contexte_modele": [
+  "ICP/M.FR.N.000000.4.ANR : BCE ICP/M.FR.N.000000.4.ANR : HTTP 0"
+ ]
+}
