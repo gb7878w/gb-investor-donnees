@@ -1,0 +1,11 @@
+{
+ "genere": "2026-11-21T13:39:45+00:00",
+ "derniere_seance": "2026-11-20",
+ "valeurs": 722,
+ "indices": 2,
+ "manquants": [
+  "Acheter-Louer.Fr (FR0014011O84) : 1 séances seulement",
+  "Toosla (FR00140062B9) : 0 séances seulement"
+ ],
+ "manquants_contexte_modele": []
+}
