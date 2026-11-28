@@ -1,0 +1,13 @@
+{
+ "genere": "2026-11-28T00:51:52+00:00",
+ "derniere_seance": "2026-11-27",
+ "valeurs": 720,
+ "indices": 2,
+ "manquants": [
+  "Acheter-Louer.Fr (FR0014011O84) : 1 séances seulement",
+  "Agrogeneration (FR0010641449) : 0 séances seulement",
+  "Europlasma (FR0014011QJ8) : 1 séances seulement",
+  "Toosla (FR00140062B9) : 0 séances seulement"
+ ],
+ "manquants_contexte_modele": []
+}
